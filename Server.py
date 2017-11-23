@@ -138,4 +138,6 @@ class Server():
 if __name__ == "__main__":
 
 	# Exemple Relay
-	server = Server(PORT,"RN1","Master")
+	server = Server(PORT, "RN1", "Relay")
+	# Exemple master
+	server = Server(PORT,"Master","Master")
