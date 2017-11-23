@@ -30,7 +30,7 @@ class CryptoServer():
 		response = client.recv(MSGLEN)
 		if response != "":
 			print(response.decode("utf-8"))
-		return response
+		return response.decode("utf-8")
 		
 	#@abstractmethod
 	def handleClient(self, client, address):
