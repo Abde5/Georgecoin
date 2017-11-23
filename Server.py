@@ -4,7 +4,7 @@ import threading
 PORT = 8888
 MSGLEN = 255
 
-class CryptoServer():
+class Server():
 	def __init__(self, port):
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.socket.bind(('', port))
@@ -12,6 +12,7 @@ class CryptoServer():
 		self.run()
 
 	def run(self):
+		print("Started Server")
 		while True:
 			self.socket.listen(5)
 			client, address = self.socket.accept()
@@ -36,3 +37,5 @@ class CryptoServer():
 	def handleClient(self, client, address):
 		raise NotImplementedError;
 	
+if __name__ == "__main__":
+	server = Server(PORT)

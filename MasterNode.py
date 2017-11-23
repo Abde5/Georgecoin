@@ -1,6 +1,6 @@
 #import Block.py
 import datetime as date
-from CryptoServer import CryptoServer as Server
+from Server import CryptoServer as Server
 
 PORT = 8887
 

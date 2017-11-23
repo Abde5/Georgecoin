@@ -2,7 +2,7 @@ import socket
 PORT = 8888
 MSGLEN = 255
 
-class CryptoSocket:
+class Client:
 	def __init__(self, sock = None):
 		if (sock == None):
 			self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,6 +25,7 @@ class CryptoSocket:
 		return self.sock.recv(MSGLEN)
 
 if __name__ == "__main__":
+
 	print("socket running")
 	socket = CryptoSocket();
 
