@@ -1,5 +1,6 @@
 import socket
-PORT = 7777
+PORT = 8888
+MSGLEN = 255
 
 class CryptoServer:
     def __init__(self):
@@ -14,13 +15,12 @@ class CryptoServer:
             client, address = self.socket.accept()
             print("{} connected".format(address))
 
-            response = client.recv(255)
-            self.socket.sendall(bytes("resp", "utf-8"))
+            response = client.recv(MSGLEN)
 
             if response != "":
                 print(response.decode("utf-8"))
-                #self.socket.send(bytes("1", 'utf-8'))
-                #client.send(bytes("recieved", "utf-8"))
+
+            client.send(b"resp")
 
         print("close")
         #client.close()

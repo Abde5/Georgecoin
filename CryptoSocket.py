@@ -1,5 +1,5 @@
 import socket
-PORT = 7777
+PORT = 8888
 MSGLEN = 255
 
 class CryptoSocket:
@@ -14,22 +14,15 @@ class CryptoSocket:
 
     def send(self, message):
         total_sent = 0
-        while (total_sent < MSGLEN):
-            sent = self.sock.send(bytes(message[total_sent:], 'utf-8'))
+        while (total_sent < MSGLEN and total_sent < len(message)):
+            sent = self.sock.send(bytes(message[total_sent:] + "\0", 'utf-8'))
+            print("sent : " + str(sent))
             if (sent == 0):
                 raise RuntimeError("socket connection broken")
             total_sent += sent
 
     def receive(self):
-        chunks = []
-        bytes_rcvd = 0
-        while (bytes_rcvd < MSGLEN):
-            chunk = self.sock.recv(min(MSGLEN - bytes_rcvd, 2048))
-            if(chunk == b''):
-                raise RuntimeError("socket connection broken")
-            chunks.append(chunk)
-            bytes_rcvd += len(chunk)
-        return b''.join(chunks)
+        return self.sock.recv(MSGLEN)
 
 if __name__ == "__main__":
     print("socket running")
@@ -38,5 +31,5 @@ if __name__ == "__main__":
     socket.connect("localhost", PORT)
     socket.send("test")
 
-    #resp = socket.receive()
-    #print(resp.decode("utf-8"))
+    resp = socket.receive()
+    print(resp.decode("utf-8"))
