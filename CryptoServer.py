@@ -26,5 +26,11 @@ class CryptoServer:
         #client.close()
         #self.socket.close()
 
+				
+	def handleClient(self){
+		raise NotImplementedError;
+	}
+
+	
 if __name__ == "__main__":
     server = CryptoServer()
