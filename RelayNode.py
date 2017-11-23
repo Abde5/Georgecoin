@@ -6,7 +6,6 @@ import Server
 class RelayNode(Server):
 
 	def __init__(self, port):
-        print("rien")
 		Server.__init__(self, port)
 		self.data = []
 		self.client = self.connectToMaster()
