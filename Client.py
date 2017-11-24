@@ -1,4 +1,5 @@
 import socket
+from JsonUtilities import *
 PORT = 5655
 MSGLEN = 255
 
@@ -20,7 +21,7 @@ class Client:
 	def send(self, message):
 		total_sent = 0
 		while (total_sent < MSGLEN and total_sent < len(message)):
-			sent = self.sock.send(message)
+			sent = self.sock.send(self.message2bytes(message))
 			print("sent : " + str(sent))
 			if (sent == 0):
 				raise RuntimeError("socket connection broken")
@@ -56,6 +57,7 @@ class Client:
 			self.connect(self.MN[0], self.MN[1])
 			self.sock.send(self.message2bytes(self.type))
 			resp = socket.receive()
+			print(resp)
 			if (resp == "Paired"):
 				connected = True
 				print("Got the Master, connection succeeded.")
@@ -85,6 +87,9 @@ if __name__ == "__main__":
 	#exemple pour un Relay Node vers le Master
 	socket = Client("Relay");
 	socket.connectToMaster()
-	# socket.send() --> Envoyer les transactions
-	# socket.receive() -> recevoir un update ?? ou routine qui check tout les ...
+	socket.send("addBlock") #--> Envoyer les transactions
+	sendJSON(socket.sock,{"george":"coin"})
+
+	response = socket.receive()# -> recevoir un update ?? ou routine qui check tout les ...
+	print(response)
 	socket.endConnection() #->terminer la connexion, ca libere le thread du Serveur

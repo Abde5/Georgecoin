@@ -1,5 +1,6 @@
 import socket
 import threading
+from JsonUtilities import *
 
 
 
@@ -61,6 +62,7 @@ class Server():
 			client, address = self.socket.accept()
 			print("Got connection from connected {}".format(address))
 			typeClient=self.receive(client)
+			client.send(self.message2bytes("Paired"))
 
 			if (typeClient=="Wallet"): # type Wallet
 				print("Got a  Wallet")
@@ -138,6 +140,6 @@ class Server():
 if __name__ == "__main__":
 
 	# Exemple Relay
-	server = Server(PORT, "RN1", "Relay")
+	#server = Server(PORT, "RN1", "Relay")
 	# Exemple master
 	server = Server(PORT,"Master","Master")
