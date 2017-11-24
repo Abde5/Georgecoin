@@ -38,9 +38,8 @@ class MasterNode(Server):
 
 
 
-	def giveCopyBlockChain(self):
-		#send block chain
-		pass
+	def giveCopyBlockChain(self, client):
+		print("copy blockchain ")
 
 	def updateBlockChain(self, newBlockchain):
 		self.blockchain = newBlockchain

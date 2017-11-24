@@ -94,9 +94,6 @@ class Server():
 				print("Got unknown type")
 				print(typeClient)
 
-			#
-
-
 
 	def receive(self, client):
 		response = client.recv(MSGLEN)
