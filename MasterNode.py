@@ -19,7 +19,9 @@ class MasterNode(Server):
 		print("handle")
 		msg = self.receive(client)
 		print(msg)
+		print(msg)
 		if (msg == "addBlock"):
+			client.send(b"ready")
 			self.tryAddBlock(client)
 		elif (msg == "copy_chain"):
 			self.giveCopyBlockChain(client)
