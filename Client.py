@@ -1,5 +1,8 @@
 import socket
+from datetime import date, datetime
 from JsonUtilities import *
+from Block import *
+
 PORT = 5655
 MSGLEN = 255
 
@@ -87,8 +90,10 @@ if __name__ == "__main__":
 	#exemple pour un Relay Node vers le Master
 	socket = Client("Relay");
 	socket.connectToMaster()
+	block = Block(1, "0", "0", json.dumps(datetime.now(), default=json_serial), 0)
+	block = json.dumps(block.__dict__) 
 	socket.send("addBlock") #--> Envoyer les transactions
-	sendJSON(socket.sock,{"george":"coin"})
+	sendJSON(socket.sock, block)
 
 	response = socket.receive()# -> recevoir un update ?? ou routine qui check tout les ...
 	print(response)

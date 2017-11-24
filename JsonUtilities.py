@@ -1,4 +1,5 @@
 import json
+from datetime import date, datetime
 
 MGSLEN = 256
 
@@ -19,3 +20,10 @@ def recvJSON(sock):
         raise Exception('Data received was not in JSON format')
 
     return deserialized
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
