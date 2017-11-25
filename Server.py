@@ -18,7 +18,7 @@ si oui et RN:206
 si oui et master:207
 """
 PORT = 5655
-MSGLEN = 255
+MSGLEN = 2048
 
 class Server():
 	def __init__(self, port,name,type,nbrMaxWallets=4,nbrMaxMiners=10,nbrMaxRelay=10):
@@ -62,7 +62,6 @@ class Server():
 			client, address = self.socket.accept()
 			print("Got connection from connected {}".format(address))
 			typeClient=self.receive(client)
-			client.send(self.message2bytes("Paired"))
 
 			if (typeClient=="Wallet"): # type Wallet
 				print("Got a  Wallet")
@@ -86,6 +85,7 @@ class Server():
 				print("Got a Relay")
 				if (self.nbrMaxRelay>self.countRelay): #si encore de la place
 					self.countRelay += 1
+					client.send(self.message2bytes("Paired"))
 					threading.Thread(target = self.handleClient,args=(client, address,typeClient)).start()
 				else:
 					print("refused")
@@ -98,13 +98,12 @@ class Server():
 	def receive(self, client):
 		response = client.recv(MSGLEN)
 		if response != "":
-			#print(response.decode("utf-8").rstrip("\0"))
 			return response.decode("utf-8").rstrip("\0")
 
+	#AVEC LE MASTER ON NE RENTRE JAMAIS ICI!
 	#@abstractmethod
 	def handleClient(self, client, address,type):
 		print("New Thread")
-		#self.receive(client)
 		client.send(b"Paired")
 
 		resp=self.receive(client)
@@ -112,8 +111,6 @@ class Server():
 			print("A "+type+ " has deconnected from the server.")
 			self.decrementTypeCounter(type)
 			#connexion va se terminer coté Client ->thread meur ou doit mourir
-
-
 
 		#raise NotImplementedError;
 	def message2bytes(self,message):
@@ -127,16 +124,4 @@ class Server():
 		elif (type=="Relay"):
 			self.countRelay-=1
 		else:
-			print("Probleme Conteur c'est bagdad")
-
-
-
-
-
-
-if __name__ == "__main__":
-
-	# Exemple Relay
-	#server = Server(PORT, "RN1", "Relay")
-	# Exemple master
-	server = Server(PORT,"Master","Master")
+			print("Probleme compteur c'est bagdad")

@@ -2,9 +2,10 @@ import socket
 from datetime import date, datetime
 from JsonUtilities import *
 from Block import *
+from JsonUtilities import *
 
 PORT = 5655
-MSGLEN = 255
+MSGLEN = 2048
 
 class Client:
 	def __init__(self,type, sock = None):
@@ -30,7 +31,7 @@ class Client:
 				raise RuntimeError("socket connection broken")
 			total_sent += sent
 
-	def receive(self):
+	def recv(self, MSGLEN=256):
 		return self.sock.recv(MSGLEN).decode("utf-8").rstrip("\0")
 
 	def endConnection(self):
@@ -59,8 +60,7 @@ class Client:
 		while(not connected):
 			self.connect(self.MN[0], self.MN[1])
 			self.sock.send(self.message2bytes(self.type))
-			resp = socket.receive()
-			print(resp)
+			resp = socket.recv()
 			if (resp == "Paired"):
 				connected = True
 				print("Got the Master, connection succeeded.")
@@ -90,13 +90,29 @@ if __name__ == "__main__":
 	#exemple pour un Relay Node vers le Master
 	socket = Client("Relay");
 	socket.connectToMaster()
+
+	#envoyer un block
 	block = Block(1, "0", "0", json.dumps(datetime.now(), default=json_serial), 0)
 	block = json.dumps(block.__dict__) 
 	socket.send("addBlock") #--> Envoyer les transactions
-	response = socket.receive()
+	response = socket.recv()
 	if (response=="ready"):
 		sendJSON(socket.sock, block)
-
-	response = socket.receive()# -> recevoir un update ?? ou routine qui check tout les ...
+	response = socket.recv()# -> recevoir un update ?? ou routine qui check tout les ...
 	print(response)
+
+	#demander copy blockchain
+	socket.send("copy_chain")
+	blockchain = recvJSON(socket)
+
+	#envoyer un autre block
+	block = Block(2, "0", "0", json.dumps(datetime.now(), default=json_serial), 0)
+	block = json.dumps(block.__dict__) 
+	socket.send("addBlock") #--> Envoyer les transactions
+	response = socket.recv()
+	if (response=="ready"):
+		sendJSON(socket.sock, block)
+	response = socket.recv()# -> recevoir un update ?? ou routine qui check tout les ...
+	print(response)
+	
 	socket.endConnection() #->terminer la connexion, ca libere le thread du Serveur
