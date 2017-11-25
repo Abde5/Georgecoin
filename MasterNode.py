@@ -54,6 +54,7 @@ class MasterNode(Server):
 		if self.blockchain[-1].previous_hash==block.previous_hash:
 			self.previous_hash = block.hash_block
 			#inform every relay the previous hash
+			self.updatePreviousHash(self.previous_hash)
 			return True
 		return False
 

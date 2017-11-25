@@ -20,13 +20,13 @@ si oui et master:207
 PORT = 5655
 MSGLEN = 2048
 
-class Server():
-	def __init__(self, port,name,type,nbrMaxWallets=4,nbrMaxMiners=10,nbrMaxRelay=10):
+class Server:
+	def __init__(self,port,name,type,nbrMaxWallets=4,nbrMaxMiners=10,nbrMaxRelay=10):
 
 		# coté reseau
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		self.socket.bind(('', port))
 		self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+		self.socket.bind(('', port))
 
 		#numbre de connexion max par type
 		self.nbrMaxRelay=nbrMaxRelay
@@ -37,17 +37,17 @@ class Server():
 		self.countMiners=0
 		self.countRelay=0
 
+		self.relayNodesList = []
+
 		#ID serveur
 		self.name=name
 		self.type=type
-		if (type == "Relay"): # Type Relay Node
+		if (type == "Relay" or type=="RelayUpdate"): # Type Relay Node
 			self.allWalletsClients=list()
 			self.allMinersClients = list()
-			self.runRelay()
 
 		elif (type=="Master"): #type Master Node
 			self.allRelayClients = list()
-
 		else:
 			print("Mauvais type de serveur")
 
@@ -68,6 +68,7 @@ class Server():
 				if (self.nbrMaxWallet>self.countWallet): #si encore de la place
 					self.countWallet += 1
 					threading.Thread(target = self.handleClient,args=(client, address,typeClient)).start()
+					#self.handleClient(client,address,typeClient)
 				else:
 					print("refused")
 					client.send(self.message2bytes("Full"))
@@ -76,7 +77,7 @@ class Server():
 				print("Got a Miner")
 				if (self.nbrMaxMiners>self.countMiners): #si encore de la place
 					self.countMiners += 1
-					threading.Thread(target = self.handleClient,args=(client, address,typeClient)).start()
+					threading.Thread(target = self.handleMiner,args=(client, address,typeClient)).start()
 				else:
 					print("refused")
 					client.send(self.message2bytes("Full"))
@@ -86,6 +87,7 @@ class Server():
 				if (self.nbrMaxRelay>self.countRelay): #si encore de la place
 					self.countRelay += 1
 					client.send(self.message2bytes("Paired"))
+					self.relayNodesList.append(client)
 					threading.Thread(target = self.handleClient,args=(client, address,typeClient)).start()
 				else:
 					print("refused")
@@ -94,6 +96,12 @@ class Server():
 				print("Got unknown type")
 				print(typeClient)
 
+	def updatePreviousHash(self, updatedPreviousHash):
+		for relayNode in self.relayNodesList:
+			#relayNode.getUpdatedPreviousHash()
+			print("server")
+			relayNode.send(self.message2bytes("update"))
+			#relayNodes.send(self.message2bytes(updatedPreviousHash))
 
 	def receive(self, client):
 		response = client.recv(MSGLEN)

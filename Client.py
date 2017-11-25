@@ -1,23 +1,20 @@
 import socket
 from datetime import date, datetime
 from JsonUtilities import *
-from Block import *
-from JsonUtilities import *
 
-PORT = 5655
+PORT_UPDATE=5656
+PORT = 5657
 MSGLEN = 2048
 
 class Client:
-	def __init__(self,type, sock = None):
+	def __init__(self,type):
 		self.type=type
 
 		#RN HardCoded
-		self.RN=[("localhost",5655),("localhost", 5656),("localhost", 5657),("localhost", 5658),("localhost", 5659)]
+		self.RN=["localhost","localhost","localhost","localhost","localhost"] # tous meme por
 		self.MN=("localhost",5655)
-		if (sock == None):
-			self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		else:
-			self.sock = sock
+		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		
 
 	def connect(self, host, port):
 		self.sock.connect((host, port))
@@ -34,6 +31,10 @@ class Client:
 	def recv(self, MSGLEN=256):
 		return self.sock.recv(MSGLEN).decode("utf-8").rstrip("\0")
 
+	def recv2(self, MSGLEN=256, flag=1):
+		print("flag")
+		return self.sock.recv(MSGLEN, flag).decode("utf-8").rstrip("\0")
+
 	def endConnection(self):
 		print("Ending connection.")
 		self.sock.send(self.message2bytes("End"))
@@ -43,9 +44,9 @@ class Client:
 		connected=False
 		i=0
 		while (not connected):
-			self.connect(self.RN[i][0], self.RN[i][1])
+			self.connect(self.RN[i], PORT)
 			self.sock.send(self.message2bytes(self.type))
-			resp = socket.receive()
+			resp = socket.recv()
 			if (resp=="Paired"):
 				connected=True
 			elif(resp=="Full"):		#TODO:test pour plusieur RN
@@ -54,13 +55,13 @@ class Client:
 		print("Got a Relay, connection succeeded.")
 		return True
 
-	def connectToMaster(self):
+	def connectToMaster(self, client):
 		print("Connecting to the Master Node ...")
 		connected = False
 		while(not connected):
 			self.connect(self.MN[0], self.MN[1])
 			self.sock.send(self.message2bytes(self.type))
-			resp = socket.recv()
+			resp = client.recv()
 			if (resp == "Paired"):
 				connected = True
 				print("Got the Master, connection succeeded.")
@@ -71,12 +72,12 @@ class Client:
 
 if __name__ == "__main__":
 
-	print("Client Started")
+#	print("Client Started")
 	#Exemple pour un Wallet vers un Relay Node
-	#socket = Client("Wallet");
-	#socket.connectToRelay()
+	socket = Client("Wallet");
+	socket.connectToRelay()
 	#socket.send() --> Envoyer les transactions
-	#socket.receive() -> recevoir un update ?? ou routine qui check tout les ...
+	socket.recv() #-> recevoir un update ?? ou routine qui check tout les ...
 	#socket.endConnection() #->terminer la connexion, ca libere le thread du Serveur
 
 
@@ -87,7 +88,7 @@ if __name__ == "__main__":
 	#socket.receive() -> recevoir un update ?? ou routine qui check tout les ...
 	#socket.endConnection() #->terminer la connexion, ca libere le thread du Serveur
 
-	#exemple pour un Relay Node vers le Master
+	"""#exemple pour un Relay Node vers le Master
 	socket = Client("Relay");
 	socket.connectToMaster()
 
@@ -114,5 +115,5 @@ if __name__ == "__main__":
 		sendJSON(socket.sock, block)
 	response = socket.recv()# -> recevoir un update ?? ou routine qui check tout les ...
 	print(response)
-	
-	socket.endConnection() #->terminer la connexion, ca libere le thread du Serveur
+
+	socket.endConnection() #->terminer la connexion, ca libere le thread du Serveur"""
