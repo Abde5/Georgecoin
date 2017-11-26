@@ -1,0 +1,306 @@
+2017-11-26 14:53:40,404 [Worker-3] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2017-11-26 14:59:21,200 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 14:59:23,032 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 14:59:23,084 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 14:59:23,256 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 14:59:23,258 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 14:59:24,305 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /GeorgeCoin/src
+2017-11-26 14:59:24,306 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /GeorgeCoin/src/test/java because it overlaps with /GeorgeCoin/src
+2017-11-26 14:59:24,755 [Worker-14] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-11-26 14:59:28,081 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 14:59:28,613 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 14:59:28,616 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 14:59:28,618 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 14:59:28,620 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 14:59:28,643 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /GeorgeCoin/src
+2017-11-26 14:59:28,645 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /GeorgeCoin/src/test/java because it overlaps with /GeorgeCoin/src
+2017-11-26 14:59:28,767 [Worker-14] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 4 sec
+2017-11-26 14:59:29,918 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 14:59:29,923 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 14:59:29,927 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 14:59:29,942 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:02:17,578 [Worker-12] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 15:02:18,146 [Worker-12] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.1.0/jackson-databind-2.1.0.jar
+2017-11-26 15:02:18,523 [Worker-12] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.1.0/jackson-databind-2.1.0.jar
+2017-11-26 15:02:19,327 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:02:19,329 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:02:19,332 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:02:19,334 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:02:20,829 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:02:20,831 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:02:20,833 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:02:20,835 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:02:59,682 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:02:59,687 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:02:59,689 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:02:59,691 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:03:59,605 [Worker-2] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 15:03:59,779 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-server/9.4.7.v20170914/jetty-server-9.4.7.v20170914.pom
+2017-11-26 15:03:59,803 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-server/9.4.7.v20170914/jetty-server-9.4.7.v20170914.pom
+2017-11-26 15:03:59,828 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-project/9.4.7.v20170914/jetty-project-9.4.7.v20170914.pom
+2017-11-26 15:03:59,892 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-project/9.4.7.v20170914/jetty-project-9.4.7.v20170914.pom
+2017-11-26 15:03:59,939 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-http/9.4.7.v20170914/jetty-http-9.4.7.v20170914.pom
+2017-11-26 15:03:59,964 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-http/9.4.7.v20170914/jetty-http-9.4.7.v20170914.pom
+2017-11-26 15:04:00,001 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-util/9.4.7.v20170914/jetty-util-9.4.7.v20170914.pom
+2017-11-26 15:04:00,026 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-util/9.4.7.v20170914/jetty-util-9.4.7.v20170914.pom
+2017-11-26 15:04:00,075 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-io/9.4.7.v20170914/jetty-io-9.4.7.v20170914.pom
+2017-11-26 15:04:00,099 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-io/9.4.7.v20170914/jetty-io-9.4.7.v20170914.pom
+2017-11-26 15:04:00,342 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-server/9.4.7.v20170914/jetty-server-9.4.7.v20170914.jar
+2017-11-26 15:04:00,563 [Worker-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-server/9.4.7.v20170914/jetty-server-9.4.7.v20170914.jar
+2017-11-26 15:04:01,374 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:04:01,376 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:04:01,378 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:04:01,381 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:04:02,734 [Worker-4] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:04:02,735 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:04:02,737 [Worker-4] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:04:02,739 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:04:53,047 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:04:53,049 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:04:53,051 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:04:53,053 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:05:04,152 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:05:04,154 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:05:04,156 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:05:04,160 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:05:52,707 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:05:52,710 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:05:52,711 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:05:52,713 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:06:02,785 [Worker-18] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 15:06:03,259 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:06:03,260 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:06:03,263 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:06:03,265 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:08:39,087 [Worker-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/mule/modules/mule-module-spring-config/4.0.0-M5.2/mule-module-spring-config-4.0.0-M5.2.pom
+2017-11-26 15:08:39,091 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.mule.modules:mule-module-spring-config:jar:4.0.0-M5.2 is missing, no dependency information available
+2017-11-26 15:08:39,362 [Worker-17] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 15:08:39,404 [Worker-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/mule/modules/mule-module-spring-config/4.0.0-M5.2/mule-module-spring-config-4.0.0-M5.2.jar
+2017-11-26 15:08:39,464 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.mule.modules:mule-module-spring-config:jar:4.0.0-M5.2 is missing, no dependency information available
+2017-11-26 15:08:39,920 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:08:39,922 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:08:39,924 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:08:39,926 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:08:41,135 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.mule.modules:mule-module-spring-config:jar:4.0.0-M5.2 is missing, no dependency information available
+2017-11-26 15:08:41,208 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:08:41,211 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:08:41,214 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:08:41,216 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:09:11,622 [Worker-18] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 15:09:11,698 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.mule.modules:mule-module-spring-config:jar:4.0.0-M5.2 is missing, no dependency information available
+2017-11-26 15:09:12,014 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:09:12,016 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:09:12,018 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:09:12,020 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:09:49,682 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/mule/modules/mule-module-spring-config/4.0.0-M5.1/mule-module-spring-config-4.0.0-M5.1.pom
+2017-11-26 15:09:49,685 [Worker-4] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.mule.modules:mule-module-spring-config:jar:4.0.0-M5.1 is missing, no dependency information available
+2017-11-26 15:09:49,988 [Worker-1] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 15:09:50,022 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/mule/modules/mule-module-spring-config/4.0.0-M5.1/mule-module-spring-config-4.0.0-M5.1.jar
+2017-11-26 15:09:50,056 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.mule.modules:mule-module-spring-config:jar:4.0.0-M5.1 is missing, no dependency information available
+2017-11-26 15:09:50,443 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:09:50,446 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:09:50,448 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:09:50,450 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:11:41,557 [Worker-16] ERROR o.e.m.c.i.p.r.ProjectRegistryManager - Could not read pom.xml
+org.eclipse.core.runtime.CoreException: Could not read pom.xml
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.readModel(MavenImpl.java:565) ~[org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.readModel(MavenImpl.java:574) ~[org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refreshPhase2(ProjectRegistryManager.java:542) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:498) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:351) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:298) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.getProjectFacade(MavenBuilder.java:154) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod$1.call(MavenBuilder.java:89) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:176) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:151) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:99) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.execute(MavenBuilder.java:86) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder.build(MavenBuilder.java:200) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:735) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42) [org.eclipse.equinox.common_3.8.0.v20160509-1230.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:206) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:246) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:301) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42) [org.eclipse.equinox.common_3.8.0.v20160509-1230.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:304) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:360) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:383) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55) [org.eclipse.core.jobs_3.8.0.v20160509-0411.jar:na]
+Caused by: org.apache.maven.model.io.ModelParseException: end tag name </dependencies> must match start tag name <project> from line 1 (position: TEXT seen ...</dependencies>\r\n\t</dependencies>... @222:17) 
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:122) ~[maven-model-builder-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:86) ~[maven-model-builder-3.3.9.jar:3.3.9]
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.readModel(MavenImpl.java:563) ~[org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	... 24 common frames omitted
+Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: end tag name </dependencies> must match start tag name <project> from line 1 (position: TEXT seen ...</dependencies>\r\n\t</dependencies>... @222:17) 
+	at org.codehaus.plexus.util.xml.pull.MXParser.parseEndTag(MXParser.java:1727) ~[plexus-utils-3.0.22.jar:na]
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextImpl(MXParser.java:1169) ~[plexus-utils-3.0.22.jar:na]
+	at org.codehaus.plexus.util.xml.pull.MXParser.next(MXParser.java:1131) ~[plexus-utils-3.0.22.jar:na]
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextTag(MXParser.java:1118) ~[plexus-utils-3.0.22.jar:na]
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.parseModel(MavenXpp3Reader.java:2068) ~[maven-model-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:3845) ~[maven-model-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:595) ~[maven-model-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:117) ~[maven-model-builder-3.3.9.jar:3.3.9]
+	... 26 common frames omitted
+2017-11-26 15:11:41,560 [Worker-1] ERROR o.e.m2e.editor.pom.MavenPomEditor - failed to load maven project for org.eclipse.ui.part.FileEditorInput(/GeorgeCoin/pom.xml)
+org.eclipse.core.runtime.CoreException: Could not read maven project
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.readProjectWithDependencies(ProjectRegistryManager.java:804) ~[na:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager$6.call(ProjectRegistryManager.java:1010) ~[na:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager$6.call(ProjectRegistryManager.java:1) ~[na:na]
+	at com.google.common.cache.LocalCache$LocalManualCache$1.load(LocalCache.java:4724) ~[na:na]
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3522) ~[na:na]
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2315) ~[na:na]
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2278) ~[na:na]
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2193) ~[na:na]
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3932) ~[na:na]
+	at com.google.common.cache.LocalCache$LocalManualCache.get(LocalCache.java:4721) ~[na:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.getMavenProject(ProjectRegistryManager.java:1008) ~[na:na]
+	at org.eclipse.m2e.core.internal.project.registry.MavenProjectFacade.getMavenProject(MavenProjectFacade.java:242) ~[na:na]
+	at org.eclipse.m2e.core.ui.internal.actions.SelectionUtil.getMavenProject(SelectionUtil.java:261) ~[org.eclipse.m2e.core.ui_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.editor.pom.MavenPomEditor.readMavenProject(MavenPomEditor.java:732) ~[na:na]
+	at org.eclipse.m2e.editor.pom.MavenPomEditor$5.run(MavenPomEditor.java:1053) ~[na:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55) [org.eclipse.core.jobs_3.8.0.v20160509-0411.jar:na]
+2017-11-26 15:11:43,027 [Worker-1] ERROR o.e.m.c.i.p.r.ProjectRegistryManager - Could not read pom.xml
+org.eclipse.core.runtime.CoreException: Could not read pom.xml
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.readModel(MavenImpl.java:565) ~[org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.readModel(MavenImpl.java:574) ~[org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refreshPhase2(ProjectRegistryManager.java:542) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:498) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:351) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:298) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.getProjectFacade(MavenBuilder.java:154) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod$1.call(MavenBuilder.java:89) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:176) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:151) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:99) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.execute(MavenBuilder.java:86) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder.build(MavenBuilder.java:200) [org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:735) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42) [org.eclipse.equinox.common_3.8.0.v20160509-1230.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:206) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:246) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:301) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42) [org.eclipse.equinox.common_3.8.0.v20160509-1230.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:304) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:360) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:383) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235) [org.eclipse.core.resources_3.11.1.v20161107-2032.jar:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55) [org.eclipse.core.jobs_3.8.0.v20160509-0411.jar:na]
+Caused by: org.apache.maven.model.io.ModelParseException: end tag name </dependencies> must match start tag name <project> from line 1 (position: TEXT seen ...</dependencies>\r\n\t</dependencies>... @222:17) 
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:122) ~[maven-model-builder-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:86) ~[maven-model-builder-3.3.9.jar:3.3.9]
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.readModel(MavenImpl.java:563) ~[org.eclipse.m2e.core_1.7.0.20160603-1933.jar:na]
+	... 24 common frames omitted
+Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: end tag name </dependencies> must match start tag name <project> from line 1 (position: TEXT seen ...</dependencies>\r\n\t</dependencies>... @222:17) 
+	at org.codehaus.plexus.util.xml.pull.MXParser.parseEndTag(MXParser.java:1727) ~[plexus-utils-3.0.22.jar:na]
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextImpl(MXParser.java:1169) ~[plexus-utils-3.0.22.jar:na]
+	at org.codehaus.plexus.util.xml.pull.MXParser.next(MXParser.java:1131) ~[plexus-utils-3.0.22.jar:na]
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextTag(MXParser.java:1118) ~[plexus-utils-3.0.22.jar:na]
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.parseModel(MavenXpp3Reader.java:2068) ~[maven-model-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:3845) ~[maven-model-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:595) ~[maven-model-3.3.9.jar:3.3.9]
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:117) ~[maven-model-builder-3.3.9.jar:3.3.9]
+	... 26 common frames omitted
+2017-11-26 15:11:46,693 [Worker-1] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GeorgeCoin:GeorgeCoin:0.0.1-SNAPSHOT @ C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\pom.xml.
+2017-11-26 15:11:48,592 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:11:48,595 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:11:48,598 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:11:48,600 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:11:51,016 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:11:51,019 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:11:51,022 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:11:51,024 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:12:24,206 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:12:24,208 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:12:24,212 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:12:24,216 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:12:36,539 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:12:36,543 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:12:36,545 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:12:36,547 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:13:41,283 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:13:41,285 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:13:41,287 [Worker-12] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:13:41,288 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:13:47,073 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:13:47,078 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:13:47,080 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:13:47,084 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:14:19,859 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:14:19,862 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:14:19,863 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:14:19,865 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:15:42,759 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:15:42,760 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:15:42,763 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:15:42,766 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:15:59,917 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:15:59,922 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:15:59,926 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:15:59,927 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:16:14,119 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:16:14,122 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:16:14,124 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:16:14,127 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:16:35,479 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:16:35,480 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:16:35,482 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:16:35,484 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:16:43,088 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:16:43,091 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:16:43,092 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:16:43,094 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:18:00,236 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:18:00,238 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:18:00,240 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:18:00,242 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:20:05,922 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:20:05,924 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:20:05,925 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:20:05,927 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:20:22,717 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:20:22,720 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:20:22,721 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:20:22,723 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:20:30,713 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:20:30,716 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:20:30,719 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:20:30,721 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:22:50,468 [Worker-22] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:22:50,470 [Worker-22] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:22:50,471 [Worker-22] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:22:50,474 [Worker-22] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:24:10,187 [Worker-21] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:24:10,189 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:24:10,191 [Worker-21] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:24:10,192 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:24:20,883 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:24:20,886 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:24:20,887 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:24:20,889 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:27:24,761 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:27:24,763 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:27:24,765 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:27:24,767 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:27:33,999 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:27:34,002 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:27:34,003 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:27:34,005 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:27:57,849 [Worker-21] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:27:57,852 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:27:57,854 [Worker-21] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:27:57,857 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:29:52,456 [Worker-21] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:29:52,458 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:29:52,460 [Worker-21] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:29:52,462 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:31:41,033 [Worker-25] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:31:41,037 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:31:41,038 [Worker-25] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:31:41,041 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
+2017-11-26 15:32:00,565 [Worker-25] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:32:00,568 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\main\resources
+2017-11-26 15:32:00,569 [Worker-25] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-11-26 15:32:00,572 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kaisa\Documents\MA1_ComputerScience\Crypto\Project2\Georgecoin\GeorgeCoin\src\test\resources
