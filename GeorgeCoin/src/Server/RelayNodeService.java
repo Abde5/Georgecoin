@@ -1,5 +1,7 @@
 package Server;
 
+import Client.Client;
+import RelayNode.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +14,15 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @EnableWebMvc
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/relay")
 
-public class TestService{
+public class RelayNodeService {
 		
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public @ResponseBody String verifyLogin(final @RequestBody(required = false)String msg) {
+	public @ResponseBody String test(final @RequestBody(required = false)String msg) {
 		System.out.println("Got a msg : "+msg);
-		return "testwellarrived";
+
+		return "OkFromRelay";
 	}
-	    
-	    
+
 }
