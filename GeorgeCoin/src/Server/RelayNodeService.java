@@ -26,22 +26,25 @@ public class RelayNodeService {
 		JSONObject jsonObj = new JSONObject(msg);
 
 		String type=jsonObj.get("type").toString();
-		String source=jsonObj.get("type").toString();
-		String message=jsonObj.get("type").toString();
 		if (type.equals("Wallet")) {
-			relay.addTransaction(message);
-			relay.addWallet(source);
+			relay.launchClientMaster();
+			relay.sendToMaster(msg);
 
-			if (relay.getNumberOfTransaction() == 4) {
-				relay.launchClient();
-				relay.sendToMiners();
-			}
 		}
 		else if (type.equals("Miner")){
+
+			String source=jsonObj.get("Source").toString();
 			relay.addMiner(source);
 		}
-		else{
-			System.out.print("Erreur");
+		else if (type.equals("Mining")){
+			if (relay.getMinerNumber()>0) {
+				relay.sendToALLMiners(msg);
+				//relay.launchClientMiners();
+				//relay.sendToMiners(msg);
+			}
+			else{
+				System.out.print("NO MINERS CONNECTED");
+			}
 		}
 		return "OkFromRelay";
 	}

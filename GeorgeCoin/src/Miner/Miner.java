@@ -19,17 +19,19 @@ public class Miner {
 
     }
 
+    public void sendWhoAMI(){
+        String jsonString = new JSONObject()
+                .put("type", "Miner")
+                .put("Source", "localhost:8082").toString();
+        client.sendMessage("relay",jsonString);
+    }
+
     public void launchClient(){
 
         //client = new Client("localhost",portClient);
         Thread thread = new Thread(client);
         //thread.setDaemon(true);
         thread.start();
-        String jsonString = new JSONObject()
-                .put("type", "Miner")
-                .put("Source", "localhost:8081")
-                .put("message","ca fonctionne Miner").toString();
-        client.sendMessage("relay",jsonString);
     }
 
     public void launchServer(){

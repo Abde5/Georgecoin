@@ -8,39 +8,31 @@ public class RelayNode {
 
 
     private String hostNameClient;
-    private int portClient;
+    private int portClientMaster;
     private int portServer;
     private ServerCore server;
-    private Client client;
-    private ArrayList<String> transactionReceived;
+    private Client clientMaster;
+    private Client clientMiners;
     private ArrayList<String> walletConnected;
     private ArrayList<String> minerConnected;
 
-    public RelayNode(int portServer,int portClient) {
-        transactionReceived = new ArrayList<String>();
+    public RelayNode(int portServer,int portClientMaster) {
+
         walletConnected=new ArrayList<String>();
         minerConnected=new ArrayList<String>();
         this.portServer=portServer;
-        this.portClient=portClient;
+        this.portClientMaster=portClientMaster;
         server = new ServerCore(portServer);
-        client = new Client("localhost",this.portClient);
-
-
-
-        //threadServer.start();
-        //threadClient.start();
-        //threadClient.join();
-        //System.out.println(client.sendTest());
-
-        // new Thread(new ServerCore(port)).start();
-        //new Thread(new Client(8081)).start();
-        //ServerCore server = new ServerCore(port);
-
+        clientMaster = new Client("localhost",this.portClientMaster);
     }
 
-    public void sendToMiners(){
-        System.out.println("OKK");
-        client.sendMessage("miner","RN vers Miner");
+    public void sendToMaster(String msg){
+        System.out.println("OEnvoi au master");
+        clientMaster.sendMessage("master",msg);
+    }
+
+    public void sendToMiners(String msg){
+        clientMiners.sendMessage("miner",msg);
     }
 
     public void launchServer(){
@@ -49,18 +41,29 @@ public class RelayNode {
         threadServer.start();
     }
 
-    public void launchClient(){
-        System.out.print("DemarageClient");
-        Thread threadClient = new Thread(client);
+    public void launchClientMaster(){
+        Thread threadClient = new Thread(clientMaster);
         //threadClient.setDaemon(true);
         threadClient.start();
         //client.sendMessage("master","RN vers Master");
 
     }
-    public void addTransaction(String message){
-        //System.out.print(transactionReceived.size());
-        transactionReceived.add(message);
-        //System.out.print(transactionReceived.size());
+
+    public void sendToALLMiners(String msg){
+        for (int i=0;i<minerConnected.size();i++) {
+            String[] hostInfo=minerConnected.get(i).split(":");
+            launchClientMiners(hostInfo[0],Integer.parseInt(hostInfo[1]));
+            sendToMiners(msg);
+
+        }
+    }
+    public void launchClientMiners(String hostName,int portMiners){
+        clientMiners = new Client(hostName,portMiners);
+        Thread threadClient = new Thread(clientMiners);
+        //threadClient.setDaemon(true);
+        threadClient.start();
+        //client.sendMessage("master","RN vers Master");
+
     }
 
     public void addWallet(String clientHost){
@@ -71,10 +74,8 @@ public class RelayNode {
         minerConnected.add(clientHost);
     }
 
-    public int getNumberOfTransaction(){
-        //System.out.print(transactionReceived.size());
-        return transactionReceived.size();
+    public int getMinerNumber(){
+        return minerConnected.size();
     }
-
 
 }

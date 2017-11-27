@@ -1,5 +1,7 @@
 package Server;
 
+import Miner.*;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +17,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @RequestMapping("/miner")
 
 public class MinerService {
+    //private Miner miner= new Miner(8082,8080);
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody String test(final @RequestBody(required = false)String msg) {
         System.out.println("Got a msg : "+msg);
+        JSONObject jsonObj = new JSONObject(msg);
+        String transactionsForMiners=jsonObj.get("alltransactions").toString();
+        //String block=miner.computeBlock();
+        //miner.launchClient()
+        //miner.sendBlock()
         return "OkFromMiner";
     }
 
