@@ -48,10 +48,20 @@ public class RelayNodeService {
 		}
 		else if (type.equals("Block")){
 			String source=jsonObj.get("source").toString();
+			//------------------------------
 			//STOP ALL OTHERS MINERS!!!!
+			//------------------------------
 			//String block=jsonObj.get("block").toString();
 			relay.launchClientMaster();
 			relay.sendToMaster(msg);
+		}
+		else if (type.equals("BlockChain")){
+			System.out.print("Got an updated BLOCKCHAIN"+ msg);
+			relay.saveBlockChain(msg);
+
+		}
+		else if (type.equals("GetBlockChain")){
+			return relay.getBlockChain();
 		}
 		return "OkFromRelay";
 	}

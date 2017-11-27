@@ -15,6 +15,7 @@ public class RelayNode {
     private Client clientMiners;
     private ArrayList<String> walletConnected;
     private ArrayList<String> minerConnected;
+    private String BlockChain;
 
     public RelayNode(int portServer,int portClientMaster) {
 
@@ -76,6 +77,13 @@ public class RelayNode {
 
     public int getMinerNumber(){
         return minerConnected.size();
+    }
+
+    public void saveBlockChain(String blockchain){
+        BlockChain=blockchain;
+    }
+    public String getBlockChain(){
+        return BlockChain;
     }
 
 }

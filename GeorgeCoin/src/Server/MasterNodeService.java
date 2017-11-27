@@ -35,6 +35,12 @@ public class MasterNodeService {
         }
         else if (type.equals("Block")) {
             System.out.println("Got a BLOCK: "+msg);
+            //------------------------------------------
+            // STOCKER BLOCK CHAIN ET LE RENVOYER
+            //------------------------------------------
+            String newBlockChain=master.acceptBlock(msg);
+            master.launchClient();
+            master.sendToRelay(newBlockChain);
         }
         return "OkFromMaster";
     }

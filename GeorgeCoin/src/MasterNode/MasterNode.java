@@ -63,4 +63,25 @@ public class MasterNode {
         transactionReceived.clear();
         return jsonString;
     }
+
+    public String acceptBlock(String block){
+
+        //-----------------------------
+        //Check a accepter et retrouner le blockchain
+        //------------------------------
+        String blockChain = new JSONObject()
+                .put("type", "BlockChain")
+                .put("BLOCK1",new JSONObject()
+                        .put("Tx0","transact0")
+                        .put("Tx1","transact1")
+                        .put("Tx2","transact2")
+                        .put("Tx3","transact3"))
+                .put("BLOCK2",new JSONObject()
+                        .put("Tx0","transact0")
+                        .put("Tx1","transact1")
+                        .put("Tx2","transact2")
+                        .put("Tx3","transact3")).toString();
+
+        return blockChain;
+    }
 }

@@ -67,8 +67,9 @@ public class Client implements Runnable{
 	public void run() {
 	}
 
-	public void sendMessage(String destinationService,String message){
+	public String sendMessage(String destinationService,String message){
 		final String response = this.post("/"+destinationService, message);
 		System.out.println(response);
+		return response;
 	}
 }

@@ -6,7 +6,7 @@ import org.json.JSONObject;
 public class Wallet {
 
     private Client client;
-
+    private String blockChain;
 
     public Wallet(int port){
         client = new Client("localhost",port);
@@ -23,4 +23,13 @@ public class Wallet {
                 .put("message","ca fonctionne").toString();
         client.sendMessage("relay",jsonString);
     }
+
+    public void requestBlockChain(){
+        String jsonString = new JSONObject()
+                .put("type", "GetBlockChain")
+                .put("source", "localhost:8080").toString();
+        blockChain=client.sendMessage("relay",jsonString);
+        System.out.println(blockChain);
+    }
 }
+

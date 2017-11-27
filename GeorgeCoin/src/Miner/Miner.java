@@ -15,6 +15,7 @@ public class Miner {
         this.portClient = portClient;
         server = new ServerCore(portServer);
         client = new Client("localhost", portClient);
+        wallet =new Wallet():
 
 
     }
