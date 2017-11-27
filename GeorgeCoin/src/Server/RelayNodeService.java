@@ -33,7 +33,7 @@ public class RelayNodeService {
 		}
 		else if (type.equals("Miner")){
 
-			String source=jsonObj.get("Source").toString();
+			String source=jsonObj.get("source").toString();
 			relay.addMiner(source);
 		}
 		else if (type.equals("Mining")){
@@ -45,6 +45,13 @@ public class RelayNodeService {
 			else{
 				System.out.print("NO MINERS CONNECTED");
 			}
+		}
+		else if (type.equals("Block")){
+			String source=jsonObj.get("source").toString();
+			//STOP ALL OTHERS MINERS!!!!
+			//String block=jsonObj.get("block").toString();
+			relay.launchClientMaster();
+			relay.sendToMaster(msg);
 		}
 		return "OkFromRelay";
 	}

@@ -22,7 +22,7 @@ public class Miner {
     public void sendWhoAMI(){
         String jsonString = new JSONObject()
                 .put("type", "Miner")
-                .put("Source", "localhost:8082").toString();
+                .put("source", "localhost:8082").toString();
         client.sendMessage("relay",jsonString);
     }
 
@@ -38,5 +38,28 @@ public class Miner {
         Thread threadServer = new Thread(server);
         //threadServer.setDaemon(true);
         threadServer.start();
+    }
+
+    public String computeBlock(String transactions){
+        JSONObject jsonObj = new JSONObject(transactions);
+        String Tx0=jsonObj.get("Tx0").toString();
+        String Tx1=jsonObj.get("Tx1").toString();
+        String Tx2=jsonObj.get("Tx2").toString();
+        String Tx3=jsonObj.get("Tx3").toString();
+        // ---------------------------------------
+        // COMPUTATION OF THE BLOCK HERE
+        // ---------------------------------------
+        String block= new JSONObject()
+                .put("type","Block")
+                .put("source","localhost:8082")
+                .put("block",new JSONObject()
+                        .put("header","header")
+                    .put("Nonce","ici nonce")
+                    .put("Transaction","transaction")).toString();
+        return block;
+    }
+
+    public void sendBlock(String msg){
+        client.sendMessage("relay",msg);
     }
 }

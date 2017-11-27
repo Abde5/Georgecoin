@@ -33,6 +33,9 @@ public class MasterNodeService {
                 master.sendToRelay(messageForMiners);
             }
         }
+        else if (type.equals("Block")) {
+            System.out.println("Got a BLOCK: "+msg);
+        }
         return "OkFromMaster";
     }
 

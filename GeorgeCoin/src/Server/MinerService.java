@@ -17,16 +17,18 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @RequestMapping("/miner")
 
 public class MinerService {
-    //private Miner miner= new Miner(8082,8080);
+    private Miner miner= new Miner(8082,8080);
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody String test(final @RequestBody(required = false)String msg) {
         System.out.println("Got a msg : "+msg);
         JSONObject jsonObj = new JSONObject(msg);
         String transactionsForMiners=jsonObj.get("alltransactions").toString();
-        //String block=miner.computeBlock();
-        //miner.launchClient()
-        //miner.sendBlock()
+        if (transactionsForMiners.length()>0){
+            String block=miner.computeBlock(transactionsForMiners);
+            miner.launchClient();
+            miner.sendBlock(block);
+        }
         return "OkFromMiner";
     }
 
