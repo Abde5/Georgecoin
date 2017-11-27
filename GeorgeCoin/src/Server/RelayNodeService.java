@@ -26,17 +26,17 @@ public class RelayNodeService {
 		JSONObject jsonObj = new JSONObject(msg);
 
 		String type=jsonObj.get("type").toString();
-		if (type.equals("Wallet")) {
+		if (type.equals("newTransaction")) {
 			relay.launchClientMaster();
 			relay.sendToMaster(msg);
 
 		}
-		else if (type.equals("Miner")){
+		else if (type.equals("newMinerConnected")){
 
 			String source=jsonObj.get("source").toString();
 			relay.addMiner(source);
 		}
-		else if (type.equals("Mining")){
+		else if (type.equals("readyForMining")){
 			if (relay.getMinerNumber()>0) {
 				relay.sendToALLMiners(msg);
 				//relay.launchClientMiners();

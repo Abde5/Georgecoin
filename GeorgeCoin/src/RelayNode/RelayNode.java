@@ -50,14 +50,6 @@ public class RelayNode {
 
     }
 
-    public void sendToALLMiners(String msg){
-        for (int i=0;i<minerConnected.size();i++) {
-            String[] hostInfo=minerConnected.get(i).split(":");
-            launchClientMiners(hostInfo[0],Integer.parseInt(hostInfo[1]));
-            sendToMiners(msg);
-
-        }
-    }
     public void launchClientMiners(String hostName,int portMiners){
         clientMiners = new Client(hostName,portMiners);
         Thread threadClient = new Thread(clientMiners);
@@ -65,6 +57,15 @@ public class RelayNode {
         threadClient.start();
         //client.sendMessage("master","RN vers Master");
 
+    }
+
+    public void sendToALLMiners(String msg){
+        for (int i=0;i<minerConnected.size();i++) {
+            String[] hostInfo=minerConnected.get(i).split(":");
+            launchClientMiners(hostInfo[0],Integer.parseInt(hostInfo[1]));
+            sendToMiners(msg);
+
+        }
     }
 
     public void addWallet(String clientHost){

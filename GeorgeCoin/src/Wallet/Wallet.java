@@ -18,7 +18,7 @@ public class Wallet {
 
     public void makeTransaction(){
         String jsonString = new JSONObject()
-                .put("type", "Wallet")
+                .put("type", "newTransaction")
                 .put("source", "localhost:8080")
                 .put("message","ca fonctionne").toString();
         client.sendMessage("relay",jsonString);

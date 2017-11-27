@@ -25,7 +25,7 @@ public class MasterNodeService {
         JSONObject jsonObj = new JSONObject(msg);
 
         String type=jsonObj.get("type").toString();
-        if (type.equals("Wallet")) {
+        if (type.equals("newTransaction")) {
             master.addTransaction(msg);
             if (master.getNumberOfTransaction() == 4) {
                 String messageForMiners=master.getTransactionsForMining();

@@ -54,7 +54,7 @@ public class MasterNode {
 
     public String getTransactionsForMining(){
         String jsonString = new JSONObject()
-                .put("type", "Mining")
+                .put("type", "readyForMining")
                 .put("alltransactions",new JSONObject()
                         .put("Tx0",transactionReceived.get(0))
                         .put("Tx1",transactionReceived.get(1))

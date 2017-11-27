@@ -22,7 +22,7 @@ public class Miner {
 
     public void sendWhoAMI(){
         String jsonString = new JSONObject()
-                .put("type", "Miner")
+                .put("type", "newMinerConnected")
                 .put("source", "localhost:8082").toString();
         client.sendMessage("relay",jsonString);
     }
