@@ -4,6 +4,7 @@ import Server.ServerCore;
 import Client.Client;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MasterNode {
@@ -13,6 +14,7 @@ public class MasterNode {
     private int portServer;
     private int portClient;
     private ArrayList<String> transactionReceived;
+    private ArrayList<Block> blockChain = new ArrayList<Block>();
 
     public MasterNode(int portServer,int portClient) {
         this.portServer=portServer;
@@ -23,6 +25,7 @@ public class MasterNode {
     }
 
     public void launchServer(){
+    	generateFirstBlock();
         Thread threadServer = new Thread(server);
         //threadServer.setDaemon(true);
         threadServer.start();
@@ -63,13 +66,28 @@ public class MasterNode {
         transactionReceived.clear();
         return jsonString;
     }
+    
+    private void generateFirstBlock(){
+    	Block firstBlock = new Block("0", "currenthash", new Timestamp(System.currentTimeMillis()), 0);
+    	blockChain.add(firstBlock);
+    }
 
     public String acceptBlock(String block){
-
+    	JSONObject jsonObj = new JSONObject(block);
+    	Block newBlock = JSONtoBlock(jsonObj);
+    	
+    	//check previousHash
+    	if (checkPreviousHash(newBlock)){
+    		blockChain.add(newBlock);
+    		return blockToJSON().toString();
+    	}
+    	return "notAccepted";
+    	
+    	//envoyer toute la blockChain
         //-----------------------------
         //Check a accepter et retrouner le blockchain
         //------------------------------
-        String blockChain = new JSONObject()
+        /*blockChain = new JSONObject()
                 .put("type", "BlockChain")
                 .put("BLOCK1",new JSONObject()
                         .put("Tx0","transact0")
@@ -80,8 +98,36 @@ public class MasterNode {
                         .put("Tx0","transact0")
                         .put("Tx1","transact1")
                         .put("Tx2","transact2")
-                        .put("Tx3","transact3")).toString();
-
-        return blockChain;
+                        .put("Tx3","transact3")).toString();*/
+    }
+    
+    private Boolean checkPreviousHash(Block block){
+    	if(block.previousHash == blockChain.get(blockChain.size()-1).previousHash){
+    		return true;
+    	}
+    	return false;
+    }
+    
+    private JSONObject blockToJSON(){
+    	JSONObject json = new JSONObject();
+    	json.put("type", "BlockChain");
+    	
+    	for(int i=0; i<blockChain.size(); i++){
+    		json.put(Integer.toString(i), new JSONObject()
+    				.put("previousHash", blockChain.get(i).previousHash)
+    				.put("blockHash", blockChain.get(i).hashBlock)
+    				.put("timestamp", blockChain.get(i).timestamp)
+    				.put("nonce", blockChain.get(i).nonce));
+    	}
+    	return json;
+    }
+    
+    private Block JSONtoBlock(JSONObject jsonObj){
+    	return new Block(jsonObj.getString("previous_hash"), jsonObj.getString("hashBlock"), 
+    			stringToTimestamp(jsonObj.getString("timestamp")), jsonObj.getInt("index"));
+    }
+    
+    private Timestamp stringToTimestamp(String time){
+    	return Timestamp.valueOf(time);
     }
 }

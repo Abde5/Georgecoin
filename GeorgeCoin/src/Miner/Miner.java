@@ -54,9 +54,10 @@ public class Miner {
                 .put("type","Block")
                 .put("source","localhost:8082")
                 .put("block",new JSONObject()
-                        .put("header","header")
-                    .put("Nonce","ici nonce")
-                    .put("Transaction","transaction")).toString();
+                    .put("previousHash","previous hash")
+                    .put("hashBlock","hash block")
+                    .put("Timestamp","time stamps")
+                    .put("nonce","nonce")).toString();
         return block;
     }
 
