@@ -1,6 +1,7 @@
 package Wallet;
 
 import Client.Client;
+import org.json.JSONObject;
 
 public class Wallet {
 
@@ -16,6 +17,10 @@ public class Wallet {
     }
 
     public void makeTransaction(){
-        client.sendMessage("relay","Wallet to RN");
+        String jsonString = new JSONObject()
+                .put("type", "Wallet")
+                .put("Source", "localhost:8080")
+                .put("message","ca fonctionne").toString();
+        client.sendMessage("relay",jsonString);
     }
 }
