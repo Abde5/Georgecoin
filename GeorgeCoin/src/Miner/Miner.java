@@ -84,7 +84,7 @@ public class Miner {
         // ---------------------------------------
         String block= new JSONObject()
                 .put("type","Block")
-                .put("source","localhost:8082")
+                .put("sourceMiner","localhost:8082")
                 .put("block",new JSONObject()
                     .put("previousHash","0")
                     .put("hashBlock","hash block")

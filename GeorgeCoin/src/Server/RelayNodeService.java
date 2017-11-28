@@ -59,16 +59,13 @@ public class RelayNodeService {
 		}
 		else if (type.equals("Block")){
 			System.out.println("Got a computed BLOCK : "+msg);
-			String source=jsonObj.get("source").toString();
-			//------------------------------
-			//STOP ALL OTHERS MINERS!!!!
-			//------------------------------
-			//String block=jsonObj.get("block").toString();
+			String source=jsonObj.get("sourceMiner").toString();
+			//TODO STOP rest of the miners
 			relay.launchClientMaster();
 			relay.sendToMaster(msg);
 		}
 		else if (type.equals("BlockChain")){
-			System.out.print("Got an updated BLOCKCHAIN"+ msg);
+			System.out.print("Got an updated BLOCKCHAIN : "+ msg);
 			relay.saveBlockChain(msg);
 
 		}

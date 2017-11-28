@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @RequestMapping("/master")
 
 public class MasterNodeService {
-    private MasterNode master= new MasterNode(8081,8080);
+    private MasterNode master= new MasterNode("localhost",8081,8080);
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody String test(final @RequestBody(required = false)String msg) {
@@ -42,6 +42,7 @@ public class MasterNodeService {
         else if (type.equals("Block")) {
             System.out.println("Got a COMPUTED BLOCK: "+msg);
             String newBlockChain=master.acceptBlock(msg);
+            //TODO reward miner
             System.out.println("Sending BLOCKCHAIN to all relays");
             master.sendToALLRelays(newBlockChain);
         }

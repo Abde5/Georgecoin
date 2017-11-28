@@ -11,18 +11,20 @@ public class MasterNode {
 
     private Client client;
     private ServerCore server;
+    private String hostName;
     private int portServer;
     private int portClient;
     private ArrayList<String> transactionReceived;
     private ArrayList<String> relaysConnected;
     private static ArrayList<Block> blockChain;
 
-    public MasterNode(int portServer,int portClient) {
+    public MasterNode(String hostnameServ,int portServer,int portClient) {
+        this.hostName=hostnameServ;
         this.portServer=portServer;
         this.portClient=portClient;
         transactionReceived = new ArrayList<String>();
         relaysConnected=new ArrayList<String>();
-        server = new ServerCore("localhost",this.portServer);
+        server = new ServerCore(this.hostName,this.portServer);
 
 
     }
@@ -99,7 +101,7 @@ public class MasterNode {
     }
     
     public Boolean checkPreviousHash(Block block){
-    	if(block.previousHash.equals(blockChain.get(blockChain.size()-1).previousHash)){
+    	if(block.getPreviousHash().equals(blockChain.get(blockChain.size()-1).getPreviousHash())){
     		return true;
     	}
     	return false;
@@ -110,10 +112,10 @@ public class MasterNode {
     	json.put("type", "BlockChain");
     	for(int i=0; i<blockChain.size(); i++){
     		json.put(Integer.toString(i), new JSONObject()
-    				.put("previousHash", blockChain.get(i).previousHash)
-    				.put("blockHash", blockChain.get(i).hashBlock)
-    				.put("timestamp", blockChain.get(i).timestamp)
-    				.put("nonce", blockChain.get(i).nonce));
+    				.put("previousHash", blockChain.get(i).getPreviousHash())
+    				.put("blockHash", blockChain.get(i).getHashBlock())
+    				.put("timestamp", blockChain.get(i).getTimestamp())
+    				.put("nonce", blockChain.get(i).getNonce()));
     	}
     	return json;
     }
