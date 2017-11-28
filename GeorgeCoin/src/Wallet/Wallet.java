@@ -2,6 +2,14 @@ package Wallet;
 
 import Client.Client;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,19 +18,26 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Signature;
+import java.security.spec.InvalidParameterSpecException;
+import java.security.spec.KeySpec;
+import java.util.ArrayList;
 
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 
 public class Wallet {
@@ -31,9 +46,12 @@ public class Wallet {
     private String blockChain;
     private String address;
     private String passPhrase;
+    private byte[] hashPhrase;
+    private String publicKey;
+    private String privateKey;
     
 
-    public Wallet(int port) throws IOException, NoSuchAlgorithmException{
+    public Wallet(int port) throws IOException, NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException{
         client = new Client("localhost",port);
         
         walletClient();
@@ -44,21 +62,27 @@ public class Wallet {
         
     }
     
-    public void walletClient() throws IOException, NoSuchAlgorithmException{
+    public void walletClient() throws IOException, NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException{
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	System.out.print("Enter your sentence: ");
     	String sentence = br.readLine();
     	System.out.print("Enter your password: ");
     	String password = br.readLine();
     	passPhrase = password+sentence;
+    	System.out.println(passPhrase.getBytes().length);
+    	MessageDigest digest = MessageDigest.getInstance("MD5");
+    	hashPhrase = digest.digest(passPhrase.getBytes(StandardCharsets.UTF_8));
+    	System.out.println(hashPhrase.length);
+    	
     	checkExistingUser();
 
     }
 
-    private void checkExistingUser() throws NoSuchAlgorithmException, FileNotFoundException, UnsupportedEncodingException {
+    private void checkExistingUser() throws NoSuchAlgorithmException, IOException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException {
 		String key_file_path = "keys.txt";
 		File key_file = new File(key_file_path);
-		if(key_file.exists() && !key_file.isDirectory()) { 
+		if(key_file.exists() && !key_file.isDirectory()) {
+			System.out.println("true");
 		    getKeysFromFile(key_file_path);
 		}
 		else{
@@ -67,27 +91,66 @@ public class Wallet {
 		
 	}
 
-	private void setKeysInFile(String key_file_path) throws NoSuchAlgorithmException, FileNotFoundException, UnsupportedEncodingException {
+	private void setKeysInFile(String key_file_path) throws NoSuchAlgorithmException, FileNotFoundException, UnsupportedEncodingException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException {
 		 KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
          keyGen.initialize(1024, new SecureRandom());
          KeyPair pair = keyGen.generateKeyPair();
          PublicKey public_k = pair.getPublic();
          PrivateKey private_k = pair.getPrivate();
-         PrintWriter fileWriter = new PrintWriter(key_file_path, "UTF-8");
-         fileWriter.println(public_k.toString());
+         PrintWriter fileWriter = new PrintWriter(key_file_path, "UTF-32");
+         fileWriter.println(public_k.getEncoded());
          fileWriter.println(encodePrivate(private_k));
          fileWriter.close();
 		
 	}
 
-	private char[] encodePrivate(PrivateKey private_k) {
-		//Encore private key with aes-128
-		return null;
+
+	private String encodePrivate(PrivateKey private_k) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException {
+		//DO NOT WORK
+		SecretKey originalKey = new SecretKeySpec(hashPhrase, 0, hashPhrase.length, "AES");
+		Cipher cipher = Cipher.getInstance("AES");
+		cipher.init(Cipher.ENCRYPT_MODE, originalKey);
+		System.out.println("private k len "+private_k.toString().getBytes().length);
+		System.out.println("private key bytes : "+private_k.toString().getBytes());
+		
+		byte[] ciphertext = cipher.doFinal(private_k.toString().getBytes());
+		System.out.println("ciphertext : "+ciphertext.toString());
+		System.out.println(ciphertext);
+		System.out.println(ciphertext.toString().getBytes());
+		Cipher cipher2 = Cipher.getInstance("AES");
+		
+		cipher2.init(Cipher.DECRYPT_MODE, originalKey);
+		byte[] plaintext = cipher2.doFinal(ciphertext.toString().getBytes());
+		System.out.println("plaintext : "+plaintext);
+		
+		return ciphertext.toString();
 	}
 
-	private void getKeysFromFile(String key_file_path) {
-		// TODO Auto-generated method stub
+	private ArrayList<String> getKeysFromFile(String key_file_path) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException {
+		ArrayList<String> keys = new ArrayList<String>();
+		BufferedReader br = new BufferedReader(new FileReader(key_file_path));
+		String public_k = br.readLine();
+		String private_k = decodePrivate(br.readLine());  
+		keys.add(public_k);
+		keys.add(private_k);
+		return keys;
 		
+	}
+
+	private String decodePrivate(String private_k) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
+		//DO NOT WORK
+		byte[] encodedKey     = Base64.decodeBase64(hashPhrase);
+		SecretKey originalKey = new SecretKeySpec(hashPhrase, 0, hashPhrase.length, "AES");
+		Cipher cipher = Cipher.getInstance("AES");
+		
+		cipher.init(Cipher.DECRYPT_MODE, originalKey);
+		//byte[] iv = cipher.getParameters().getParameterSpec(IvParameterSpec.class).getIV();
+		System.out.println("cipher "+cipher);
+		System.out.println("private k "+private_k);
+		System.out.println("private k len "+private_k.getBytes().length);
+		byte[] plaintext = cipher.doFinal(private_k.getBytes());
+		System.out.println("plaintext : "+plaintext.toString());
+		return plaintext.toString();
 	}
 
 	public void makeTransaction(){
