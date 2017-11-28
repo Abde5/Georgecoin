@@ -14,4 +14,20 @@ public class Block {
 		timestamp = time;
 		nonce = nonce_block;
 	}
+	public String getPreviousHash(){
+		return previousHash;
+	}
+
+	public String getHashBlock() {
+		return hashBlock;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public int getNonce() {
+		return nonce;
+	}
 }
+

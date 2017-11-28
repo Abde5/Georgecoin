@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @RequestMapping("/miner")
 
 public class MinerService {
-    private Miner miner= new Miner(8082,8080);
+    private Miner miner= new Miner("localhost",8082);
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody String test(final @RequestBody(required = false)String msg) {
@@ -26,7 +26,8 @@ public class MinerService {
         String transactionsForMiners=jsonObj.get("alltransactions").toString();
         if (transactionsForMiners.length()>0){
             String block=miner.computeBlock(transactionsForMiners);
-            miner.launchClient();
+            miner.launchClient(miner.getRelayHostname(),miner.getRelayPort());
+            System.out.println("Sending computed BLOCK");
             miner.sendBlock(block);
         }
         return "OkFromMiner";

@@ -14,17 +14,17 @@ public class MasterNode {
     private int portServer;
     private int portClient;
     private ArrayList<String> transactionReceived;
-    private ArrayList<String> relayConnected;
-    private ArrayList<Block> blockChain;
+    private ArrayList<String> relaysConnected;
+    private static ArrayList<Block> blockChain;
 
     public MasterNode(int portServer,int portClient) {
         this.portServer=portServer;
         this.portClient=portClient;
         transactionReceived = new ArrayList<String>();
-        relayConnected=new ArrayList<String>();
-        server = new ServerCore(this.portServer);
-        client = new Client("localhost",this.portClient);
-        blockChain = new ArrayList<Block>();
+        relaysConnected=new ArrayList<String>();
+        server = new ServerCore("localhost",this.portServer);
+
+
     }
 
     public void launchServer(){
@@ -33,18 +33,25 @@ public class MasterNode {
         threadServer.start();
     }
 
-    public void launchClient(){
-        System.out.println("DemarageClient");
-        generateFirstBlock();
+    public void launchClient(String hostname,int port){
+        client = new Client(hostname,port);
         Thread threadClient = new Thread(client);
         //threadClient.setDaemon(true);
         threadClient.start();
         //client.sendMessage("master","RN vers Master");
     }
 
-    public void sendToRelay(String msg){
-        System.out.println("Envoi au relay");
-        client.sendMessage("relay",msg);
+    public String sendToRelay(String msg){
+        String resp=client.sendMessage("relay",msg);
+        return resp;
+    }
+    public void sendToALLRelays(String msg){
+        for (int i=0;i<getNumberOfRelays();i++){
+            String[] hostInfo=relaysConnected.get(i).split(":");
+            launchClient(hostInfo[0],Integer.parseInt(hostInfo[1]));
+            sendToRelay(msg);
+        }
+
     }
 
     public void addTransaction(String message){
@@ -71,7 +78,8 @@ public class MasterNode {
     }
     
     public void generateFirstBlock(){
-    	if(blockChain.size() > 0){
+        blockChain = new ArrayList<Block>();
+    	if(blockChain.size() == 0){
         	Block firstBlock = new Block("0", "currenthash", new Timestamp(System.currentTimeMillis()), 0);
         	blockChain.add(firstBlock);
         	System.out.println("first block in blockchain + " + blockChain.size());
@@ -81,31 +89,13 @@ public class MasterNode {
     public String acceptBlock(String block){
     	JSONObject jsonObj = new JSONObject(block);
     	Block newBlock = JSONtoBlock(jsonObj);
-    	
-    	//check previousHash
     	if (checkPreviousHash(newBlock)){
-    		System.out.println("block accepted by master");
+    		System.out.println("BLOCK accepted by master");
     		blockChain.add(newBlock);
     		return blockToJSON().toString();
     	}
-    	System.out.println("block not accepted by master");
+    	System.out.println("BLOCK denied by master");
     	return "notAccepted";
-    	
-        //-----------------------------
-        //Check a accepter et retrouner le blockchain
-        //------------------------------
-        /*blockChain = new JSONObject()
-                .put("type", "BlockChain")
-                .put("BLOCK1",new JSONObject()
-                        .put("Tx0","transact0")
-                        .put("Tx1","transact1")
-                        .put("Tx2","transact2")
-                        .put("Tx3","transact3"))
-                .put("BLOCK2",new JSONObject()
-                        .put("Tx0","transact0")
-                        .put("Tx1","transact1")
-                        .put("Tx2","transact2")
-                        .put("Tx3","transact3")).toString();*/
     }
     
     public Boolean checkPreviousHash(Block block){
@@ -138,5 +128,16 @@ public class MasterNode {
     
     public Timestamp stringToTimestamp(String time){
     	return Timestamp.valueOf(time);
+    }
+
+    public void addRelay(String source){
+        if (!relaysConnected.contains(source)){
+            relaysConnected.add(source);
+        }
+    }
+
+    public int getNumberOfRelays(){
+        //System.out.print(transactionReceived.get(0));
+        return relaysConnected.size();
     }
 }

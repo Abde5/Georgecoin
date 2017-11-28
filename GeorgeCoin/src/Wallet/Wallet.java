@@ -34,8 +34,9 @@ public class Wallet {
     public void makeTransaction(){
         String jsonString = new JSONObject()
                 .put("type", "newTransaction")
-                .put("source", "localhost:8080")
-                .put("message","ca fonctionne").toString();
+                .put("sourceWallet", "localhost:8080")
+                .put("transaction","transaction ici en JSON").toString();
+        System.out.println("Making a transaction : "+ jsonString);
         client.sendMessage("relay",jsonString);
     }
 

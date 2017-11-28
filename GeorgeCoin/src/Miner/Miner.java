@@ -4,38 +4,67 @@ import Client.Client;
 import Server.ServerCore;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 
 public class Miner {
     private Client client;
     private ServerCore server;
+    private String hostName;
     private int portServer;
-    private int portClient;
 
-    public Miner(int portServer,int portClient) {
+    private static String relayHostname;
+    private static int relayPort;
+    private ArrayList<String> allRelay;
+
+    public Miner(String hostnameServer,int portServer) {
+        this.hostName=hostnameServer;
         this.portServer = portServer;
-        this.portClient = portClient;
-        server = new ServerCore(portServer);
-        client = new Client("localhost", portClient);
+        server = new ServerCore(this.hostName,this.portServer);
+        //client = new Client("localhost", this.portClient);
         //wallet =new Wallet():
-
+        allRelay= new ArrayList<String>(){{
+            add("localhost:8080");
+            //ajouter les autre relay
+        }};
 
     }
 
-    public void sendWhoAMI(){
+    public Boolean sendWhoAMI(){
         String jsonString = new JSONObject()
                 .put("type", "newMinerConnected")
                 .put("source", "localhost:8082").toString();
-        client.sendMessage("relay",jsonString);
+        String resp=client.sendMessage("relay",jsonString);
+        if (!resp.equals("NotPaired")) {
+            String[] hostInfo = resp.split(":");
+            this.relayHostname = hostInfo[0];
+            this.relayPort = Integer.parseInt(hostInfo[1]);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
-    public void launchClient(){
-
-        //client = new Client("localhost",portClient);
+    public void launchClient(String hostname,int port){
+        client = new Client(hostname,port);
         Thread thread = new Thread(client);
         //thread.setDaemon(true);
         thread.start();
+    }
+
+    public void connectToRelay(){
+        Boolean foundRelay=false;
+        int i=0;
+        while (!foundRelay){
+            String[] hostInfo=allRelay.get(i).split(":");
+            launchClient(hostInfo[0],Integer.parseInt(hostInfo[1]));
+            foundRelay=sendWhoAMI();
+            i++;
+            i=i%getNumerOfRelay();
+        }
+        System.out.println("Connected to : "+this.getRelayHostname()+":"+this.getRelayPort());
     }
 
     public void launchServer(){
@@ -66,5 +95,16 @@ public class Miner {
 
     public void sendBlock(String msg){
         client.sendMessage("relay",msg);
+    }
+
+    public String getRelayHostname(){
+        return relayHostname;
+    }
+
+    public int getRelayPort(){
+        return this.relayPort;
+    }
+    public int getNumerOfRelay(){
+        return allRelay.size();
     }
 }

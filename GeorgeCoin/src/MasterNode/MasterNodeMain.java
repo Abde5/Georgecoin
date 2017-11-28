@@ -3,8 +3,9 @@ package MasterNode;
 public class MasterNodeMain {
 
     public static void main(final String[] args) {
-        MasterNode server = new MasterNode(8081,8080);
-        server.launchServer();
+        MasterNode master = new MasterNode(8081,8080);
+        master.generateFirstBlock();
+        master.launchServer();
 
     }
 }

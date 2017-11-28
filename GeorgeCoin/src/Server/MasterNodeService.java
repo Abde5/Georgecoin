@@ -21,26 +21,29 @@ public class MasterNodeService {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody String test(final @RequestBody(required = false)String msg) {
-        System.out.println("Got a msg : "+msg);
+        //System.out.println("Got a msg : "+msg);
         JSONObject jsonObj = new JSONObject(msg);
 
         String type=jsonObj.get("type").toString();
         if (type.equals("newTransaction")) {
-            master.addTransaction(msg);
+            System.out.println("Got a new transaction : "+ msg);
+            String sourceRelay=jsonObj.get("sourceRelay").toString();
+            String transaction=jsonObj.get("transaction").toString();
+            master.addTransaction(transaction);
+            master.addRelay(sourceRelay);
             if (master.getNumberOfTransaction() == 4) {
+                System.out.println("Got 4 transactions!");
                 String messageForMiners=master.getTransactionsForMining();
-                master.launchClient();
-                master.sendToRelay(messageForMiners);
+                System.out.println("Sending BLOCK to all relays");
+                master.sendToALLRelays(messageForMiners);
+
             }
         }
         else if (type.equals("Block")) {
-            System.out.println("Got a BLOCK: "+msg);
-            //------------------------------------------
-            // STOCKER BLOCK CHAIN ET LE RENVOYER
-            //------------------------------------------
+            System.out.println("Got a COMPUTED BLOCK: "+msg);
             String newBlockChain=master.acceptBlock(msg);
-            master.launchClient();
-            master.sendToRelay(newBlockChain);
+            System.out.println("Sending BLOCKCHAIN to all relays");
+            master.sendToALLRelays(newBlockChain);
         }
         return "OkFromMaster";
     }

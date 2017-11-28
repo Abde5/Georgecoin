@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class RelayNode {
 
-
-    private String hostNameClient;
+    private String hostnameServer;
+    private String hostNameMaster;
     private int portClientMaster;
     private int portServer;
     private ServerCore server;
@@ -17,22 +17,28 @@ public class RelayNode {
     private ArrayList<String> minerConnected;
     private String BlockChain;
 
-    public RelayNode(int portServer,int portClientMaster) {
+    public RelayNode(String hostname,int portServer,String hostnameMaster,int portClientMaster) {
 
         walletConnected=new ArrayList<String>();
         minerConnected=new ArrayList<String>();
+        this.hostnameServer=hostname;
         this.portServer=portServer;
+        this.hostNameMaster=hostnameMaster;
         this.portClientMaster=portClientMaster;
-        server = new ServerCore(portServer);
-        clientMaster = new Client("localhost",this.portClientMaster);
+        server = new ServerCore(hostnameServer,this.portServer);
+        clientMaster = new Client(this.hostNameMaster,this.portClientMaster);
     }
 
+    public String WhoAMI(){
+        return this.hostnameServer+":"+this.portServer;
+    }
     public void sendToMaster(String msg){
-        System.out.println("OEnvoi au master");
+
         clientMaster.sendMessage("master",msg);
     }
 
     public void sendToMiners(String msg){
+
         clientMiners.sendMessage("miner",msg);
     }
 
