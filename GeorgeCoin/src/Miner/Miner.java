@@ -16,8 +16,6 @@ public class Miner {
         server = new ServerCore(portServer);
         client = new Client("localhost", portClient);
         //wallet =new Wallet():
-
-
     }
 
     public void sendWhoAMI(){
@@ -47,9 +45,9 @@ public class Miner {
         String Tx1=jsonObj.get("Tx1").toString();
         String Tx2=jsonObj.get("Tx2").toString();
         String Tx3=jsonObj.get("Tx3").toString();
-        // ---------------------------------------
-        // COMPUTATION OF THE BLOCK HERE
-        // ---------------------------------------
+        
+        mineBlock(Tx0, Tx1, Tx2, Tx3);
+        
         String block= new JSONObject()
                 .put("type","Block")
                 .put("source","localhost:8082")
@@ -62,5 +60,12 @@ public class Miner {
 
     public void sendBlock(String msg){
         client.sendMessage("relay",msg);
+    }
+    
+    public String mineBlock(String trans1, String trans2, String trans3, String trans4){
+    	// ---------------------------------------
+        // COMPUTATION OF THE BLOCK HERE
+        // ---------------------------------------
+    	return "mined";
     }
 }
