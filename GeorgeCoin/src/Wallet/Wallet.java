@@ -3,10 +3,14 @@ package Wallet;
 import Client.Client;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Console;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
@@ -23,11 +27,23 @@ public class Wallet {
     private String address;
     
 
-    public Wallet(int port){
+    public Wallet(int port) throws IOException{
         client = new Client("localhost",port);
+        
+        walletClient();
+        
         Thread thread = new Thread(client);
         //thread.setDaemon(true);
         thread.start();
+        
+    }
+    
+    public void walletClient() throws IOException{
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	System.out.print("Enter your sentence: ");
+    	String sentence = br.readLine();
+    	System.out.print("Enter your password: ");
+    	String password = br.readLine();
 
     }
 
@@ -91,4 +107,17 @@ public class Wallet {
         }
     }
 }
+
+
+/*
+ * Demander mot de passe + phrase au client
+ * concatener les deux et hasher avec sha256
+ * la mettre dans un fichier
+ * 
+ * génerer public et private key
+ * 
+ * public key avec RIPM va donner adresse
+ * 
+ * wallet est créé
+ */
 

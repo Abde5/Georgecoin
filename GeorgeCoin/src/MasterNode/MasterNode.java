@@ -55,7 +55,7 @@ public class MasterNode {
         //System.out.print(transactionReceived.get(0));
         return transactionReceived.size();
     }
-
+    
     public String getTransactionsForMining(){
         String jsonString = new JSONObject()
                 .put("type", "readyForMining")
