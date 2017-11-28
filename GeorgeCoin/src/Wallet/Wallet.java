@@ -6,13 +6,18 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Console;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
@@ -25,9 +30,10 @@ public class Wallet {
     private Client client;
     private String blockChain;
     private String address;
+    private String passPhrase;
     
 
-    public Wallet(int port) throws IOException{
+    public Wallet(int port) throws IOException, NoSuchAlgorithmException{
         client = new Client("localhost",port);
         
         walletClient();
@@ -38,16 +44,53 @@ public class Wallet {
         
     }
     
-    public void walletClient() throws IOException{
+    public void walletClient() throws IOException, NoSuchAlgorithmException{
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	System.out.print("Enter your sentence: ");
     	String sentence = br.readLine();
     	System.out.print("Enter your password: ");
     	String password = br.readLine();
+    	passPhrase = password+sentence;
+    	checkExistingUser();
 
     }
 
-    public void makeTransaction(){
+    private void checkExistingUser() throws NoSuchAlgorithmException, FileNotFoundException, UnsupportedEncodingException {
+		String key_file_path = "keys.txt";
+		File key_file = new File(key_file_path);
+		if(key_file.exists() && !key_file.isDirectory()) { 
+		    getKeysFromFile(key_file_path);
+		}
+		else{
+			setKeysInFile(key_file_path);
+		}
+		
+	}
+
+	private void setKeysInFile(String key_file_path) throws NoSuchAlgorithmException, FileNotFoundException, UnsupportedEncodingException {
+		 KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
+         keyGen.initialize(1024, new SecureRandom());
+         KeyPair pair = keyGen.generateKeyPair();
+         PublicKey public_k = pair.getPublic();
+         PrivateKey private_k = pair.getPrivate();
+         PrintWriter fileWriter = new PrintWriter(key_file_path, "UTF-8");
+         fileWriter.println(public_k.toString());
+         fileWriter.println(encodePrivate(private_k));
+         fileWriter.close();
+		
+	}
+
+	private char[] encodePrivate(PrivateKey private_k) {
+		//Encore private key with aes-128
+		return null;
+	}
+
+	private void getKeysFromFile(String key_file_path) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void makeTransaction(){
         String jsonString = new JSONObject()
                 .put("type", "newTransaction")
                 .put("source", "localhost:8080")
