@@ -2,6 +2,9 @@ package Miner;
 
 import Client.Client;
 import Server.ServerCore;
+
+import java.sql.Timestamp;
+
 import org.json.JSONObject;
 
 public class Miner {
@@ -54,9 +57,10 @@ public class Miner {
                 .put("type","Block")
                 .put("source","localhost:8082")
                 .put("block",new JSONObject()
-                        .put("header","header")
-                    .put("Nonce","ici nonce")
-                    .put("Transaction","transaction")).toString();
+                    .put("previousHash","0")
+                    .put("hashBlock","hash block")
+                    .put("timestamp", (new Timestamp(System.currentTimeMillis())).toString())
+                    .put("nonce","1")).toString();
         return block;
     }
 

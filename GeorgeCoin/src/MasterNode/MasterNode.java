@@ -4,6 +4,7 @@ import Server.ServerCore;
 import Client.Client;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MasterNode {
@@ -14,6 +15,7 @@ public class MasterNode {
     private int portClient;
     private ArrayList<String> transactionReceived;
     private ArrayList<String> relayConnected;
+    private ArrayList<Block> blockChain;
 
     public MasterNode(int portServer,int portClient) {
         this.portServer=portServer;
@@ -22,6 +24,7 @@ public class MasterNode {
         relayConnected=new ArrayList<String>();
         server = new ServerCore(this.portServer);
         client = new Client("localhost",this.portClient);
+        blockChain = new ArrayList<Block>();
     }
 
     public void launchServer(){
@@ -31,7 +34,8 @@ public class MasterNode {
     }
 
     public void launchClient(){
-        System.out.print("DemarageClient");
+        System.out.println("DemarageClient");
+        generateFirstBlock();
         Thread threadClient = new Thread(client);
         //threadClient.setDaemon(true);
         threadClient.start();
@@ -39,7 +43,7 @@ public class MasterNode {
     }
 
     public void sendToRelay(String msg){
-        System.out.println("OEnvoi au relay");
+        System.out.println("Envoi au relay");
         client.sendMessage("relay",msg);
     }
 
@@ -65,13 +69,32 @@ public class MasterNode {
         transactionReceived.clear();
         return jsonString;
     }
+    
+    public void generateFirstBlock(){
+    	if(blockChain.size() > 0){
+        	Block firstBlock = new Block("0", "currenthash", new Timestamp(System.currentTimeMillis()), 0);
+        	blockChain.add(firstBlock);
+        	System.out.println("first block in blockchain + " + blockChain.size());
+    	}
+    }
 
     public String acceptBlock(String block){
-
+    	JSONObject jsonObj = new JSONObject(block);
+    	Block newBlock = JSONtoBlock(jsonObj);
+    	
+    	//check previousHash
+    	if (checkPreviousHash(newBlock)){
+    		System.out.println("block accepted by master");
+    		blockChain.add(newBlock);
+    		return blockToJSON().toString();
+    	}
+    	System.out.println("block not accepted by master");
+    	return "notAccepted";
+    	
         //-----------------------------
         //Check a accepter et retrouner le blockchain
         //------------------------------
-        String blockChain = new JSONObject()
+        /*blockChain = new JSONObject()
                 .put("type", "BlockChain")
                 .put("BLOCK1",new JSONObject()
                         .put("Tx0","transact0")
@@ -82,8 +105,38 @@ public class MasterNode {
                         .put("Tx0","transact0")
                         .put("Tx1","transact1")
                         .put("Tx2","transact2")
-                        .put("Tx3","transact3")).toString();
-
-        return blockChain;
+                        .put("Tx3","transact3")).toString();*/
+    }
+    
+    public Boolean checkPreviousHash(Block block){
+    	if(block.previousHash.equals(blockChain.get(blockChain.size()-1).previousHash)){
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public JSONObject blockToJSON(){
+    	JSONObject json = new JSONObject();
+    	json.put("type", "BlockChain");
+    	for(int i=0; i<blockChain.size(); i++){
+    		json.put(Integer.toString(i), new JSONObject()
+    				.put("previousHash", blockChain.get(i).previousHash)
+    				.put("blockHash", blockChain.get(i).hashBlock)
+    				.put("timestamp", blockChain.get(i).timestamp)
+    				.put("nonce", blockChain.get(i).nonce));
+    	}
+    	return json;
+    }
+    
+    public Block JSONtoBlock(JSONObject jsonObj){
+    	Block block = new Block(jsonObj.getJSONObject("block").getString("previousHash"), 
+    							jsonObj.getJSONObject("block").getString("hashBlock"),
+    							stringToTimestamp(jsonObj.getJSONObject("block").getString("timestamp")),
+    							Integer.parseInt(jsonObj.getJSONObject("block").getString("nonce")));
+    	return block;
+    }
+    
+    public Timestamp stringToTimestamp(String time){
+    	return Timestamp.valueOf(time);
     }
 }
