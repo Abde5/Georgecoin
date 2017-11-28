@@ -13,11 +13,13 @@ public class MasterNode {
     private int portServer;
     private int portClient;
     private ArrayList<String> transactionReceived;
+    private ArrayList<String> relayConnected;
 
     public MasterNode(int portServer,int portClient) {
         this.portServer=portServer;
         this.portClient=portClient;
         transactionReceived = new ArrayList<String>();
+        relayConnected=new ArrayList<String>();
         server = new ServerCore(this.portServer);
         client = new Client("localhost",this.portClient);
     }
