@@ -1,6 +1,7 @@
 package RelayNode;
 import Server.*;
 import Client.*;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -73,7 +74,13 @@ public class RelayNode {
 
         }
     }
-
+    public void getBlockChainFromMaster(){
+        System.out.println("Getting a copy of the BLOCKCHAIN.");
+        launchClientMaster();
+        String jsonobj=new JSONObject().put("type","GiveMeTheBlockChain").toString();
+        String response=clientMaster.sendMessage("master",jsonobj);
+        saveBlockChain(response);
+    }
     public void addWallet(String clientHost){
         walletConnected.add(clientHost);
     }

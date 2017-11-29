@@ -81,11 +81,12 @@ public class Miner {
 
     public String computeBlock(String transactions){
         JSONObject jsonObj = new JSONObject(transactions);
+        String previousHash=jsonObj.get("previousHash").toString();
         String Tx0=jsonObj.get("Tx0").toString();
         String Tx1=jsonObj.get("Tx1").toString();
         String Tx2=jsonObj.get("Tx2").toString();
         String Tx3=jsonObj.get("Tx3").toString();
-        
+        System.out.print("Starting computation");
         try {
 			encryptTransactions(Tx0, Tx1, Tx2, Tx3);
 		} catch (NoSuchAlgorithmException e) {

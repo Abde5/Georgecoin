@@ -17,6 +17,7 @@ public class MasterNode {
     private ArrayList<String> transactionReceived;
     private ArrayList<String> relaysConnected;
     private static ArrayList<Block> blockChain;
+    private String previousHash="0";
 
     public MasterNode(String hostnameServ,int portServer,int portClient) {
         this.hostName=hostnameServ;
@@ -71,6 +72,7 @@ public class MasterNode {
         String jsonString = new JSONObject()
                 .put("type", "readyForMining")
                 .put("alltransactions",new JSONObject()
+                        .put("previousHash",previousHash)
                         .put("Tx0",transactionReceived.get(0))
                         .put("Tx1",transactionReceived.get(1))
                         .put("Tx2",transactionReceived.get(2))
@@ -82,9 +84,9 @@ public class MasterNode {
     public void generateFirstBlock(){
         blockChain = new ArrayList<Block>();
     	if(blockChain.size() == 0){
-        	Block firstBlock = new Block("0", "currenthash", new Timestamp(System.currentTimeMillis()), 0);
+        	Block firstBlock = new Block(previousHash, "currenthash", new Timestamp(System.currentTimeMillis()), 0);
         	blockChain.add(firstBlock);
-        	System.out.println("first block in blockchain + " + blockChain.size());
+        	System.out.println("first block of the BLOCKCHAIN generated.");
     	}
     }
 
@@ -93,6 +95,7 @@ public class MasterNode {
     	Block newBlock = JSONtoBlock(jsonObj);
     	if (checkPreviousHash(newBlock)){
     		System.out.println("BLOCK accepted by master");
+    		previousHash=newBlock.getHashBlock();
     		blockChain.add(newBlock);
     		return blockToJSON().toString();
     	}

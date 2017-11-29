@@ -46,7 +46,7 @@ public class RelayNodeService {
 		}
 		else if (type.equals("readyForMining")){
 			if (relay.getMinerNumber()>0) {
-				System.out.println("Got a BLOCK for the Miners, forwarding ");
+				System.out.println("Got a BLOCK for the Miners, forwarding "+msg);
 				String alltransactions= new JSONObject().put("alltransactions",jsonObj.get("alltransactions")).toString();
 
 				relay.sendToALLMiners(alltransactions);
