@@ -3,23 +3,12 @@ package Wallet;
 import Client.Client;
 
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.Console;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -32,12 +21,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.Signature;
 import java.security.spec.InvalidParameterSpecException;
-import java.security.spec.KeySpec;
 import java.util.ArrayList;
-
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 
 public class Wallet {
@@ -51,14 +36,19 @@ public class Wallet {
     private String privateKey;
     
 
-    public Wallet(int port) throws IOException, NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException{
-        client = new Client("localhost",port);
+    public Wallet(int port) throws Exception{
+        //client = new Client("localhost",port);
+    	new Keys();
+    	//DSAPrivateKey@fffd1a27
+    	
+    	//[B@75412c2f
+    	//[B@6d06d69c
+    	
+        //walletClient();
         
-        walletClient();
-        
-        Thread thread = new Thread(client);
+        //Thread thread = new Thread(client);
         //thread.setDaemon(true);
-        thread.start();
+        //thread.start();
         
     }
     
@@ -73,7 +63,6 @@ public class Wallet {
     	MessageDigest digest = MessageDigest.getInstance("MD5");
     	hashPhrase = digest.digest(passPhrase.getBytes(StandardCharsets.UTF_8));
     	System.out.println(hashPhrase.length);
-    	
     	checkExistingUser();
 
     }
@@ -88,7 +77,6 @@ public class Wallet {
 		else{
 			setKeysInFile(key_file_path);
 		}
-		
 	}
 
 	private void setKeysInFile(String key_file_path) throws NoSuchAlgorithmException, FileNotFoundException, UnsupportedEncodingException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException {
@@ -97,11 +85,12 @@ public class Wallet {
          KeyPair pair = keyGen.generateKeyPair();
          PublicKey public_k = pair.getPublic();
          PrivateKey private_k = pair.getPrivate();
-         PrintWriter fileWriter = new PrintWriter(key_file_path, "UTF-32");
-         fileWriter.println(public_k.getEncoded());
+         System.out.println("writing keys " + public_k.toString() + private_k.toString());
+         PrintWriter fileWriter = new PrintWriter(key_file_path, "UTF-8");
+         //fileWriter.println(public_k.getEncoded());
+         fileWriter.println(public_k);
          fileWriter.println(encodePrivate(private_k));
          fileWriter.close();
-		
 	}
 
 
@@ -115,7 +104,6 @@ public class Wallet {
 		
 		byte[] ciphertext = cipher.doFinal(private_k.toString().getBytes());
 		System.out.println("ciphertext : "+ciphertext.toString());
-		System.out.println(ciphertext);
 		System.out.println(ciphertext.toString().getBytes());
 		Cipher cipher2 = Cipher.getInstance("AES");
 		
@@ -134,12 +122,11 @@ public class Wallet {
 		keys.add(public_k);
 		keys.add(private_k);
 		return keys;
-		
 	}
 
 	private String decodePrivate(String private_k) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
 		//DO NOT WORK
-		byte[] encodedKey     = Base64.decodeBase64(hashPhrase);
+		//byte[] encodedKey     = Base64.decodeBase64(hashPhrase);
 		SecretKey originalKey = new SecretKeySpec(hashPhrase, 0, hashPhrase.length, "AES");
 		Cipher cipher = Cipher.getInstance("AES");
 		

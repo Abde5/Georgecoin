@@ -12,9 +12,9 @@ import javax.crypto.NoSuchPaddingException;
 public class WalletMain {
 
 	
-	  public static void main(final String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidParameterSpecException {
+	  public static void main(final String[] args) throws Exception {
 		  Wallet wallet = new Wallet(8080);
-		  wallet.makeTransaction(); // -> devrait etre JSON SOURCE,DEST,MONTANT
+		  //wallet.makeTransaction(); // -> devrait etre JSON SOURCE,DEST,MONTANT
 		  //wallet.requestBlockChain();
 	  }
 	  
