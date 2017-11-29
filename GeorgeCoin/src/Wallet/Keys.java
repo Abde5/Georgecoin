@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -67,10 +68,6 @@ public class Keys {
     	System.out.println(passPhrase.getBytes().length);
     	
     	MessageDigest digest = MessageDigest.getInstance("MD5");
-    	byte[] passbyte = passPhrase.getBytes(StandardCharsets.UTF_8);
-    	String bytepass = new String(passbyte, StandardCharsets.UTF_8);
-    	System.out.println("passbyte : " + passPhrase.getBytes(StandardCharsets.UTF_8));
-    	System.out.println("bytepass : " + bytepass);
     	hashPhrase = digest.digest(passPhrase.getBytes(StandardCharsets.UTF_8));
     	
     	System.out.println(hashPhrase.length);
@@ -85,13 +82,13 @@ public class Keys {
 		String key_private_path = "key_private.txt";
 		File key_public_file = new File(key_public_path);
 		File key_private_file = new File(key_private_path);
-		if(key_public_file.exists() && key_private_file.exists() && !key_public_file.isDirectory() && !key_private_file.isDirectory()) {
-			System.out.println("true");
-		    getKeysFromFile(key_public_path, key_private_path);
-		}
-		else{
+		//if(key_public_file.exists() && key_private_file.exists() && !key_public_file.isDirectory() && !key_private_file.isDirectory()) {
+			//System.out.println("true");
+		    //getKeysFromFile(key_public_path, key_private_path);
+		//}
+		//else{
 			setKeysInFile(key_public_path, key_private_path);
-		}
+		//}
 	}
     
     private void genKeys() throws NoSuchAlgorithmException{
@@ -110,15 +107,18 @@ public class Keys {
         //f_priv.write(encodePrivate());
         f_pub.close();
         //f_priv.close();
-        System.out.println("e : " + private_k.getEncoded());
+        System.out.println("private key enc clair en bytes : " + private_k.getEncoded());
         //Path path = Paths.get(path_priv);
         byte[] bytes = encodePrivate();
-        System.out.println("write : " + bytes);
-        
-        String text = Hex.encodeHexString(bytes);
-        System.out.print("write text: " + text);
+		System.out.println("bytes: " + bytes[0]);
+		System.out.println("bytes type: " + bytes.getClass().getName());
+        String text = new String(bytes, StandardCharsets.UTF_8);
+		byte[] test1=text.getBytes(StandardCharsets.UTF_8);
+        System.out.println("write text: " + text);
+		System.out.println("write text: " + test1.toString());
+
         PrintWriter fileWriter = new PrintWriter(path_priv);
-        fileWriter.println(text);
+        fileWriter.println(bytes.toString());
         fileWriter.close();
 	}
     
@@ -131,8 +131,8 @@ public class Keys {
 		        encryptionKey);
 		byte[] cipherText = advancedEncryptionStandard.encrypt(plainText);
 		
-		System.out.println("cipher dans encrypt : " + cipherText);
-		System.out.println("cipher dans encrypt : " + cipherText.length);
+		System.out.println("private key encrypté : " + cipherText);
+		System.out.println("private key length : " + cipherText.length);
 		//byte[] decryptedCipherText = advancedEncryptionStandard.decrypt(cipherText);
 
 		//System.out.println(new String(plainText));
@@ -151,20 +151,24 @@ public class Keys {
 		byte[] public_k = Files.readAllBytes(path);
 		
 		path = Paths.get(key_private_path);
-		byte[] ciphertex = Files.readAllBytes(path);
+		//byte[] ciphertex = Files.readAllBytes(path);
 		String cipher = br_priv.readLine();
 		//String cipher = new String(cipher, StandardCharsets.UTF_8);
 		
 		//System.out.println("cipher dans decrypt : " + cipher.getBytes(StandardCharsets.UTF_8));
 		//System.out.println("cipher dans decrypt : " + ciphertex);
 		System.out.println("text read: " + cipher);
-		System.out.println("back to bytes: " + hexStringToByteArray(cipher));
-		
-		byte[] decrypted = advancedEncryptionStandard.decrypt(ciphertex); 
+		System.out.println("back to bytes: " +new BigInteger(cipher,16).toByteArray()); //->>>OK
+		System.out.println(cipher.length());
+		byte[] ciphertex= new BigInteger(cipher,16).toByteArray();
+		System.out.println(ciphertex.length);
+		byte[] decrypted = advancedEncryptionStandard.decrypt(ciphertex);
 		
 		System.out.println("decrypt : " + decrypted);
+
+		//-------- OK ----------
 		System.out.println("private dans decrypt : " + private_k.getEncoded());
-		if(Arrays.equals(ciphertex, private_k.getEncoded())){
+		if(Arrays.equals(decrypted, private_k.getEncoded())){
 			System.out.println("same");
 		}
 		else{
@@ -181,9 +185,14 @@ public class Keys {
 	    }
 	    return data;
 	    
-	    //private key encoded =  [B@61bbe9ba =plaintext
-	    
-	    //hex = 5f73ac8f27c4c85766931a2e
-	    //on ecrit dans le fichier cyphertext =  [B@13b6d03
+
 	}
 }
+
+
+
+//private key enc clair en bytes : [B@1d81eb93
+//335
+//		16
+//private key encrypté : [B@19dfb72a
+//private key length : 336
