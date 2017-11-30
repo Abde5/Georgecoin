@@ -38,7 +38,7 @@ public class Wallet {
 
     public Wallet(int port) throws Exception{
         //client = new Client("localhost",port);
-    	new Keys();
+    	new PrivateKeys();
     	//DSAPrivateKey@fffd1a27
     	
     	//[B@75412c2f
