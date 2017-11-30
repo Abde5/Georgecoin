@@ -17,6 +17,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class PrivateKeys {
 	private String passPhrase;
@@ -65,30 +70,22 @@ public class PrivateKeys {
 		byte[] plainText = private_k.getEncoded();
 		String cle = new String(plainText, StandardCharsets.UTF_8);
 		System.out.println("key string : " +cle);
+	
 		
-		String cleEncrypted = new String(encodePrivate(), StandardCharsets.UTF_8);
-		System.out.println("encrypted key string : " +cleEncrypted);
-		System.out.println("encrypted key byte : "+encodePrivate());
+		byte[] keyBytes = encodePrivate();
+		//String cleEncrypted = new String(encodePrivate(), StandardCharsets.UTF_8);
+		System.out.println("encrypted key string : " +keyBytes);
+		//System.out.println("encrypted key byte : "+encodePrivate());
 		
-		FileOutputStream fos = new FileOutputStream(key_private_path);
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(cleEncrypted);
-		oos.close();
+		Path myFile = Paths.get("",key_private_path);
+		Files.write(myFile, keyBytes, StandardOpenOption.CREATE_NEW);
 		
-		FileInputStream fis = new FileInputStream(key_private_path);
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		String str = (String) ois.readObject();
-		
-		System.out.println("encrypted key string from read : "+ str);	
-		
-		byte[] ciphertex= new BigInteger(str,16).toByteArray();
-		//BigInteger cipher = new BigInteger(str.)
-		//byte[] ciphertex = str.getBytes(StandardCharsets.UTF_8);
+		byte[] ciphertex = Files.readAllBytes(myFile);
 		byte[] decrypted = advancedEncryptionStandard.decrypt(ciphertex);
-		ois.close();
 
 		String decrypt = new String(decrypted, StandardCharsets.UTF_8);
 		System.out.println("decrypted key string from read : "+ decrypt);	
+		
 	}
     
 	private byte[] encodePrivate() throws Exception {
