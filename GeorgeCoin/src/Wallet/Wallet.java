@@ -1,24 +1,17 @@
 package Wallet;
 
 import Client.Client;
-
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
@@ -26,31 +19,30 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.spec.InvalidParameterSpecException;
-import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.json.JSONObject;
 
 public class Wallet {
-
     private Client client;
     private String blockChain;
-    private String address;
+    
     private String passPhrase;
     private byte[] hashPhrase;
     private PublicKey public_k;
-    private static PrivateKey private_k;
+    private PrivateKey private_k;
+    private byte[] address;
     
+	private String key_public_path = "key_public.txt";
+	private String key_private_path = "key_private.txt";
+	private String address_path = "address.txt";
 
     public Wallet(int port) throws Exception{
-        //client = new Client("localhost",port);
+        client = new Client("localhost",port);
         walletClient();
         
-        //Thread thread = new Thread(client);
-        //thread.setDaemon(true);
-        //thread.start();
-        
+        Thread thread = new Thread(client);
+        thread.setDaemon(true);
+        thread.start();
     }
 
 	public void makeTransaction(){
@@ -73,8 +65,9 @@ public class Wallet {
     public void walletClient() throws Exception{
     	Boolean flag = false;
     	while (!flag){
+    		System.out.println("Please enter your passPhrase and password: ");
 	    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    	System.out.print("Enter your sentence: ");
+	    	System.out.print("Enter your passPhrase: ");
 	    	String sentence = br.readLine();
 	    	System.out.print("Enter your password: ");
 	    	String password = br.readLine();
@@ -90,86 +83,87 @@ public class Wallet {
         digest.reset();
         digest.update(list.getBytes("UTF-8"));
 
-        // so you have 32 bytes here
+        //32 bytes
         byte[]  b = digest.digest();
-
-        // you can return it directly or you can cut it to 16 bytes
+        //return 16 bytes
         return Arrays.copyOf(b, 16);
     }
     
 	private void generateKeys() throws NoSuchAlgorithmException{
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
-        keyGen.initialize(1024);
+        keyGen.initialize(1024, new SecureRandom());
         KeyPair pair = keyGen.generateKeyPair();
         public_k = pair.getPublic();
         private_k = pair.getPrivate();
     }
 	
     private Boolean checkExistingUser() throws Exception {
-		String key_public_path = "key_public.txt";
-		String key_private_path = "key_private.txt";
 		File key_public_file = new File(key_public_path);
 		File key_private_file = new File(key_private_path);
-		if(key_public_file.exists() && key_private_file.exists() && !key_public_file.isDirectory() && !key_private_file.isDirectory()) {
-		    System.out.println("true");
-			return getKeysFromFile(key_public_path, key_private_path);
+		File address_file = new File(address_path);
+		
+		if(key_public_file.exists() && key_private_file.exists() && address_file.exists()
+				&& !key_public_file.isDirectory() && !key_private_file.isDirectory() && !address_file.isDirectory()){
+			address = getAddress();
+			return getKeysFromFile();
 		}
 		else{
 			generateKeys();
-			setKeysInFile(key_public_path, key_private_path);
+			setKeysInFile();
 			return true;
 		}
 	}
     
-	private void setKeysInFile(String key_public_path, String key_private_path) throws Exception {
-		byte[] encryptionKey = hashPhrase;
-		AdvancedEncryptionStandard advancedEncryptionStandard = new AdvancedEncryptionStandard(
-		        encryptionKey);
-		byte[] plainText = private_k.getEncoded();
-		String cle = new String(plainText, StandardCharsets.UTF_8);
-	
+	private void setKeysInFile() throws Exception {
+		byte[] privKeyBytes = encodePrivateKey();
+		Path privFile = Paths.get("",key_private_path);
+		Files.write(privFile, privKeyBytes, StandardOpenOption.CREATE_NEW);
 		
-		byte[] keyBytes = encodePrivate();
+		byte[] pubKeyBytes = public_k.getEncoded();
+		Path pubFile = Paths.get("",key_public_path);
+		Files.write(pubFile, pubKeyBytes, StandardOpenOption.CREATE_NEW);
 		
-		Path myFile = Paths.get("",key_private_path);
-		Files.write(myFile, keyBytes, StandardOpenOption.CREATE_NEW);
-		
-		Path myFile2 = Paths.get("",key_public_path);
-		Files.write(myFile2, public_k.getEncoded(), StandardOpenOption.CREATE_NEW);
-
+		address = Ripemd160.getHash(pubKeyBytes);
+		Path adress = Paths.get("",address_path);
+		Files.write(adress, address, StandardOpenOption.CREATE_NEW);
 	}
 	
-	private byte[] encodePrivate() throws Exception {
-		byte[] encryptionKey = hashPhrase;
+	private byte[] encodePrivateKey() throws Exception {
 		byte[] plainText = private_k.getEncoded();
-		AdvancedEncryptionStandard advancedEncryptionStandard = new AdvancedEncryptionStandard(
-		        encryptionKey);
-		byte[] cipherText = advancedEncryptionStandard.encrypt(plainText);
-		return cipherText;
+		return encrypt(plainText);
 	}
     
-	private Boolean getKeysFromFile(String key_public_path, String key_private_path) throws Exception {
-		byte[] encryptionKey = hashPhrase;
-		AdvancedEncryptionStandard advancedEncryptionStandard = new AdvancedEncryptionStandard(
-		        encryptionKey);
+	private Boolean getKeysFromFile() throws Exception {
 		Path myFile = Paths.get("",key_private_path);
-		byte[] ciphertex = Files.readAllBytes(myFile);
-		
+		byte[] ciphertext = Files.readAllBytes(myFile);
+		return decodePrivate(ciphertext);
+	}
+	
+	private Boolean decodePrivate(byte[] ciphertext) throws Exception{
 		try{
-			byte[] decrypted = advancedEncryptionStandard.decrypt(ciphertex);
-		} catch (BadPaddingException name){
+			decrypt(ciphertext);
+		} catch (BadPaddingException error){
 			return false;
 		}
 		return true;
-	
 	}
+	
+    public byte[] encrypt(byte[] plainText) throws Exception{
+        SecretKeySpec secretKey = new SecretKeySpec(hashPhrase, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        return cipher.doFinal(plainText);
+    }
+    
+    public byte[] decrypt(byte[] cipherText) throws Exception{
+        SecretKeySpec secretKey = new SecretKeySpec(hashPhrase, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        return cipher.doFinal(cipherText);
+    }
+    
+    private byte[] getAddress() throws IOException{
+		Path myFile = Paths.get("",address_path);
+		return Files.readAllBytes(myFile);
+    }
 }
-
-
-
-
-
-
-
-
-
