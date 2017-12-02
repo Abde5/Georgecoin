@@ -23,6 +23,10 @@ public class Miner {
     private static String relayHostname;
     private static int relayPort;
     private ArrayList<String> allRelay;
+    
+    private String match;
+    private int max_nonce_size = 100000000;
+    private int difficulty = 6;
 
     public Miner(String hostnameServer,int portServer) {
         this.hostName=hostnameServer;
@@ -88,7 +92,7 @@ public class Miner {
         String Tx3=jsonObj.get("Tx3").toString();
         System.out.print("Starting computation");
         try {
-			encryptTransactions(Tx0, Tx1, Tx2, Tx3);
+			mineBlock(Tx0, Tx1, Tx2, Tx3, previousHash);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,65 +124,104 @@ public class Miner {
         return allRelay.size();
     }
     
-    public String encryptTransactions(String trans1, String trans2, String trans3, String trans4) throws NoSuchAlgorithmException {
-    	// ---------------------------------------
-        // COMPUTATION OF THE BLOCK HERE
-        // ---------------------------------------
+    private void setMatch(String new_match){
+    	this.match = new_match;
+    }
+    
+    public String getMatch(){
+    	return this.match;
+    }
+    
+    private int getMaxNonceSize(){
+    	/*
+    	 * private : don't want people to know max nonce
+    	 */
+    	return this.max_nonce_size;
+    }
+    
+    public void mineBlock(String trans1, String trans2, String trans3, String trans4, String previousHash) throws NoSuchAlgorithmException {
+
     	MessageDigest md = MessageDigest.getInstance("SHA-256");
     	
     	// hash transactions two by two
-    	byte[] hash1 = encryptTransactionPair(trans1, trans2, md);
-    	byte[] hash2 = encryptTransactionPair(trans3, trans4, md);
-    	System.out.println(hash1 + " " + hash2);
-    	
-    	String hex1 = String.format( "%064x", new BigInteger( 1, hash1) );
-    	String hex2 = String.format( "%064x", new BigInteger( 1, hash2) );
-        System.out.println(hex1 + "\n" +  hex2);
+    	String hex1 = hashInformationPair(trans1, trans2, md);    	
+    	String hex2 = hashInformationPair(trans3, trans4, md);
         
         // hash resulting hashs
-        byte[] total_transaction_hash = encryptTransactionPair(hex1, hex2, md);
-        System.out.println("\n" + total_transaction_hash);
-        String total_hex = String.format( "%064x", new BigInteger( 1, total_transaction_hash) );
-        System.out.println("\n" +  total_hex);
+        String total_trans_hex = hashInformationPair(hex1, hex2, md);
+        
+        // hash with previous hash
+        String total_block_hex = hashInformationPair(total_trans_hex, previousHash, md);
         
         // hash with nonce to obtain POW approved hash
-        int size = 100000000;
         Random nonce_generator = new Random();
-        int nonce = nonce_generator.nextInt(size);
-        System.out.println("nonce : " + nonce);
-                
-        int current = nonce;
-        boolean found_match = false;
-        String match = "none";
+        int nonce = nonce_generator.nextInt(getMaxNonceSize());        
+        boolean found_match = findMatch(nonce, total_block_hex, md);
         
-        while(current <= size && !found_match){
-        	String curr_try = tryBlockValidation(total_hex, current, md);
-        	if(curr_try.startsWith("000000")){
-        		System.out.println("try : " + curr_try);
+        if(found_match){
+        	System.out.println("found match : " + getMatch());
+        	//
+        	// send getMatch() to RN -> MN
+        	//
+        }       
+    }
+    
+    public String hashInformationPair(String info_1, String info_2, MessageDigest md){
+    	byte[] hash = encryptInformationPair(info_1, info_2, md);
+    	String hex = String.format( "%064x", new BigInteger( 1, hash) );
+    	return hex;
+    }
+    
+    public void increaseDifficulty(){
+    	this.difficulty++;
+    }
+    
+    public void decreaseDifficulty(){
+    	if(this.difficulty > 0){
+    		this.difficulty--;
+    	}
+    }
+    
+    private int getDifficulty(){
+    	return this.difficulty;
+    }
+    
+    private String difficultyString(){
+    	String diff_string = "";
+    	for(int i=0; i< getDifficulty();i++){
+    		diff_string += "0";
+    	}
+    	return diff_string;
+    }
+    
+    public boolean findMatch(int nonce, String total_block_hex, MessageDigest md){
+    	
+    	int current = nonce;
+        boolean found_match = false;
+        String difficulty = difficultyString();
+        
+        while(current <= getMaxNonceSize() && !found_match){
+        	String curr_try = tryBlockValidation(total_block_hex, current, md);
+        	if(curr_try.startsWith(difficulty)){
         		found_match = true;
-        		match = curr_try;
+        		this.setMatch(curr_try);
         	}
         	current++;
         }
         current = 0;
         while(current < nonce && !found_match){
-        	String curr_try = tryBlockValidation(total_hex, current, md);
-        	if(curr_try.startsWith("000000")){
-        		System.out.println("try : " + curr_try);
+        	String curr_try = tryBlockValidation(total_block_hex, current, md);
+        	if(curr_try.startsWith(difficulty)){
         		found_match = true;
-        		match = curr_try;
+        		this.setMatch(curr_try);
         	}
         	current++;
         }
         
-        if(found_match){
-        	System.out.println("found match : " + match);
-        }
-                
-        return "mined";
+    	return found_match;
     }
     
-    public byte[] encryptTransactionPair(String trans1, String trans2, MessageDigest md) {
+    public byte[] encryptInformationPair(String trans1, String trans2, MessageDigest md) {
     	String hash = trans1 + trans2;
     	
     	md.update(hash.getBytes(StandardCharsets.UTF_8));
