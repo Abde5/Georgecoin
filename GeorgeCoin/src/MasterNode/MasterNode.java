@@ -152,7 +152,11 @@ public class MasterNode {
     				.put("previousHash", blockChain.get(i).getPreviousHash())
     				.put("blockHash", blockChain.get(i).getHashBlock())
     				.put("timestamp", blockChain.get(i).getTimestamp())
-    				.put("nonce", blockChain.get(i).getNonce()));
+    				.put("nonce", blockChain.get(i).getNonce())
+    				.put("TxO", blockChain.get(i).getTx0())
+    				.put("Tx1", blockChain.get(i).getTx1())
+    				.put("Tx2", blockChain.get(i).getTx2())
+    				.put("Tx3", blockChain.get(i).getTx3()));
     	}
     	return json;
     }
@@ -162,7 +166,7 @@ public class MasterNode {
     							jsonObj.getJSONObject("block").getString("hashBlock"),
     							stringToTimestamp(jsonObj.getJSONObject("block").getString("timestamp")),
     							Integer.parseInt(jsonObj.getJSONObject("block").getString("nonce")),
-                                jsonObj.getJSONObject("block").getString("TxO"),
+                                jsonObj.getJSONObject("block").getString("Tx0"),
                                 jsonObj.getJSONObject("block").getString("Tx1"),
                                 jsonObj.getJSONObject("block").getString("Tx2"),
                                 jsonObj.getJSONObject("block").getString("Tx3"));
