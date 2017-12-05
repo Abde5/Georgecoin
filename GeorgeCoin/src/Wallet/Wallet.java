@@ -94,11 +94,12 @@ public class Wallet {
 		
         String jsonString = new JSONObject()
                 .put("type", "newTransaction")
-                .put("sourceWallet", "localhost:8080")
-                .put("address", address.toString())
-                .put("amount", "50")
-                .put("signature", dsa.toString())
-                .put("destinataire","address dest").toString();
+				.put("transaction", new JSONObject()
+                	.put("sourceWallet", "localhost:8080")
+                	.put("address", address.toString())
+                	.put("amount", "50")
+                	.put("signature", dsa.toString())
+                	.put("destinataire","address dest")).toString();
         System.out.println("Making a transaction : "+ jsonString);
         client.sendMessage("/relay",jsonString);
     }
@@ -128,6 +129,7 @@ public class Wallet {
         KeyPair pair = keyGen.generateKeyPair();
         public_k = pair.getPublic();
         private_k = pair.getPrivate();
+        private_k_byte = private_k.getEncoded();
     }
 	
     private Boolean checkExistingUser() throws Exception {
