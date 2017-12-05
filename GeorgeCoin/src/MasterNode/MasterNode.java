@@ -84,11 +84,41 @@ public class MasterNode {
     public void generateFirstBlock(){
         blockChain = new ArrayList<Block>();
     	if(blockChain.size() == 0){
+    		//tests pour le montant
+            String jsonTransaction = new JSONObject()
+    				.put("transaction", new JSONObject()
+                    	.put("sourceWallet", "localhost")
+                    	.put("address", "")
+                    	.put("amount", "50")
+                    	.put("signature", "")
+                    	.put("destinataire","address")).toString();
+            String jsonTransaction1 = new JSONObject()
+    				.put("transaction", new JSONObject()
+                    	.put("sourceWallet", "localhost")
+                    	.put("address", "address")
+                    	.put("amount", "20")
+                    	.put("signature", "")
+                    	.put("destinataire","address dest")).toString();
+            String jsonTransaction2 = new JSONObject()
+    				.put("transaction", new JSONObject()
+                    	.put("sourceWallet", "localhost")
+                    	.put("address", "address")
+                    	.put("amount", "10")
+                    	.put("signature", "")
+                    	.put("destinataire","address dest")).toString();
+            String jsonTransaction3 = new JSONObject()
+    				.put("transaction", new JSONObject()
+                    	.put("sourceWallet", "localhost")
+                    	.put("address", "")
+                    	.put("amount", "65")
+                    	.put("signature", "")
+                    	.put("destinataire","address")).toString();
+            
         	Block firstBlock = new Block(previousHash, "currenthash", new Timestamp(System.currentTimeMillis()), 0, 
-        			"0", 
-        			"1", 
-        			"2", 
-        			"3");
+        			jsonTransaction, 
+        			jsonTransaction1, 
+        			jsonTransaction2, 
+        			jsonTransaction3);
         	blockChain.add(firstBlock);
         	System.out.println("first block of the BLOCKCHAIN generated.");
     	}
@@ -157,8 +187,6 @@ public class MasterNode {
     public Boolean checkEnoughMoney(JSONObject transaction){
         String address = transaction.getString("address");
         int amount = Integer.parseInt(transaction.getString("amount"));
-        System.out.println(address);
-        System.out.println(amount);
         Block block;
         String Tx0;
         String Tx1;
@@ -167,7 +195,6 @@ public class MasterNode {
        
         int currentAmount = 0;
         for(int i=0; i<blockChain.size(); i++){
-        	System.out.println("in loop");
             block = blockChain.get(i);
             Tx0 = block.getTx0();
             Tx1 = block.getTx1();
@@ -179,30 +206,23 @@ public class MasterNode {
             currentAmount += checkTransaction(address, Tx2);
             currentAmount += checkTransaction(address, Tx3);
         }
-        
         if(amount <= currentAmount){
-        	System.out.println("true");
         	return true;
-        	
         }
-        System.out.println("false");
     	return false;
     }
     
     private int checkTransaction(String address, String transaction){
-    	System.out.println(transaction);
     	JSONObject jsonTransaction = new JSONObject(transaction);
         int amountReceived = 0;
         int amountSent = 0;
-        System.out.print(jsonTransaction);
-        if(jsonTransaction.getString("destinataire").equals(address)){
-        	amountReceived += Integer.parseInt(jsonTransaction.getString("montant"));
+        
+        if(jsonTransaction.getJSONObject("transaction").getString("destinataire").equals(address)){
+        	amountReceived += Integer.parseInt(jsonTransaction.getJSONObject("transaction").getString("amount"));
         }
-        System.out.println("here");
-        if(jsonTransaction.getString("address").equals(address)){
-        	amountSent += Integer.parseInt(jsonTransaction.getString("montant"));
+        if(jsonTransaction.getJSONObject("transaction").getString("address").equals(address)){
+        	amountSent += Integer.parseInt(jsonTransaction.getJSONObject("transaction").getString("amount"));
         }
-        System.out.println("ok");
         return amountReceived - amountSent;
     }
 }

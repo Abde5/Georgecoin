@@ -28,10 +28,8 @@ public class MasterNodeService {
         if (type.equals("newTransaction")) {
             System.out.println("Got a new transaction :"+ msg);
             String sourceRelay=jsonObj.get("sourceRelay").toString();
-            String transaction=jsonObj.getJSONObject("transaction").toString();
-            System.out.println("ICIIIIII");
             if (master.checkEnoughMoney(jsonObj.getJSONObject("transaction"))){
-                master.addTransaction(transaction);
+                master.addTransaction(jsonObj.getJSONObject("transaction").toString());
                 master.addRelay(sourceRelay);
                 if (master.getNumberOfTransaction() == 4) {
                     System.out.println("Got 4 transactions!");
