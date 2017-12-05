@@ -104,6 +104,10 @@ public class Miner {
                 .put("block",new JSONObject()
                     .put("previousHash","0")
                     .put("hashBlock","hash block")
+                    .put("Tx0",Tx0)
+                    .put("Tx1",Tx1)
+                    .put("Tx2",Tx2)
+                    .put("Tx3",Tx3)
                     .put("timestamp", (new Timestamp(System.currentTimeMillis())).toString())
                     .put("nonce","1")).toString();
         return block;

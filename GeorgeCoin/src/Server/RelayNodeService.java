@@ -23,7 +23,7 @@ public class RelayNodeService {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public @ResponseBody String test(final @RequestBody(required = false)String msg) {
 		JSONObject jsonObj = new JSONObject(msg);
-		//System.out.println("MSG : "+msg);
+		System.out.println("MSG : "+msg);
 
 		String type=jsonObj.get("type").toString();
 		if (type.equals("newTransaction")) {
@@ -70,6 +70,7 @@ public class RelayNodeService {
 
 		}
 		else if (type.equals("GetBlockChain")){
+			relay.getBlockChainFromMaster();
 			return relay.getBlockChain();
 		}
 		return "OkFromRelay";

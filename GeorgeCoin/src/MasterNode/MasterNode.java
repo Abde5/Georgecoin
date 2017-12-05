@@ -145,4 +145,11 @@ public class MasterNode {
         //System.out.print(transactionReceived.get(0));
         return relaysConnected.size();
     }
+    
+    public Boolean checkEnoughMoney(String address){
+    	/*for(int block=0; block<blockChain.size(); block++){
+    		JSONObject blockJson = blockChain.get(block);
+    	}*/
+    	return true;
+    }
 }

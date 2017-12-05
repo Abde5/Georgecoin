@@ -29,15 +29,16 @@ public class MasterNodeService {
             System.out.println("Got a new transaction :"+ msg);
             String sourceRelay=jsonObj.get("sourceRelay").toString();
             String transaction=jsonObj.get("transaction").toString();
-            master.addTransaction(transaction);
-            master.addRelay(sourceRelay);
-            if (master.getNumberOfTransaction() == 4) {
-                System.out.println("Got 4 transactions!");
-                String messageForMiners=master.getTransactionsForMining();
-                System.out.println("Sending BLOCK to all relays");
-                master.sendToALLRelays(messageForMiners);
-
-            }
+           // if (master.checkEnoughMoney(jsonObj.get("address").toString())){
+                master.addTransaction(transaction);
+                master.addRelay(sourceRelay);
+                if (master.getNumberOfTransaction() == 4) {
+                    System.out.println("Got 4 transactions!");
+                    String messageForMiners=master.getTransactionsForMining();
+                    System.out.println("Sending BLOCK to all relays");
+                    master.sendToALLRelays(messageForMiners);
+                }
+           // }
         }
         else if (type.equals("Block")) {
             System.out.println("Got a COMPUTED BLOCK : "+msg);

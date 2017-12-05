@@ -12,13 +12,19 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.security.Signature;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
 import org.json.JSONObject;
 
@@ -30,7 +36,9 @@ public class Wallet {
     private byte[] hashPhrase;
     private PublicKey public_k;
     private PrivateKey private_k;
+    private byte[] private_k_byte;
     private byte[] address;
+    
     
 	private String key_public_path = "key_public.txt";
 	private String key_private_path = "key_private.txt";
@@ -38,28 +46,10 @@ public class Wallet {
 
     public Wallet(int port) throws Exception{
         client = new Client("localhost",port);
-        walletClient();
         
         Thread thread = new Thread(client);
         thread.setDaemon(true);
         thread.start();
-    }
-
-	public void makeTransaction(){
-        String jsonString = new JSONObject()
-                .put("type", "newTransaction")
-                .put("sourceWallet", "localhost:8080")
-                .put("transaction","transaction ici en JSON").toString();
-        System.out.println("Making a transaction : "+ jsonString);
-        client.sendMessage("relay",jsonString);
-    }
-
-    public void requestBlockChain(){
-        String jsonString = new JSONObject()
-                .put("type", "GetBlockChain")
-                .put("source", "localhost:8080").toString();
-        blockChain=client.sendMessage("relay",jsonString);
-        System.out.println(blockChain);
     }
 
     public void walletClient() throws Exception{
@@ -76,6 +66,49 @@ public class Wallet {
 	    	hashPhrase = sha256digest16(passPhrase);
 	    	flag = checkExistingUser();
     	}
+    	//askAction();
+    	makeTransaction();
+    }
+    
+    private void askAction() throws IOException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException{
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	System.out.print("Make transaction (m) or Copy Blockchain (b): ");
+    	String action = br.readLine();
+    	while(!action.equals("b") && !action.equals("m")){
+    		System.out.print("Make transaction (m) or Copy Blockchain (b): ");
+    		action = br.readLine();
+    	}
+    	if (action.equals("b")){
+    		requestBlockChain();
+    	}
+    	else{
+    		makeTransaction();
+    	}
+    }
+    
+	public void makeTransaction() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException{
+		KeyFactory kf = KeyFactory.getInstance("DSA");
+		PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(private_k_byte));
+		Signature dsa = Signature.getInstance("SHA1withDSA", "SUN");
+		dsa.initSign(privateKey);
+		
+        String jsonString = new JSONObject()
+                .put("type", "newTransaction")
+                .put("sourceWallet", "localhost:8080")
+                .put("address", address.toString())
+                .put("amount", "50")
+                .put("signature", dsa.toString())
+                .put("destinataire","address dest").toString();
+        System.out.println("Making a transaction : "+ jsonString);
+        client.sendMessage("/relay",jsonString);
+    }
+
+    public void requestBlockChain(){
+        String jsonString = new JSONObject()
+                .put("type", "GetBlockChain")
+                .put("source", "localhost:8080").toString();
+        blockChain=client.sendMessage("/relay",jsonString);
+        System.out.println(blockChain);
     }
     
     public static byte[] sha256digest16(String list) throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -141,7 +174,7 @@ public class Wallet {
 	
 	private Boolean decodePrivate(byte[] ciphertext) throws Exception{
 		try{
-			decrypt(ciphertext);
+			private_k_byte = decrypt(ciphertext);
 		} catch (BadPaddingException error){
 			return false;
 		}

@@ -7,6 +7,10 @@ public class Block {
 	private String hashBlock;
 	private Timestamp timestamp;
 	private int nonce;
+	private String Tx0;
+	private String Tx1;
+	private String Tx2;
+	private String Tx3;
 	
 	public Block(String previous_hash, String hash_block, Timestamp time, int nonce_block){
 		previousHash = previous_hash;
