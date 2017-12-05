@@ -23,9 +23,12 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Signature;
+import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Wallet {
@@ -66,11 +69,10 @@ public class Wallet {
 	    	hashPhrase = sha256digest16(passPhrase);
 	    	flag = checkExistingUser();
     	}
-    	//askAction();
-    	makeTransaction();
+    	askAction();
     }
     
-    private void askAction() throws IOException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException{
+    private void askAction() throws IOException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException, JSONException, SignatureException{
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	System.out.print("Make transaction (m) or Copy Blockchain (b): ");
     	String action = br.readLine();
@@ -86,7 +88,7 @@ public class Wallet {
     	}
     }
     
-	public void makeTransaction() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException{
+	public void makeTransaction() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException, JSONException, SignatureException{
 		KeyFactory kf = KeyFactory.getInstance("DSA");
 		PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(private_k_byte));
 		Signature dsa = Signature.getInstance("SHA1withDSA", "SUN");
@@ -98,7 +100,7 @@ public class Wallet {
                 	.put("sourceWallet", "localhost:8080")
                 	.put("address", "address") // à remplacer par address.toString()
                 	.put("amount", "50")
-                	.put("signature", dsa.toString())
+                	.put("signature", dsa.sign().toString())
                 	.put("destinataire","address dest")).toString();
         System.out.println("Making a transaction : "+ jsonString);
         client.sendMessage("/relay",jsonString);
