@@ -101,6 +101,7 @@ public class Wallet {
                 	.put("signature", dsa.toString())
                 	.put("destinataire","address dest")).toString();
         System.out.println("Making a transaction : "+ jsonString);
+        System.out.println(jsonString);
         client.sendMessage("/relay",jsonString);
     }
 
