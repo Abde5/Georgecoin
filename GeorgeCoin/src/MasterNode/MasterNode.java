@@ -84,7 +84,7 @@ public class MasterNode {
     public void generateFirstBlock(){
         blockChain = new ArrayList<Block>();
     	if(blockChain.size() == 0){
-        	Block firstBlock = new Block(previousHash, "currenthash", new Timestamp(System.currentTimeMillis()), 0);
+        	Block firstBlock = new Block(previousHash, "currenthash", new Timestamp(System.currentTimeMillis()), 0, "0", "1", "2", "3");
         	blockChain.add(firstBlock);
         	System.out.println("first block of the BLOCKCHAIN generated.");
     	}
@@ -127,7 +127,11 @@ public class MasterNode {
     	Block block = new Block(jsonObj.getJSONObject("block").getString("previousHash"), 
     							jsonObj.getJSONObject("block").getString("hashBlock"),
     							stringToTimestamp(jsonObj.getJSONObject("block").getString("timestamp")),
-    							Integer.parseInt(jsonObj.getJSONObject("block").getString("nonce")));
+    							Integer.parseInt(jsonObj.getJSONObject("block").getString("nonce")),
+                                jsonObj.getJSONObject("block").getString("TxO"),
+                                jsonObj.getJSONObject("block").getString("Tx1"),
+                                jsonObj.getJSONObject("block").getString("Tx2"),
+                                jsonObj.getJSONObject("block").getString("Tx3"));
     	return block;
     }
     
@@ -146,10 +150,20 @@ public class MasterNode {
         return relaysConnected.size();
     }
     
-    public Boolean checkEnoughMoney(String address){
-    	/*for(int block=0; block<blockChain.size(); block++){
-    		JSONObject blockJson = blockChain.get(block);
-    	}*/
+    public Boolean checkEnoughMoney(JSONObject transaction){
+        String address = transaction.getString("address");
+        Block block;
+        String Tx0;
+        String Tx1;
+        String Tx2;
+        String Tx3;
+        for(int i=0; i<blockChain.size(); i++){
+            block = blockChain.get(i);
+            Tx0 = block.getTx0();
+            Tx1 = block.getTx1();
+            Tx2 = block.getTx2();
+            Tx3 = block.getTx3();
+        }
     	return true;
     }
 }

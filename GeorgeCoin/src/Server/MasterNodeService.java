@@ -29,7 +29,7 @@ public class MasterNodeService {
             System.out.println("Got a new transaction :"+ msg);
             String sourceRelay=jsonObj.get("sourceRelay").toString();
             String transaction=jsonObj.get("transaction").toString();
-           // if (master.checkEnoughMoney(jsonObj.get("address").toString())){
+            if (master.checkEnoughMoney(jsonObj.getJSONObject("transaction"))){
                 master.addTransaction(transaction);
                 master.addRelay(sourceRelay);
                 if (master.getNumberOfTransaction() == 4) {
@@ -38,7 +38,7 @@ public class MasterNodeService {
                     System.out.println("Sending BLOCK to all relays");
                     master.sendToALLRelays(messageForMiners);
                 }
-           // }
+           }
         }
         else if (type.equals("Block")) {
             System.out.println("Got a COMPUTED BLOCK : "+msg);
