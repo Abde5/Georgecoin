@@ -96,7 +96,7 @@ public class Wallet {
                 .put("type", "newTransaction")
 				.put("transaction", new JSONObject()
                 	.put("sourceWallet", "localhost:8080")
-                	.put("address", address.toString())
+                	.put("address", "address") // à remplacer par address.toString()
                 	.put("amount", "50")
                 	.put("signature", dsa.toString())
                 	.put("destinataire","address dest")).toString();
