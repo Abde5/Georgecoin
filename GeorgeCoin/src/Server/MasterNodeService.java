@@ -35,7 +35,14 @@ public class MasterNodeService {
                     System.out.println("Got 4 transactions!");
                     String messageForMiners=master.getTransactionsForMining();
                     System.out.println("Sending BLOCK to all relays");
+                    // TODO:Tanguy calcul du temp? utilise les fonction increaseDifficulty and decreaseDifficulty.
+                    // l'envoie de difficylty se fait dans getTransactionsForMining()
+                    //master.increaseDifficulty();
+                    //master.decreaseDifficulty();
+                    //startTime
                     master.sendToALLRelays(messageForMiners);
+                    //endTime
+                    // temps mis == end-start
                 }
            }
         }

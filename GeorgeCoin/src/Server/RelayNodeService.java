@@ -48,10 +48,7 @@ public class RelayNodeService {
 			if (relay.getMinerNumber()>0) {
 				System.out.println("Got a BLOCK for the Miners, forwarding "+msg);
 				String alltransactions= new JSONObject().put("alltransactions",jsonObj.get("alltransactions")).toString();
-
 				relay.sendToALLMiners(alltransactions);
-				//relay.launchClientMiners();
-				//relay.sendToMiners(msg);
 			}
 			else{
 				System.out.print("NO MINERS CONNECTED");
@@ -60,6 +57,7 @@ public class RelayNodeService {
 		else if (type.equals("Block")){
 			System.out.println("Got a computed BLOCK : "+msg);
 			String source=jsonObj.get("sourceMiner").toString();
+			System.out.println(source);
 			//TODO STOP rest of the miners
 			relay.launchClientMaster();
 			relay.sendToMaster(msg);

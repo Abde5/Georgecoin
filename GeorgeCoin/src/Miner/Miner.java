@@ -26,7 +26,8 @@ public class Miner {
     
     private String match;
     private int max_nonce_size = 100000000;
-    private int difficulty = 6;
+    private int difficulty
+            ;
 
     public Miner(String hostnameServer,int portServer) {
         this.hostName=hostnameServer;
@@ -86,6 +87,7 @@ public class Miner {
     public String computeBlock(String transactions){
         JSONObject jsonObj = new JSONObject(transactions);
         String previousHash=jsonObj.get("previousHash").toString();
+        setDifficulty(Integer.parseInt(jsonObj.get("difficulty").toString()));
         String Tx0=jsonObj.get("Tx0").toString();
         String Tx1=jsonObj.get("Tx1").toString();
         String Tx2=jsonObj.get("Tx2").toString();
@@ -100,10 +102,10 @@ public class Miner {
         
         String block= new JSONObject()
                 .put("type","Block")
-                .put("sourceMiner","localhost:8082")
+                .put("sourceMiner",this.hostName+":"+this.portServer)
                 .put("block",new JSONObject()
-                    .put("previousHash","0")
-                    .put("hashBlock","hash block")
+                    .put("previousHash","0") //TODO a changer
+                    .put("hashBlock","hash block") //TODO a changer
                     .put("Tx0",Tx0)
                     .put("Tx1",Tx1)
                     .put("Tx2",Tx2)
@@ -175,17 +177,11 @@ public class Miner {
     	String hex = String.format( "%064x", new BigInteger( 1, hash) );
     	return hex;
     }
-    
-    public void increaseDifficulty(){
-    	this.difficulty++;
+
+    public void setDifficulty(int difficulty){
+        this.difficulty=difficulty;
     }
-    
-    public void decreaseDifficulty(){
-    	if(this.difficulty > 0){
-    		this.difficulty--;
-    	}
-    }
-    
+
     private int getDifficulty(){
     	return this.difficulty;
     }
@@ -201,7 +197,7 @@ public class Miner {
     public boolean findMatch(int nonce, String total_block_hex, MessageDigest md){
     	
     	int current = nonce;
-        boolean found_match = false;
+        boolean found_match = false; //TODO George a mettre ca en attribut -> et faire un set de Found et du coup la boucle s'arrete
         String difficulty = difficultyString();
         
         while(current <= getMaxNonceSize() && !found_match){
@@ -235,10 +231,10 @@ public class Miner {
     }
     
     public String tryBlockValidation(String block_hash, int nonce, MessageDigest md) {
-    	String hash = block_hash + nonce;
-    	md.update(hash.getBytes(StandardCharsets.UTF_8));
-    	byte[] digest = md.digest();
-    	
-    	return String.format("%064x", new BigInteger( 1, digest));
+        String hash = block_hash + nonce;
+        md.update(hash.getBytes(StandardCharsets.UTF_8));
+        byte[] digest = md.digest();
+
+        return String.format("%064x", new BigInteger(1, digest));
     }
 }

@@ -18,6 +18,7 @@ public class MasterNode {
     private ArrayList<String> relaysConnected;
     private static ArrayList<Block> blockChain;
     private String previousHash="0";
+    private int difficulty = 4;
 
     public MasterNode(String hostnameServ,int portServer,int portClient) {
         this.hostName=hostnameServ;
@@ -72,6 +73,7 @@ public class MasterNode {
         String jsonString = new JSONObject()
                 .put("type", "readyForMining")
                 .put("alltransactions",new JSONObject()
+                        .put("difficulty",difficulty)
                         .put("previousHash",previousHash)
                         .put("Tx0",transactionReceived.get(0))
                         .put("Tx1",transactionReceived.get(1))
@@ -228,5 +230,15 @@ public class MasterNode {
         	amountSent += Integer.parseInt(jsonTransaction.getJSONObject("transaction").getString("amount"));
         }
         return amountReceived - amountSent;
+    }
+
+    public void increaseDifficulty(){
+        this.difficulty++;
+    }
+
+    public void decreaseDifficulty(){
+        if(this.difficulty > 0){
+            this.difficulty--;
+        }
     }
 }
