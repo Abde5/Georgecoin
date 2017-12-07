@@ -26,7 +26,9 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,25 +90,56 @@ public class Wallet {
     	}
     }
     
-	public void makeTransaction() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException, JSONException, SignatureException{
+	public void makeTransaction() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException, JSONException, SignatureException, IOException{
 		KeyFactory kf = KeyFactory.getInstance("DSA");
 		PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(private_k_byte));
 		Signature dsa = Signature.getInstance("SHA1withDSA", "SUN");
 		dsa.initSign(privateKey);
-		
+		ArrayList<String> transac_input = askTransaction(dsa.sign().toString());
         String jsonString = new JSONObject()
                 .put("type", "newTransaction")
 				.put("transaction", new JSONObject()
-                	.put("sourceWallet", "localhost:8080")
-                	.put("address", "address") // à remplacer par address.toString()
-                	.put("amount", "50")
-                	.put("signature", dsa.sign().toString())
-                	.put("destinataire","address dest")).toString();
+                	.put("sourceWallet", transac_input.get(0))
+                	.put("address", transac_input.get(1)) // à remplacer par address.toString()
+                	.put("amount", transac_input.get(2))
+                	.put("signature", transac_input.get(3))
+                	.put("destinataire",transac_input.get(4))).toString();
         System.out.println("Making a transaction : "+ jsonString);
         client.sendMessage("/relay",jsonString);
     }
 
-    public void requestBlockChain(){
+    private ArrayList<String> askTransaction(String dsa_signature) throws IOException {
+    	ArrayList<String> transaction = new ArrayList<String>();
+    	Collections.addAll(transaction, "localhost:8080", address.toString(), askAmountTransac(),dsa_signature,askAddressDest());
+		return transaction;
+	}
+
+	private String askAddressDest() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("Give the destination address for the transaction : ");
+		String dest_address = br.readLine();
+		return dest_address;
+	}
+
+	private String askAmountTransac() throws IOException {
+		boolean validAmount = false;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("Amount for the transaction : ");
+		String amount = br.readLine();
+		while (!validAmount){
+	    	if (amount.matches("[1-9].[0-9]*")){	//Amount given is a number > 0
+	    		validAmount = true;
+	    	}
+	    	else{
+	    		System.out.println("The amount for the transaction must be a number > 0");
+	    		System.out.print("Give a valid amount for the transaction : ");
+	    		amount = br.readLine();
+	    	}	
+		}
+		return amount;
+	}
+
+	public void requestBlockChain(){
         String jsonString = new JSONObject()
                 .put("type", "GetBlockChain")
                 .put("source", "localhost:8080").toString();
