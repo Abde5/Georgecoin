@@ -5,6 +5,6 @@ public class WalletMain {
 		  Wallet wallet = new Wallet(8080);
 		  wallet.walletClient();
 		  //wallet.makeTransaction(); // -> devrait etre JSON SOURCE,DEST,MONTANT
-		  wallet.requestBlockChain();
+		  //wallet.requestBlockChain();
 	  }
 }

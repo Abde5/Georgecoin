@@ -28,7 +28,7 @@ public class MasterNodeService {
         if (type.equals("newTransaction")) {
             System.out.println("Got a new transaction :"+ msg);
             String sourceRelay=jsonObj.get("sourceRelay").toString();
-            if (master.checkEnoughMoney(jsonObj.getJSONObject("transaction"))){
+           // if (master.checkEnoughMoney(jsonObj.getJSONObject("transaction"))){
                 master.addTransaction(jsonObj.getJSONObject("transaction").toString());
                 master.addRelay(sourceRelay);
                 if (master.getNumberOfTransaction() == 4) {
@@ -44,12 +44,16 @@ public class MasterNodeService {
                     //endTime
                     // temps mis == end-start
                 }
-           }
+           //}
         }
         else if (type.equals("Block")) {
             System.out.println("Got a COMPUTED BLOCK : "+msg);
             String newBlockChain=master.acceptBlock(msg);
             //TODO reward miner
+            System.out.println("Send STOP Relay");
+            String stopMinersTest=new JSONObject().put("type","StopMining").toString();
+            master.sendToALLRelays(stopMinersTest);
+
             System.out.println("Sending BLOCKCHAIN to all relays");
             master.sendToALLRelays(newBlockChain);
         }

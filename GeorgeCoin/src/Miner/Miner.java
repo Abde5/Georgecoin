@@ -28,7 +28,7 @@ public class Miner {
     private int current_nonce_size = 100;
     private int max_nonce_size = 100000000;
     private int difficulty;
-    private boolean found_match = false;
+    private static boolean found_match = false;
 
     public Miner(String hostnameServer,int portServer) {
         this.hostName=hostnameServer;
@@ -98,6 +98,7 @@ public class Miner {
     }
 
     public String computeBlock(String transactions){
+        this.found_match=false;
         JSONObject jsonObj = new JSONObject(transactions);
         String previousHash=jsonObj.get("previousHash").toString();
         setDifficulty(Integer.parseInt(jsonObj.get("difficulty").toString()));
@@ -271,5 +272,9 @@ public class Miner {
         byte[] digest = md.digest();
 
         return String.format("%064x", new BigInteger(1, digest));
+    }
+
+    public void stopComputingBlock(){
+        this.found_match=true;
     }
 }

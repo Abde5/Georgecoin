@@ -21,15 +21,21 @@ public class MinerService {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody String test(final @RequestBody(required = false)String msg) {
-        System.out.println("Got a msg : "+msg);
+        System.out.println("Got a msg : " + msg);
+
         JSONObject jsonObj = new JSONObject(msg);
-        String transactionsForMiners=jsonObj.get("alltransactions").toString();
-        if (transactionsForMiners.length()>0){
-            String block=miner.computeBlock(transactionsForMiners);
-            miner.launchClient(miner.getRelayHostname(),miner.getRelayPort());
+        String type = jsonObj.get("type").toString();
+        if (type.equals("ForMining")) {
+            String transactionsForMiners = jsonObj.get("alltransactions").toString();
+            //if (transactionsForMiners.length()>0){
+            String block = miner.computeBlock(transactionsForMiners);
+            miner.launchClient(miner.getRelayHostname(), miner.getRelayPort());
             System.out.println("Sending computed BLOCK");
             miner.sendBlock(block);
         }
+        else if (type.equals("StopMining"))
+            System.out.println("Got a Stop computing message : " + msg);
+            miner.stopComputingBlock();
         return "OkFromMiner";
     }
 

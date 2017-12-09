@@ -18,7 +18,7 @@ public class MasterNode {
     private ArrayList<String> relaysConnected;
     private static ArrayList<Block> blockChain;
     private String previousHash="0";
-    private int difficulty = 4;
+    private int difficulty = 7;
 
     public MasterNode(String hostnameServ,int portServer,int portClient) {
         this.hostName=hostnameServ;
