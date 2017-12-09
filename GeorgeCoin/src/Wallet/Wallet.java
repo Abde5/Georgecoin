@@ -1,6 +1,8 @@
 package Wallet;
 
 import Client.Client;
+import MasterNode.Block;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,6 +28,7 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -68,14 +71,17 @@ public class Wallet extends WalletMaster{
     
     private void askAction() throws Exception{
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    	System.out.print("Make transaction (m) or Copy Blockchain (b): ");
+    	System.out.print("Make transaction (m) or Copy Blockchain (b) or Check amount (c): ");
     	String action = br.readLine();
-    	while(!action.equals("b") && !action.equals("m")){
-    		System.out.print("Make transaction (m) or Copy Blockchain (b): ");
+    	while(!action.equals("b") && !action.equals("m") && !action.equals("c")){
+    		System.out.print("Make transaction (m) or Copy Blockchain (b) or Check amount (c): ");
     		action = br.readLine();
     	}
     	if (action.equals("b")){
     		requestBlockChain();
+    	}
+    	else if (action.equals("c")){
+    		checkAmount();
     	}
     	else{
     		makeTransaction();
@@ -134,6 +140,68 @@ public class Wallet extends WalletMaster{
                 .put("source", "localhost:8080").toString();
         blockChain=client.sendMessage("/relay",jsonString);
         System.out.println(blockChain);
+    }
+	
+	private void checkAmount(){
+        requestBlockChain();
+        int amount = getAmount();
+        System.out.println(amount);
+	}
+	
+	public int getAmount(){
+        Block block;
+        String Tx0;
+        String Tx1;
+        String Tx2;
+        String Tx3;
+        
+        JSONObject blockchainJSON = new JSONObject(blockChain);
+        blockchainJSON.getString("block"); 
+        
+        int amount = 0;
+        for(int i=0; i<blockchainJSON.size(); i++){
+            block = blockchainJSON.get(i);
+            Tx0 = block.getTx0();
+            Tx1 = block.getTx1();
+            Tx2 = block.getTx2();
+            Tx3 = block.getTx3();
+            
+            amount += checkTransaction(address.toString(), Tx0);
+            amount += checkTransaction(address.toString(), Tx1);
+            amount += checkTransaction(address.toString(), Tx2);
+            amount += checkTransaction(address.toString(), Tx3);
+        }
+    	return amount;
+    }
+	
+    public Block JSONtoBlock(JSONObject jsonObj){
+    	Block block = new Block(jsonObj.getJSONObject("block").getString("previousHash"), 
+    							jsonObj.getJSONObject("block").getString("hashBlock"),
+    							stringToTimestamp(jsonObj.getJSONObject("block").getString("timestamp")),
+    							Integer.parseInt(jsonObj.getJSONObject("block").getString("nonce")),
+                                jsonObj.getJSONObject("block").getString("Tx0"),
+                                jsonObj.getJSONObject("block").getString("Tx1"),
+                                jsonObj.getJSONObject("block").getString("Tx2"),
+                                jsonObj.getJSONObject("block").getString("Tx3"));
+    	return block;
+    }
+    
+    public Timestamp stringToTimestamp(String time){
+    	return Timestamp.valueOf(time);
+    }
+    
+    private int checkTransaction(String address, String transaction){
+    	JSONObject jsonTransaction = new JSONObject(transaction);
+        int amountReceived = 0;
+        int amountSent = 0;
+        
+        if(jsonTransaction.getJSONObject("transaction").getString("destinataire").equals(address)){
+        	amountReceived += Integer.parseInt(jsonTransaction.getJSONObject("transaction").getString("amount"));
+        }
+        if(jsonTransaction.getJSONObject("transaction").getString("address").equals(address)){
+        	amountSent += Integer.parseInt(jsonTransaction.getJSONObject("transaction").getString("amount"));
+        }
+        return amountReceived - amountSent;
     }
 
     private Boolean checkExistingUser() throws Exception {
