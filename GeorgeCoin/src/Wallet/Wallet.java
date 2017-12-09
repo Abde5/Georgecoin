@@ -32,7 +32,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 
+import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -149,40 +151,48 @@ public class Wallet extends WalletMaster{
 	}
 	
 	public int getAmount(){
-        Block block;
+		Block block;
         String Tx0;
         String Tx1;
         String Tx2;
         String Tx3;
+		int amount = 0;
         
         JSONObject blockchainJSON = new JSONObject(blockChain);
-        blockchainJSON.getString("block"); 
-        
-        int amount = 0;
-        for(int i=0; i<blockchainJSON.size(); i++){
-            block = blockchainJSON.get(i);
-            Tx0 = block.getTx0();
-            Tx1 = block.getTx1();
-            Tx2 = block.getTx2();
-            Tx3 = block.getTx3();
-            
-            amount += checkTransaction(address.toString(), Tx0);
-            amount += checkTransaction(address.toString(), Tx1);
-            amount += checkTransaction(address.toString(), Tx2);
-            amount += checkTransaction(address.toString(), Tx3);
-        }
+		Iterator keys = blockchainJSON.keys();
+		while(keys.hasNext()) {
+			String key = keys.next().toString();
+			if (!key.equals("type")){
+
+				JSONObject json=new JSONObject(blockchainJSON.get(key));
+				System.out.println(blockchainJSON.get(key));
+				System.out.println(blockchainJSON.get(key).getClass());
+				block=JSONtoBlock(json);
+				Tx0 = block.getTx0();
+				Tx1 = block.getTx1();
+				Tx2 = block.getTx2();
+				Tx3 = block.getTx3();
+
+				amount += checkTransaction(address.toString(), Tx0);
+				amount += checkTransaction(address.toString(), Tx1);
+				amount += checkTransaction(address.toString(), Tx2);
+				amount += checkTransaction(address.toString(), Tx3);
+			}
+
+		}
     	return amount;
     }
 	
     public Block JSONtoBlock(JSONObject jsonObj){
-    	Block block = new Block(jsonObj.getJSONObject("block").getString("previousHash"), 
-    							jsonObj.getJSONObject("block").getString("hashBlock"),
-    							stringToTimestamp(jsonObj.getJSONObject("block").getString("timestamp")),
-    							Integer.parseInt(jsonObj.getJSONObject("block").getString("nonce")),
-                                jsonObj.getJSONObject("block").getString("Tx0"),
-                                jsonObj.getJSONObject("block").getString("Tx1"),
-                                jsonObj.getJSONObject("block").getString("Tx2"),
-                                jsonObj.getJSONObject("block").getString("Tx3"));
+    	System.out.println(jsonObj);
+    	Block block = new Block(jsonObj.getString("previousHash"),
+    							jsonObj.getString("hashBlock"),
+    							stringToTimestamp(jsonObj.getString("timestamp")),
+    							Integer.parseInt(jsonObj.getString("nonce")),
+                                jsonObj.getString("Tx0"),
+                                jsonObj.getString("Tx1"),
+                                jsonObj.getString("Tx2"),
+                                jsonObj.getString("Tx3"));
     	return block;
     }
     
