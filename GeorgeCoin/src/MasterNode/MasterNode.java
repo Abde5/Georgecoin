@@ -1,7 +1,10 @@
 package MasterNode;
 
 import Server.ServerCore;
+import Wallet.WalletMaster;
 import Client.Client;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
@@ -9,6 +12,7 @@ import java.util.ArrayList;
 
 public class MasterNode {
 
+	private static String amount = "2";
     private Client client;
     private ServerCore server;
     private String hostName;
@@ -19,16 +23,16 @@ public class MasterNode {
     private static ArrayList<Block> blockChain;
     private String previousHash="0";
     private int difficulty = 7;
+    private WalletMaster georgeMillion;
 
     public MasterNode(String hostnameServ,int portServer,int portClient) {
         this.hostName=hostnameServ;
         this.portServer=portServer;
         this.portClient=portClient;
+        this.georgeMillion = new WalletMaster();
         transactionReceived = new ArrayList<String>();
         relaysConnected=new ArrayList<String>();
         server = new ServerCore(this.hostName,this.portServer);
-
-
     }
 
     public void launchServer(){
@@ -83,6 +87,16 @@ public class MasterNode {
         return jsonString;
     }
     
+    public void rewardTransaction(String destAddress) throws JSONException, Exception{
+    	String jsonTransaction = new JSONObject()
+				.put("transaction", new JSONObject()
+                	.put("sourceWallet", "localhost")
+                	.put("address", georgeMillion.getAddress())
+                	.put("amount", amount)					//Have to known what the amount is
+                	.put("signature", georgeMillion.DSASign().toString())
+                	.put("destinataire",destAddress)).toString();	//Have to know which is the receiver
+    }
+    
     public void generateFirstBlock(){
         blockChain = new ArrayList<Block>();
     	if(blockChain.size() == 0){
@@ -91,28 +105,28 @@ public class MasterNode {
     				.put("transaction", new JSONObject()
                     	.put("sourceWallet", "localhost")
                     	.put("address", "")
-                    	.put("amount", "50")
+                    	.put("amount", amount)
                     	.put("signature", "")
                     	.put("destinataire","address")).toString();
             String jsonTransaction1 = new JSONObject()
     				.put("transaction", new JSONObject()
                     	.put("sourceWallet", "localhost")
                     	.put("address", "address")
-                    	.put("amount", "20")
+                    	.put("amount", amount)
                     	.put("signature", "")
                     	.put("destinataire","address dest")).toString();
             String jsonTransaction2 = new JSONObject()
     				.put("transaction", new JSONObject()
                     	.put("sourceWallet", "localhost")
                     	.put("address", "address")
-                    	.put("amount", "10")
+                    	.put("amount", amount)
                     	.put("signature", "")
                     	.put("destinataire","address dest")).toString();
             String jsonTransaction3 = new JSONObject()
     				.put("transaction", new JSONObject()
                     	.put("sourceWallet", "localhost")
                     	.put("address", "")
-                    	.put("amount", "65")
+                    	.put("amount", amount)
                     	.put("signature", "")
                     	.put("destinataire","address")).toString();
             

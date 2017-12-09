@@ -98,7 +98,6 @@ public class Miner {
     }
 
     public String computeBlock(String transactions){
-        this.found_match=false;
         JSONObject jsonObj = new JSONObject(transactions);
         String previousHash=jsonObj.get("previousHash").toString();
         setDifficulty(Integer.parseInt(jsonObj.get("difficulty").toString()));
@@ -169,7 +168,6 @@ public class Miner {
     
     
     public void mineBlock(String trans1, String trans2, String trans3, String trans4, String previousHash) throws NoSuchAlgorithmException {
-
     	MessageDigest md = MessageDigest.getInstance("SHA-256");
     	
     	// hash transactions two by two
