@@ -25,6 +25,7 @@ public class Miner {
     private ArrayList<String> allRelay;
     
     private String match;
+    private int current_nonce_size = 100;
     private int max_nonce_size = 100000000;
     private int difficulty;
     private boolean found_match = false;
@@ -157,9 +158,14 @@ public class Miner {
     	return this.max_nonce_size;
     }
     
-    private void setMaxNonceSize(int max_nonce){
-    	this.max_nonce_size = max_nonce;
+    private int getCurrentNonceSize() {
+    	return this.current_nonce_size;
     }
+    
+    private void setCurrentNonceSize(int new_nonce) {
+    	this.current_nonce_size = new_nonce;
+    }
+    
     
     public void mineBlock(String trans1, String trans2, String trans3, String trans4, String previousHash) throws NoSuchAlgorithmException {
 
@@ -177,7 +183,7 @@ public class Miner {
         
         // hash with nonce to obtain POW approved hash
         Random nonce_generator = new Random();
-        int nonce = nonce_generator.nextInt(getMaxNonceSize());        
+        int nonce = nonce_generator.nextInt(getCurrentNonceSize());        
         boolean found_match = findMatch(nonce, total_block_hex, md);
         
         if(found_match){
@@ -196,15 +202,17 @@ public class Miner {
 
     public void setDifficulty(int difficulty){
         this.difficulty=difficulty;
+        int max_nonce = 100;
         
-        int diff_length = String.valueOf(difficulty).length();
-        int max_nonce = 10;
-        
-        for(int i = 0; i < diff_length; i++){
-        	max_nonce = max_nonce * 10;
+        for(int i = 0; i < difficulty; i++){
+        	if(max_nonce < getMaxNonceSize()){
+        		max_nonce = max_nonce * max_nonce;
+        	}
         }
         
-        this.setMaxNonceSize(max_nonce);
+        System.out.println(max_nonce);
+                
+        this.setCurrentNonceSize(max_nonce);
     }
 
     private int getDifficulty(){
@@ -227,7 +235,7 @@ public class Miner {
     	int current = nonce;
         String difficulty = difficultyString();
         
-        while(current <= getMaxNonceSize() && !this.foundMatch()){
+        while(current <= getCurrentNonceSize() && !this.foundMatch()){
         	String curr_try = tryBlockValidation(total_block_hex, current, md);
         	if(curr_try.startsWith(difficulty)){
         		this.flagFoundMatch();
