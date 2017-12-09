@@ -33,18 +33,10 @@ import java.util.Collections;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wallet {
+public class Wallet extends WalletMaster{
     private Client client;
     private String blockChain;
-    
-    private String passPhrase;
-    private byte[] hashPhrase;
-    private PublicKey public_k;
-    private PrivateKey private_k;
-    private byte[] private_k_byte;
-    private byte[] address;
-    
-    
+ 
 	private String key_public_path = "key_public.txt";
 	private String key_private_path = "key_private.txt";
 	private String address_path = "address.txt";
@@ -74,7 +66,7 @@ public class Wallet {
     	askAction();
     }
     
-    private void askAction() throws IOException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException, JSONException, SignatureException{
+    private void askAction() throws Exception{
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	System.out.print("Make transaction (m) or Copy Blockchain (b): ");
     	String action = br.readLine();
@@ -90,11 +82,8 @@ public class Wallet {
     	}
     }
     
-	public void makeTransaction() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException, JSONException, SignatureException, IOException{
-		KeyFactory kf = KeyFactory.getInstance("DSA");
-		PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(private_k_byte));
-		Signature dsa = Signature.getInstance("SHA1withDSA", "SUN");
-		dsa.initSign(privateKey);
+	public void makeTransaction() throws Exception{
+		Signature dsa = DSASign();
 		ArrayList<String> transac_input = askTransaction(dsa.sign().toString());
         String jsonString = new JSONObject()
                 .put("type", "newTransaction")
@@ -127,7 +116,7 @@ public class Wallet {
 		System.out.print("Amount for the transaction : ");
 		String amount = br.readLine();
 		while (!validAmount){
-	    	if (amount.matches("[1-9].[0-9]*")){	//Amount given is a number > 0
+	    	if (amount.matches("[1-9][0-9]*")){	//Amount given is a number > 0
 	    		validAmount = true;
 	    	}
 	    	else{
@@ -146,27 +135,7 @@ public class Wallet {
         blockChain=client.sendMessage("/relay",jsonString);
         System.out.println(blockChain);
     }
-    
-    public static byte[] sha256digest16(String list) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        digest.reset();
-        digest.update(list.getBytes("UTF-8"));
 
-        //32 bytes
-        byte[]  b = digest.digest();
-        //return 16 bytes
-        return Arrays.copyOf(b, 16);
-    }
-    
-	private void generateKeys() throws NoSuchAlgorithmException{
-		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
-        keyGen.initialize(1024, new SecureRandom());
-        KeyPair pair = keyGen.generateKeyPair();
-        public_k = pair.getPublic();
-        private_k = pair.getPrivate();
-        private_k_byte = private_k.getEncoded();
-    }
-	
     private Boolean checkExistingUser() throws Exception {
 		File key_public_file = new File(key_public_path);
 		File key_private_file = new File(key_private_path);
@@ -174,7 +143,7 @@ public class Wallet {
 		
 		if(key_public_file.exists() && key_private_file.exists() && address_file.exists()
 				&& !key_public_file.isDirectory() && !key_private_file.isDirectory() && !address_file.isDirectory()){
-			address = getAddress();
+			address = getAddressFromFile();
 			return getKeysFromFile();
 		}
 		else{
@@ -232,7 +201,7 @@ public class Wallet {
         return cipher.doFinal(cipherText);
     }
     
-    private byte[] getAddress() throws IOException{
+    private byte[] getAddressFromFile() throws IOException{
 		Path myFile = Paths.get("",address_path);
 		return Files.readAllBytes(myFile);
     }

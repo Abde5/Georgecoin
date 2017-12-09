@@ -168,7 +168,6 @@ public class Miner {
     
     
     public void mineBlock(String trans1, String trans2, String trans3, String trans4, String previousHash) throws NoSuchAlgorithmException {
-
     	MessageDigest md = MessageDigest.getInstance("SHA-256");
     	
     	// hash transactions two by two

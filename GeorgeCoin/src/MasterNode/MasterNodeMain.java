@@ -2,7 +2,7 @@ package MasterNode;
 
 public class MasterNodeMain {
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws Exception {
         MasterNode master = new MasterNode("localhost",8081,8080);
         master.generateFirstBlock();
         master.launchServer();

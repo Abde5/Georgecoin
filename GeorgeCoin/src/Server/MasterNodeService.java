@@ -1,6 +1,8 @@
 package Server;
 
 import MasterNode.*;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,7 @@ public class MasterNodeService {
     private MasterNode master= new MasterNode("localhost",8081,8080);
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public @ResponseBody String test(final @RequestBody(required = false)String msg) {
+    public @ResponseBody String test(final @RequestBody(required = false)String msg) throws JSONException, Exception {
         //System.out.println("Got a msg : "+msg);
         JSONObject jsonObj = new JSONObject(msg);
 
@@ -46,14 +48,15 @@ public class MasterNodeService {
                 }
            }
         }
-        else if (type.equals("Block")) {
+        else if (type.equals("Block")) {	//accept block - reward miner - send to all relays
             System.out.println("Got a COMPUTED BLOCK : "+msg);
             String newBlockChain=master.acceptBlock(msg);
-            //TODO reward miner
+            
+            master.rewardTransaction(jsonObj.get("sourceMiner").toString());
             System.out.println("Sending BLOCKCHAIN to all relays");
             master.sendToALLRelays(newBlockChain);
         }
-        else if (type.equals("GiveMeTheBlockChain")) {
+        else if (type.equals("GiveMeTheBlockChain")) {	//Fetch blockchain
             System.out.println("Got a BLOCKCHAIN demand from a relay: "+msg);
             return master.blockToJSON().toString();
         }
