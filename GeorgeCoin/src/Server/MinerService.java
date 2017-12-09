@@ -39,5 +39,6 @@ public class MinerService {
         return "OkFromMiner";
     }
 
+
 }
 

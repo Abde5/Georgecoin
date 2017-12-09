@@ -124,7 +124,7 @@ public class Miner {
                     .put("Tx2",Tx2)
                     .put("Tx3",Tx3)
                     .put("timestamp", (new Timestamp(System.currentTimeMillis())).toString())
-                    .put("nonce","1")).toString();
+                    .put("nonce","1")).toString(); //TODO a changer
         return block;
     }
 
@@ -190,7 +190,7 @@ public class Miner {
         	//
         	// send getMatch() to RN -> MN
         	//
-        }       
+        }
     }
     
     public String hashInformationPair(String info_1, String info_2, MessageDigest md){
@@ -229,7 +229,6 @@ public class Miner {
     public boolean findMatch(int nonce, String total_block_hex, MessageDigest md){
     	
     	this.clearFoundMatch();
-        //TODO George a mettre ca en attribut -> et faire un set de Found et du coup la boucle s'arrete
     	
     	int current = nonce;
         String difficulty = difficultyString();

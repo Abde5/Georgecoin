@@ -8,7 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class MasterNode {
 
@@ -18,35 +20,29 @@ public class MasterNode {
     private String hostName;
     private int portServer;
     private int portClient;
-    private ArrayList<String> transactionReceived;
-    private ArrayList<String> relaysConnected;
+    private Queue<String> transactionReceived = new LinkedList<>();
+    private ArrayList<String> relaysConnected = new ArrayList<>();
     private static ArrayList<Block> blockChain;
     private String previousHash="0";
-    private int difficulty = 7;
-    private WalletMaster georgeMillion;
+    private int difficulty = 4;
+    private WalletMaster georgeMillion= new WalletMaster();
 
     public MasterNode(String hostnameServ,int portServer,int portClient) {
         this.hostName=hostnameServ;
         this.portServer=portServer;
         this.portClient=portClient;
-        this.georgeMillion = new WalletMaster();
-        transactionReceived = new ArrayList<String>();
-        relaysConnected=new ArrayList<String>();
         server = new ServerCore(this.hostName,this.portServer);
     }
 
     public void launchServer(){
         Thread threadServer = new Thread(server);
-        //threadServer.setDaemon(true);
         threadServer.start();
     }
 
     public void launchClient(String hostname,int port){
         client = new Client(hostname,port);
         Thread threadClient = new Thread(client);
-        //threadClient.setDaemon(true);
         threadClient.start();
-        //client.sendMessage("master","RN vers Master");
     }
 
     public String sendToRelay(String msg){
@@ -63,13 +59,10 @@ public class MasterNode {
     }
 
     public void addTransaction(String message){
-        //System.out.print(transactionReceived.size());
         transactionReceived.add(message);
-        //System.out.print(transactionReceived.size());
     }
 
     public int getNumberOfTransaction(){
-        //System.out.print(transactionReceived.get(0));
         return transactionReceived.size();
     }
     
@@ -79,11 +72,10 @@ public class MasterNode {
                 .put("alltransactions",new JSONObject()
                         .put("difficulty",difficulty)
                         .put("previousHash",previousHash)
-                        .put("Tx0",transactionReceived.get(0))
-                        .put("Tx1",transactionReceived.get(1))
-                        .put("Tx2",transactionReceived.get(2))
-                        .put("Tx3",transactionReceived.get(3))).toString();
-        transactionReceived.clear();
+                        .put("Tx0",transactionReceived.poll())
+                        .put("Tx1",transactionReceived.poll())
+                        .put("Tx2",transactionReceived.poll())
+                        .put("Tx3",transactionReceived.poll())).toString();
         return jsonString;
     }
     

@@ -34,28 +34,31 @@ public class MasterNodeService {
                 master.addTransaction(jsonObj.getJSONObject("transaction").toString());
                 master.addRelay(sourceRelay);
                 if (master.getNumberOfTransaction() == 4) {
-                    System.out.println("Got 4 transactions!");
-                    String messageForMiners=master.getTransactionsForMining();
-                    System.out.println("Sending BLOCK to all relays");
-                    // TODO:Tanguy calcul du temp? utilise les fonction increaseDifficulty and decreaseDifficulty.
-                    // l'envoie de difficylty se fait dans getTransactionsForMining()
-                    //master.increaseDifficulty();
-                    //master.decreaseDifficulty();
-                    //startTime
-                    master.sendToALLRelays(messageForMiners);
-                    //endTime
-                    // temps mis == end-start
+                    Thread SendToMiners = new Thread(() -> {
+                        System.out.println("Got 4 transactions!");
+                        String messageForMiners = master.getTransactionsForMining();
+                        System.out.println("Sending BLOCK to all relays");
+                        // TODO:Tanguy calcul du temp? utilise les fonction increaseDifficulty and decreaseDifficulty.
+                        // l'envoie de difficylty se fait dans getTransactionsForMining()
+                        //master.increaseDifficulty();
+                        //master.decreaseDifficulty();
+                        //startTime
+                        master.sendToALLRelays(messageForMiners);
+                        //endTime
+                        // temps mis == end-start
+                    });
+                    SendToMiners.start();
                 }
-           //}
         }
         else if (type.equals("Block")) {	//accept block - reward miner - send to all relays
             System.out.println("Got a COMPUTED BLOCK : "+msg);
             String newBlockChain=master.acceptBlock(msg);
-            System.out.println("Send STOP Relay");
             String stopMinersTest=new JSONObject().put("type","StopMining").toString();
+            System.out.println("Send STOP Relay");
             master.sendToALLRelays(stopMinersTest);
-            
-            master.rewardTransaction(jsonObj.get("sourceMiner").toString());
+            System.out.println("Rewarding the miner");
+            System.out.println(jsonObj);
+            //master.rewardTransaction(jsonObj.get("sourceMiner").toString());
             System.out.println("Sending BLOCKCHAIN to all relays");
             master.sendToALLRelays(newBlockChain);
         }
