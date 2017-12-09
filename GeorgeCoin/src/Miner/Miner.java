@@ -26,8 +26,8 @@ public class Miner {
     
     private String match;
     private int max_nonce_size = 100000000;
-    private int difficulty
-            ;
+    private int difficulty;
+    private boolean found_match = false;
 
     public Miner(String hostnameServer,int portServer) {
         this.hostName=hostnameServer;
@@ -82,6 +82,18 @@ public class Miner {
         Thread threadServer = new Thread(server);
         //threadServer.setDaemon(true);
         threadServer.start();
+    }
+    
+    private void flagFoundMatch(){
+    	this.found_match = true;
+    }
+    
+    private void clearFoundMatch(){
+    	this.found_match = false;
+    }
+    
+    public boolean foundMatch(){
+    	return this.found_match == true;
     }
 
     public String computeBlock(String transactions){
@@ -145,6 +157,10 @@ public class Miner {
     	return this.max_nonce_size;
     }
     
+    private void setMaxNonceSize(int max_nonce){
+    	this.max_nonce_size = max_nonce;
+    }
+    
     public void mineBlock(String trans1, String trans2, String trans3, String trans4, String previousHash) throws NoSuchAlgorithmException {
 
     	MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -180,6 +196,15 @@ public class Miner {
 
     public void setDifficulty(int difficulty){
         this.difficulty=difficulty;
+        
+        int diff_length = String.valueOf(difficulty).length();
+        int max_nonce = 10;
+        
+        for(int i = 0; i < diff_length; i++){
+        	max_nonce = max_nonce * 10;
+        }
+        
+        this.setMaxNonceSize(max_nonce);
     }
 
     private int getDifficulty(){
@@ -196,29 +221,31 @@ public class Miner {
     
     public boolean findMatch(int nonce, String total_block_hex, MessageDigest md){
     	
+    	this.clearFoundMatch();
+        //TODO George a mettre ca en attribut -> et faire un set de Found et du coup la boucle s'arrete
+    	
     	int current = nonce;
-        boolean found_match = false; //TODO George a mettre ca en attribut -> et faire un set de Found et du coup la boucle s'arrete
         String difficulty = difficultyString();
         
-        while(current <= getMaxNonceSize() && !found_match){
+        while(current <= getMaxNonceSize() && !this.foundMatch()){
         	String curr_try = tryBlockValidation(total_block_hex, current, md);
         	if(curr_try.startsWith(difficulty)){
-        		found_match = true;
+        		this.flagFoundMatch();
         		this.setMatch(curr_try);
         	}
         	current++;
         }
         current = 0;
-        while(current < nonce && !found_match){
+        while(current < nonce && !this.foundMatch()){
         	String curr_try = tryBlockValidation(total_block_hex, current, md);
         	if(curr_try.startsWith(difficulty)){
-        		found_match = true;
+        		this.flagFoundMatch();
         		this.setMatch(curr_try);
         	}
         	current++;
         }
         
-    	return found_match;
+    	return this.foundMatch();
     }
     
     public byte[] encryptInformationPair(String trans1, String trans2, MessageDigest md) {
