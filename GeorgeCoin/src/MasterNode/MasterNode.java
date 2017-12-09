@@ -247,4 +247,17 @@ public class MasterNode {
             this.difficulty--;
         }
     }
+    
+    public void checkDifficulty(long totalTime){
+		Integer min = 30000;
+		long minValue = min.longValue();
+		Integer max = 180000;
+		long maxValue = max.longValue();
+		if(totalTime < minValue){
+			increaseDifficulty();
+		}
+		else if (totalTime > maxValue){
+			decreaseDifficulty();	
+		}
+    }
 }

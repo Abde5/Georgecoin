@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 public class MasterNodeService {
     private MasterNode master= new MasterNode("localhost",8081,8080);
+    private long startTime;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody String test(final @RequestBody(required = false)String msg) throws JSONException, Exception {
@@ -40,18 +41,17 @@ public class MasterNodeService {
                         System.out.println("Sending BLOCK to all relays");
                         // TODO:Tanguy calcul du temp? utilise les fonction increaseDifficulty and decreaseDifficulty.
                         // l'envoie de difficylty se fait dans getTransactionsForMining()
-                        //master.increaseDifficulty();
-                        //master.decreaseDifficulty();
-                        //startTime
                         master.sendToALLRelays(messageForMiners);
-                        //endTime
-                        // temps mis == end-start
                     });
+                    startTime = System.currentTimeMillis();
                     SendToMiners.start();
                 }
         }
         else if (type.equals("Block")) {	//accept block - reward miner - send to all relays
             System.out.println("Got a COMPUTED BLOCK : "+msg);
+            long endTime = System.currentTimeMillis();
+    		long totalTime = endTime - startTime;
+    		master.checkDifficulty(totalTime);
             String newBlockChain=master.acceptBlock(msg);
             String stopMinersTest=new JSONObject().put("type","StopMining").toString();
             System.out.println("Send STOP Relay");
