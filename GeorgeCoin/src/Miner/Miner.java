@@ -27,9 +27,10 @@ public class Miner {
     private String match;
     private int current_nonce_size = 100;
     private int max_nonce_size = 100000000;
+    private int valid_nonce;
     private int difficulty;
     private static boolean found_match = false;
-
+    
     public Miner(String hostnameServer,int portServer) {
         this.hostName=hostnameServer;
         this.portServer = portServer;
@@ -93,8 +94,17 @@ public class Miner {
     	this.found_match = false;
     }
     
+    
     public boolean foundMatch(){
     	return this.found_match == true;
+    }
+    
+    private void setValidNonce(int valid){
+    	this.valid_nonce = valid;
+    }
+    
+    private int getValidNonce(){
+    	return this.valid_nonce;
     }
 
     public String computeBlock(String transactions){
@@ -117,14 +127,14 @@ public class Miner {
                 .put("type","Block")
                 .put("sourceMiner",this.hostName+":"+this.portServer)
                 .put("block",new JSONObject()
-                    .put("previousHash","0") //TODO a changer
-                    .put("hashBlock","hash block") //TODO a changer
+                    .put("previousHash",previousHash)
+                    .put("hashBlock",this.getMatch())
                     .put("Tx0",Tx0)
                     .put("Tx1",Tx1)
                     .put("Tx2",Tx2)
                     .put("Tx3",Tx3)
                     .put("timestamp", (new Timestamp(System.currentTimeMillis())).toString())
-                    .put("nonce","1")).toString(); //TODO a changer
+                    .put("nonce",this.getValidNonce())).toString();
         return block;
     }
 
@@ -238,6 +248,7 @@ public class Miner {
         	if(curr_try.startsWith(difficulty)){
         		this.flagFoundMatch();
         		this.setMatch(curr_try);
+        		this.setValidNonce(current);
         	}
         	current++;
         }
@@ -247,6 +258,7 @@ public class Miner {
         	if(curr_try.startsWith(difficulty)){
         		this.flagFoundMatch();
         		this.setMatch(curr_try);
+        		this.setValidNonce(current);
         	}
         	current++;
         }
