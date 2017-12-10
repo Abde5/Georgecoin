@@ -58,7 +58,7 @@ public class MasterNodeService {
             master.sendToALLRelays(stopMinersTest);
             System.out.println("Rewarding the miner");
             System.out.println(jsonObj);
-            //master.rewardTransaction(jsonObj.get("sourceMiner").toString());
+            master.rewardTransaction(jsonObj.get("sourceMiner").toString());
             System.out.println("Sending BLOCKCHAIN to all relays");
             master.sendToALLRelays(newBlockChain);
         }

@@ -29,9 +29,12 @@ public class WalletMaster {
         passPhrase = "passPhraseWalletMaster";
         try{
         	hashPhrase = sha256digest16(passPhrase);
+        	generateKeys();
+        	address = generateAddress(public_k.getEncoded());
         } catch (Exception e){
         	e.printStackTrace();
         }
+        
     }
 	
 	protected static byte[] sha256digest16(String password_phrase) throws NoSuchAlgorithmException, UnsupportedEncodingException {

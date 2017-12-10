@@ -25,7 +25,7 @@ public class MasterNode {
     private static ArrayList<Block> blockChain;
     private String previousHash="0";
     private int difficulty = 4;
-    private WalletMaster georgeMillion= new WalletMaster();
+    private WalletMaster georgeMillion = new WalletMaster();
 
     public MasterNode(String hostnameServ,int portServer,int portClient) {
         this.hostName=hostnameServ;
@@ -80,16 +80,25 @@ public class MasterNode {
     }
     
     public void rewardTransaction(String destAddress) throws JSONException, Exception{
-    	String jsonTransaction = new JSONObject()
+        String jsonTransaction = new JSONObject()
 				.put("transaction", new JSONObject()
                 	.put("sourceWallet", "localhost")
-                	.put("address", georgeMillion.getAddress())
-                	.put("amount", amount)					//Have to known what the amount is
-                	.put("signature", georgeMillion.DSASign().toString())
-                	.put("destinataire",destAddress)).toString();	//Have to know which is the receiver
+                	.put("address", getGMAddress())
+                	.put("amount", amount)
+                	.put("signature", getGMSignature())
+                	.put("destinataire",destAddress)).toString();
+       	addTransaction(jsonTransaction);
     }
     
-    public void generateFirstBlock(){
+    public String getGMSignature() throws Exception {
+		return georgeMillion.DSASign().toString();
+	}
+
+	private String getGMAddress() {
+		return georgeMillion.getAddress().toString();
+	}
+
+	public void generateFirstBlock(){
         blockChain = new ArrayList<Block>();
     	if(blockChain.size() == 0){
     		//tests pour le montant
