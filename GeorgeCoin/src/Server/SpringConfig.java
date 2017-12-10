@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * configures required packages for server
  */
 @Configuration
-@ComponentScan(basePackages = { "src.Server.services, server" })
+@ComponentScan(basePackages = { "src.Server, server" })
 public class SpringConfig {
 
 }
