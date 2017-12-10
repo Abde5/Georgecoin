@@ -10,15 +10,22 @@ import org.springframework.web.servlet.DispatcherServlet;
  * Starts the server
  */
 public class ServerCore implements Runnable {
+    private String hostname;
     private int port;
     /**
      * Launches the server calls
-     * @param args recieves arguments when launching
      */
-	public ServerCore(int port){
+	public ServerCore(String hostname,int port){
+	    this.hostname=hostname;
 	    this.port=port;
 
 	}
+	public String getHostname(){
+	    return hostname;
+    }
+    public int getPort(){
+	    return port;
+    }
     @Override
     public void run() {
         final AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
