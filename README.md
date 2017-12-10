@@ -11,6 +11,7 @@ There are 4 main classes in the project:
   - `WalletMain`, that will launch the wallet, an interface to send money to other wallets.
 
 These 4 classes have to be launched in the same computer, as we hardcoded the adresses to be the localhost.
+We have to launch them in this order: `MasterNodeMain`, `RelayNodeMain`, `MinerMain`, `WalletMain`.
 
 ## Implementation
 
@@ -30,9 +31,10 @@ These 4 classes have to be launched in the same computer, as we hardcoded the ad
   valid block. If this is the case, he sends a message to the relay node, who will contact the master node in 
   order to update the blockchain, reward the miner and proceed to dispatching the next block.
 
+
 ### Wallet
-  The wallet is the interface between the user and the cryptocoins that he holds in his account (wallet). From here the user can check the blockchain and send money to other wallets. The account related to the wallet is protected locally with AES-128. The wallets have an address derived from the AES-128 key (with RIPEMD160) that will used for the transactions.
+  The wallet is the interface between the user and the cryptocoins that he holds in his account (wallet). From here the user can check the blockchain and send money to other wallets. He can also check his current amount. The account related to the wallet is protected locally with AES-128. The wallets have an address derived from the AES-128 key (with RIPEMD160) that will be used for the transactions.
 
 
 ## Blockchain
- -> what can we say about this?
+  Contains computed blocks of 4 transactions each. Everyone can browse it, it is located in the master node, and every relay node has a local copy of the blockchain. At the beginning, the master node will generate an empty block. 
