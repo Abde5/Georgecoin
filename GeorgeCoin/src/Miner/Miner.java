@@ -29,7 +29,7 @@ public class Miner {
     private int max_nonce_size = 100000000;
     private int valid_nonce;
     private int difficulty;
-    private static boolean found_match = false;
+    private boolean found_match = false;
     
     public Miner(String hostnameServer,int portServer) {
         this.hostName=hostnameServer;
