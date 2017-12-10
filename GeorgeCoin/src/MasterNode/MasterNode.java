@@ -158,10 +158,10 @@ public class MasterNode {
     	for(int i=0; i<blockChain.size(); i++){
     		json.put(Integer.toString(i), new JSONObject()
     				.put("previousHash", blockChain.get(i).getPreviousHash())
-    				.put("blockHash", blockChain.get(i).getHashBlock())
+    				.put("hashBlock", blockChain.get(i).getHashBlock())
     				.put("timestamp", blockChain.get(i).getTimestamp())
     				.put("nonce", blockChain.get(i).getNonce())
-    				.put("TxO", blockChain.get(i).getTx0())
+    				.put("Tx0", blockChain.get(i).getTx0())
     				.put("Tx1", blockChain.get(i).getTx1())
     				.put("Tx2", blockChain.get(i).getTx2())
     				.put("Tx3", blockChain.get(i).getTx3()));

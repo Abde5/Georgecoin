@@ -163,10 +163,7 @@ public class Wallet extends WalletMaster{
 		while(keys.hasNext()) {
 			String key = keys.next().toString();
 			if (!key.equals("type")){
-
-				JSONObject json=new JSONObject(blockchainJSON.get(key));
-				System.out.println(blockchainJSON.get(key));
-				System.out.println(blockchainJSON.get(key).getClass());
+				JSONObject json = new JSONObject(blockchainJSON.get(key).toString());
 				block=JSONtoBlock(json);
 				Tx0 = block.getTx0();
 				Tx1 = block.getTx1();
@@ -184,11 +181,10 @@ public class Wallet extends WalletMaster{
     }
 	
     public Block JSONtoBlock(JSONObject jsonObj){
-    	System.out.println(jsonObj);
     	Block block = new Block(jsonObj.getString("previousHash"),
     							jsonObj.getString("hashBlock"),
     							stringToTimestamp(jsonObj.getString("timestamp")),
-    							Integer.parseInt(jsonObj.getString("nonce")),
+    							jsonObj.getInt("nonce"),
                                 jsonObj.getString("Tx0"),
                                 jsonObj.getString("Tx1"),
                                 jsonObj.getString("Tx2"),
