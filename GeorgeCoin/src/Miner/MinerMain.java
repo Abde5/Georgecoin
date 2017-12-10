@@ -1,7 +1,5 @@
 package Miner;
 
-import Wallet.Wallet;
-
 public class MinerMain {
 
     public static void main(final String[] args) {

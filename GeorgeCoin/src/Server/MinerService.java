@@ -27,7 +27,6 @@ public class MinerService {
         String type = jsonObj.get("type").toString();
         if (type.equals("ForMining")) {
             String transactionsForMiners = jsonObj.get("alltransactions").toString();
-            //if (transactionsForMiners.length()>0){
             String block = miner.computeBlock(transactionsForMiners);
             miner.launchClient(miner.getRelayHostname(), miner.getRelayPort());
             System.out.println("Sending computed BLOCK");

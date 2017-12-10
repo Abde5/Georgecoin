@@ -1,6 +1,5 @@
 package Server;
 
-import Client.Client;
 import RelayNode.*;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -72,7 +71,6 @@ public class RelayNodeService {
 		}
 		else if (type.equals("StopMining")){
 			System.out.println("Send STOP Miners");
-			//String stopMiners=new JSONObject().put("type","StopMining").toString();
 			relay.sendToALLMiners(msg);
 		}
 		return "OkFromRelay";

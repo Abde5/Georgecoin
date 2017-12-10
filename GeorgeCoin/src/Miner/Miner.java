@@ -35,12 +35,8 @@ public class Miner {
         this.hostName=hostnameServer;
         this.portServer = portServer;
         server = new ServerCore(this.hostName,this.portServer);
-        //client = new Client("localhost", this.portClient);
-        //wallet =new Wallet():
-
         allRelay= new ArrayList<String>(){{
             add("localhost:8080");
-            //ajouter les autre relay
         }};
     }
 
@@ -63,7 +59,6 @@ public class Miner {
     public void launchClient(String hostname,int port){
         client = new Client(hostname,port);
         Thread thread = new Thread(client);
-        //thread.setDaemon(true);
         thread.start();
     }
 
@@ -82,7 +77,6 @@ public class Miner {
 
     public void launchServer(){
         Thread threadServer = new Thread(server);
-        //threadServer.setDaemon(true);
         threadServer.start();
     }
     
@@ -119,7 +113,6 @@ public class Miner {
         try {
 			mineBlock(Tx0, Tx1, Tx2, Tx3, previousHash);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         

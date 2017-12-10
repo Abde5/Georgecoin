@@ -45,25 +45,18 @@ public class RelayNode {
 
     public void launchServer(){
         Thread threadServer = new Thread(server);
-        //threadServer.setDaemon(true);
         threadServer.start();
     }
 
     public void launchClientMaster(){
         Thread threadClient = new Thread(clientMaster);
-        //threadClient.setDaemon(true);
         threadClient.start();
-        //client.sendMessage("master","RN vers Master");
-
     }
 
     public void launchClientMiners(String hostName,int portMiners){
         clientMiners = new Client(hostName,portMiners);
         Thread threadClient = new Thread(clientMiners);
-        //threadClient.setDaemon(true);
         threadClient.start();
-        //client.sendMessage("master","RN vers Master");
-
     }
 
     public void sendToALLMiners(String msg){

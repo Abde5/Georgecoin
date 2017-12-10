@@ -2,7 +2,6 @@ package Wallet;
 
 import Client.Client;
 import MasterNode.Block;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,29 +12,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SecureRandom;
 import java.security.Signature;
-import java.security.SignatureException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
-
-import com.google.gson.JsonObject;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Wallet extends WalletMaster{
@@ -133,6 +114,10 @@ public class Wallet extends WalletMaster{
 	    		amount = br.readLine();
 	    	}	
 		}
+		if (checkAmount() < Integer.parseInt(amount)){
+			System.out.print("You don't have enough money to make this transaction");
+			System.exit(0);
+		}
 		return amount;
 	}
 
@@ -144,10 +129,11 @@ public class Wallet extends WalletMaster{
         System.out.println(blockChain);
     }
 	
-	private void checkAmount(){
+	private int checkAmount(){
         requestBlockChain();
         int amount = getAmount();
         System.out.println(amount);
+        return amount;
 	}
 	
 	public int getAmount(){

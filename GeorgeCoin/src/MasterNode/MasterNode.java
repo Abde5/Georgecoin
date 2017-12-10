@@ -19,7 +19,6 @@ public class MasterNode {
     private ServerCore server;
     private String hostName;
     private int portServer;
-    private int portClient;
     private Queue<String> transactionReceived = new LinkedList<>();
     private ArrayList<String> relaysConnected = new ArrayList<>();
     private static ArrayList<Block> blockChain;
@@ -30,7 +29,6 @@ public class MasterNode {
     public MasterNode(String hostnameServ,int portServer,int portClient) {
         this.hostName=hostnameServ;
         this.portServer=portServer;
-        this.portClient=portClient;
         server = new ServerCore(this.hostName,this.portServer);
     }
 
@@ -101,7 +99,6 @@ public class MasterNode {
 	public void generateFirstBlock(){
         blockChain = new ArrayList<Block>();
     	if(blockChain.size() == 0){
-    		//tests pour le montant
             String jsonTransaction = new JSONObject()
     				.put("transaction", new JSONObject()
                     	.put("sourceWallet", "localhost")
@@ -201,7 +198,6 @@ public class MasterNode {
     }
 
     public int getNumberOfRelays(){
-        //System.out.print(transactionReceived.get(0));
         return relaysConnected.size();
     }
     
