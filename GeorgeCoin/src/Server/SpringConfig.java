@@ -1,13 +1,13 @@
 package Server;
 
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+
 
 /**
  * configures required packages for server
  */
-@Configuration
-@ComponentScan(basePackages = { "src.Server, server" })
+
+@ComponentScan(basePackageClasses = {MasterNodeService.class, MinerService.class, RelayNodeService.class})
 public class SpringConfig {
 
 }
