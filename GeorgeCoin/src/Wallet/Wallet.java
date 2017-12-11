@@ -27,6 +27,11 @@ public class Wallet extends WalletMaster{
 	private String key_private_path = "key_private.txt";
 	private String address_path = "address.txt";
 
+	/**
+	 * Constructor
+	 * @param port
+	 * @throws Exception
+	 */
     public Wallet(int port) throws Exception{
         client = new Client("localhost",port);
         
@@ -35,6 +40,10 @@ public class Wallet extends WalletMaster{
         thread.start();
     }
 
+    /**
+     * Asks, in command line, the credentials of the Wallet and, if they are right, asks the action the client want to make
+     * @throws Exception
+     */
     public void walletClient() throws Exception{
     	Boolean flag = false;
     	while (!flag){
@@ -52,6 +61,10 @@ public class Wallet extends WalletMaster{
     	askAction();
     }
     
+    /**
+     * Asks, in command line, what the client wants to do
+     * @throws Exception
+     */
     private void askAction() throws Exception{
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	System.out.print("Make transaction (m) or Copy Blockchain (b) or Check amount (c): ");
@@ -71,6 +84,10 @@ public class Wallet extends WalletMaster{
     	}
     }
     
+    /**
+     * Creates a new transaction to send to the RelayNode
+     * @throws Exception
+     */
 	public void makeTransaction() throws Exception{
 		Signature dsa = DSASign();
 		ArrayList<String> transac_input = askTransaction(dsa.sign().toString());
@@ -86,12 +103,23 @@ public class Wallet extends WalletMaster{
         client.sendMessage("/relay",jsonString);
     }
 
+	/**
+	 * Creates the signatures by asking its information to the Wallet
+	 * @param dsa_signature
+	 * @return ArrayList<String> all transaction's information
+	 * @throws IOException
+	 */
     private ArrayList<String> askTransaction(String dsa_signature) throws IOException {
     	ArrayList<String> transaction = new ArrayList<String>();
     	Collections.addAll(transaction, "localhost:8080", address.toString(), askAmountTransac(),dsa_signature,askAddressDest());
 		return transaction;
 	}
 
+    /**
+     * Asks the destination address of the transaction to the client
+     * @return String destination address
+     * @throws IOException
+     */
 	private String askAddressDest() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("Give the destination address for the transaction : ");
@@ -99,6 +127,11 @@ public class Wallet extends WalletMaster{
 		return dest_address;
 	}
 
+	/**
+	 *  Asks the amount of the transaction to the client
+	 * @return String amount of the transaction
+	 * @throws IOException
+	 */
 	private String askAmountTransac() throws IOException {
 		boolean validAmount = false;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -121,6 +154,9 @@ public class Wallet extends WalletMaster{
 		return amount;
 	}
 
+	/**
+	 * Asks the current state of the block chain to the RelayNode and displays it.
+	 */
 	public void requestBlockChain(){
         String jsonString = new JSONObject()
                 .put("type", "GetBlockChain")
@@ -129,6 +165,10 @@ public class Wallet extends WalletMaster{
         System.out.println(blockChain);
     }
 	
+	/**
+	 * Asks for the block chain, to check to money this Wallet has
+	 * @return int amount of money the Wallet has
+	 */
 	private int checkAmount(){
         requestBlockChain();
         int amount = getAmount();
@@ -136,6 +176,10 @@ public class Wallet extends WalletMaster{
         return amount;
 	}
 	
+	/**
+	 * Checks the amount of money the Wallets has, in his copy of the block chain
+	 * @return int amount of money the Wallet has
+	 */
 	public int getAmount(){
 		Block block;
         String Tx0;
@@ -166,6 +210,11 @@ public class Wallet extends WalletMaster{
     	return amount;
     }
 	
+	/**
+	 * Converts a JSONObject into a Block
+	 * @param jsonObj
+	 * @return the created Block
+	 */
     public Block JSONtoBlock(JSONObject jsonObj){
     	Block block = new Block(jsonObj.getString("previousHash"),
     							jsonObj.getString("hashBlock"),
@@ -178,10 +227,21 @@ public class Wallet extends WalletMaster{
     	return block;
     }
     
+    /**
+     * Converts a given String into a TimeStamp
+     * @param time
+     * @return	the created TimeStamp
+     */
     public Timestamp stringToTimestamp(String time){
     	return Timestamp.valueOf(time);
     }
     
+    /**
+     * Checks the amount of a given address in a given transaction if this transaction concerns that address
+     * @param address
+     * @param transaction
+     * @return amount of a given address in a given transaction if this transaction concerns that address, otherwise 0
+     */
     private int checkTransaction(String address, String transaction){
     	JSONObject jsonTransaction = new JSONObject(transaction);
         int amountReceived = 0;
@@ -196,6 +256,11 @@ public class Wallet extends WalletMaster{
         return amountReceived - amountSent;
     }
 
+    /**
+     * Checks if the current user has already an account or is a new one. If he's a new user, it will generate the public and private keys, the address, and store them into their own file
+     * @return Boolean value (true if everything went well)
+     * @throws Exception
+     */
     private Boolean checkExistingUser() throws Exception {
 		File key_public_file = new File(key_public_path);
 		File key_private_file = new File(key_private_path);
@@ -213,6 +278,10 @@ public class Wallet extends WalletMaster{
 		}
 	}
     
+    /**
+     * Write the private key encoded, the public key and the address into their own files
+     * @throws Exception
+     */
 	private void setKeysInFile() throws Exception {
 		byte[] privKeyBytes = encodePrivateKey();
 		Path privFile = Paths.get("",key_private_path);
@@ -227,17 +296,33 @@ public class Wallet extends WalletMaster{
 		Files.write(adress, address, StandardOpenOption.CREATE_NEW);
 	}
 	
+	/**
+	 * Encodes the private key
+	 * @return byte[] private_k encoded
+	 * @throws Exception
+	 */
 	private byte[] encodePrivateKey() throws Exception {
 		byte[] plainText = private_k.getEncoded();
 		return encrypt(plainText);
 	}
     
+	/**
+	 * Gets the private key from the file, decodes it, stores it in private_k_bytes
+	 * @return true if everything went well, otherwise false
+	 * @throws Exception
+	 */
 	private Boolean getKeysFromFile() throws Exception {
 		Path myFile = Paths.get("",key_private_path);
 		byte[] ciphertext = Files.readAllBytes(myFile);
 		return decodePrivate(ciphertext);
 	}
 	
+	/**
+	 * Decodes the given ciphertext and stores it in private_k_bytes
+	 * @param ciphertext
+	 * @return	true if everything went well, otherwise false
+	 * @throws Exception
+	 */
 	private Boolean decodePrivate(byte[] ciphertext) throws Exception{
 		try{
 			private_k_byte = decrypt(ciphertext);
@@ -247,6 +332,12 @@ public class Wallet extends WalletMaster{
 		return true;
 	}
 	
+	/**
+	 * Encrypts the given plainText by using AES
+	 * @param plainText
+	 * @return byte[] the obtained cipherText
+	 * @throws Exception
+	 */
     public byte[] encrypt(byte[] plainText) throws Exception{
         SecretKeySpec secretKey = new SecretKeySpec(hashPhrase, "AES");
         Cipher cipher = Cipher.getInstance("AES");
@@ -254,6 +345,12 @@ public class Wallet extends WalletMaster{
         return cipher.doFinal(plainText);
     }
     
+    /**
+     * Decrypts a cipherText by using AES
+     * @param cipherText
+     * @return byte[] the obtained plainText
+     * @throws Exception
+     */
     public byte[] decrypt(byte[] cipherText) throws Exception{
         SecretKeySpec secretKey = new SecretKeySpec(hashPhrase, "AES");
         Cipher cipher = Cipher.getInstance("AES");
@@ -261,6 +358,11 @@ public class Wallet extends WalletMaster{
         return cipher.doFinal(cipherText);
     }
     
+    /**
+     * Retrieves the address of the Wallet from the address file
+     * @return byte[] address from file
+     * @throws IOException
+     */
     private byte[] getAddressFromFile() throws IOException{
 		Path myFile = Paths.get("",address_path);
 		return Files.readAllBytes(myFile);

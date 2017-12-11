@@ -9,18 +9,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-/**
- * Provides services from Server to allow a user to log in
- */
 @EnableWebMvc
 @Controller
 @RequestMapping("/relay")
 
 public class RelayNodeService {
 	private RelayNode relay= new RelayNode("localhost",8080,"localhost",8081);
-		
+	
+	/**
+	 * Handles all possibles requests sent from everyone to the RelayNode
+	 * @param msg
+	 * @return the response from the RelayNode to anyone that has contacted him
+	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public @ResponseBody String test(final @RequestBody(required = false)String msg) {
+	public @ResponseBody String relayServerSide(final @RequestBody(required = false)String msg) {
 		JSONObject jsonObj = new JSONObject(msg);
 		System.out.println("MSG : "+msg);
 

@@ -31,15 +31,24 @@ public class Miner {
     private int difficulty;
     private boolean found_match = false;
     
+    /**
+     * Constructor
+     * @param hostnameServer
+     * @param portServer
+     */
     public Miner(String hostnameServer,int portServer) {
-        this.hostName=hostnameServer;
-        this.portServer = portServer;
-        server = new ServerCore(this.hostName,this.portServer);
+        hostName=hostnameServer;
+        portServer = portServer;
+        server = new ServerCore(hostName,portServer);
         allRelay= new ArrayList<String>(){{
             add("localhost:8080");
         }};
     }
 
+    /**
+     * Sends his own identity to a RelayNode
+     * @return true if the RelayNode has not reached his limit amount of Miners connected, false otherwise
+     */
     public Boolean sendWhoAMI(){
         String jsonString = new JSONObject()
                 .put("type", "newMinerConnected")
@@ -47,8 +56,8 @@ public class Miner {
         String resp=client.sendMessage("relay",jsonString);
         if (!resp.equals("NotPaired")) {
             String[] hostInfo = resp.split(":");
-            this.relayHostname = hostInfo[0];
-            this.relayPort = Integer.parseInt(hostInfo[1]);
+            relayHostname = hostInfo[0];
+            relayPort = Integer.parseInt(hostInfo[1]);
             return true;
         }
         else{
@@ -56,12 +65,20 @@ public class Miner {
         }
     }
 
+    /**
+     * Launches client in a thread
+     * @param hostname
+     * @param port
+     */
     public void launchClient(String hostname,int port){
         client = new Client(hostname,port);
         Thread thread = new Thread(client);
         thread.start();
     }
 
+    /**
+     * Connects itself to a RelayNode
+     */
     public void connectToRelay(){
         Boolean foundRelay=false;
         int i=0;
@@ -70,37 +87,63 @@ public class Miner {
             launchClient(hostInfo[0],Integer.parseInt(hostInfo[1]));
             foundRelay=sendWhoAMI();
             i++;
-            i=i%getNumerOfRelay();
+            i=i%getNumberOfRelay();
         }
-        System.out.println("Connected to : "+this.getRelayHostname()+":"+this.getRelayPort());
+        System.out.println("Connected to : "+getRelayHostname()+":"+getRelayPort());
     }
 
+    /**
+     * Launches server in a thread
+     */
     public void launchServer(){
         Thread threadServer = new Thread(server);
         threadServer.start();
     }
     
+    /**
+     * found_match setter to true
+     */
     private void flagFoundMatch(){
-    	this.found_match = true;
+    	found_match = true;
     }
     
+    /**
+     * found_match setter to false
+     */
     private void clearFoundMatch(){
-    	this.found_match = false;
+    	found_match = false;
     }
     
     
+    /**
+     * value of found_match
+     * @return found_match
+     */
     public boolean foundMatch(){
-    	return this.found_match == true;
+    	return found_match == true;
     }
     
+    /**
+     * valid_nonce setter
+     * @param valid
+     */
     private void setValidNonce(int valid){
-    	this.valid_nonce = valid;
+    	valid_nonce = valid;
     }
     
+    /**
+     * valid_nonce getter
+     * @return int valid_nonce
+     */
     private int getValidNonce(){
-    	return this.valid_nonce;
+    	return valid_nonce;
     }
 
+    /**
+     * Gets a block (transaction parameters) and tries to mine it
+     * @param transactions
+     * @return String json -> the block mined
+     */
     public String computeBlock(String transactions){
         JSONObject jsonObj = new JSONObject(transactions);
         String previousHash=jsonObj.get("previousHash").toString();
@@ -118,58 +161,103 @@ public class Miner {
         
         String block= new JSONObject()
                 .put("type","Block")
-                .put("sourceMiner",this.hostName+":"+this.portServer)
+                .put("sourceMiner",hostName+":"+portServer)
                 .put("block",new JSONObject()
                     .put("previousHash",previousHash)
-                    .put("hashBlock",this.getMatch())
+                    .put("hashBlock",getMatch())
                     .put("Tx0",Tx0)
                     .put("Tx1",Tx1)
                     .put("Tx2",Tx2)
                     .put("Tx3",Tx3)
                     .put("timestamp", (new Timestamp(System.currentTimeMillis())).toString())
-                    .put("nonce",this.getValidNonce())).toString();
+                    .put("nonce",getValidNonce())).toString();
         return block;
     }
 
-    public void sendBlock(String msg){
-        client.sendMessage("relay",msg);
+    /**
+     * Sends a String block to the RelayNode
+     * @param block
+     */
+    public void sendBlock(String block){
+        client.sendMessage("relay",block);
     }
 
+    /**
+     * relayHostName getter
+     * @return String relayHostname
+     */
     public String getRelayHostname(){
         return relayHostname;
     }
 
+    /**
+     * relayPort getter
+     * @return	int relayPort
+     */
     public int getRelayPort(){
-        return this.relayPort;
+        return relayPort;
     }
-    public int getNumerOfRelay() {
+    
+    /**
+     * Number of relay connected getter
+     * @return int size of allRelay array
+     */
+    public int getNumberOfRelay() {
         return allRelay.size();
     }
     
+    /**
+     * match setter
+     * @param new_match
+     */
     private void setMatch(String new_match){
-    	this.match = new_match;
+    	match = new_match;
     }
     
+    /**
+     * match getter
+     * @return String match
+     */
     public String getMatch(){
-    	return this.match;
+    	return match;
     }
     
+    /**
+     * max_nonce_size getter
+     * @return int max_nonce_size
+     */
     private int getMaxNonceSize(){
     	/*
     	 * private : don't want people to know max nonce
     	 */
-    	return this.max_nonce_size;
+    	return max_nonce_size;
     }
     
+    /**
+     * current_nonce_size getter
+     * @return int current_nonce_size
+     */
     private int getCurrentNonceSize() {
-    	return this.current_nonce_size;
+    	return current_nonce_size;
     }
     
+    /**
+     * current_nonce_size setter
+     * @param new_nonce
+     */
     private void setCurrentNonceSize(int new_nonce) {
-    	this.current_nonce_size = new_nonce;
+    	current_nonce_size = new_nonce;
     }
     
-    
+    /**
+     * Mines a block, given the transactions and the previous hash in it
+     * @param trans1
+     * @param trans2
+     * @param trans3
+     * @param trans4
+     * @param previousHash
+     * @throws NoSuchAlgorithmException
+     */
     public void mineBlock(String trans1, String trans2, String trans3, String trans4, String previousHash) throws NoSuchAlgorithmException {
     	MessageDigest md = MessageDigest.getInstance("SHA-256");
     	
@@ -196,14 +284,25 @@ public class Miner {
         }
     }
     
+    /**
+     * Hashes info_1 and info_2, given a message digest
+     * @param info_1
+     * @param info_2
+     * @param md
+     * @return String value of hash
+     */
     public String hashInformationPair(String info_1, String info_2, MessageDigest md){
     	byte[] hash = encryptInformationPair(info_1, info_2, md);
     	String hex = String.format( "%064x", new BigInteger( 1, hash) );
     	return hex;
     }
 
-    public void setDifficulty(int difficulty){
-        this.difficulty=difficulty;
+    /**
+     * Mining difficulty setter
+     * @param new_difficulty
+     */
+    public void setDifficulty(int new_difficulty){
+        difficulty=new_difficulty;
         int max_nonce = 100;
         
         for(int i = 0; i < difficulty; i++){
@@ -214,13 +313,21 @@ public class Miner {
         
         System.out.println(max_nonce);
                 
-        this.setCurrentNonceSize(max_nonce);
+        setCurrentNonceSize(max_nonce);
     }
 
-    private int getDifficulty(){
-    	return this.difficulty;
+    /**
+     * Difficulty getter
+     * @return int difficulty
+     */
+    public int getDifficulty(){
+    	return difficulty;
     }
     
+    /**
+     * Transposes the difficulty into a string
+     * @return String difficulty transposed
+     */
     private String difficultyString(){
     	String diff_string = "";
     	for(int i=0; i< getDifficulty();i++){
@@ -229,36 +336,50 @@ public class Miner {
     	return diff_string;
     }
     
+    /**
+     * Finds the right nonce to get hash which corresponds to the difficulty
+     * @param nonce
+     * @param total_block_hex
+     * @param md
+     * @return Boolean value (found_match)
+     */
     public boolean findMatch(int nonce, String total_block_hex, MessageDigest md){
     	
-    	this.clearFoundMatch();
+    	clearFoundMatch();
     	
     	int current = nonce;
         String difficulty = difficultyString();
         
-        while(current <= getCurrentNonceSize() && !this.foundMatch()){
+        while(current <= getCurrentNonceSize() && !foundMatch()){
         	String curr_try = tryBlockValidation(total_block_hex, current, md);
         	if(curr_try.startsWith(difficulty)){
-        		this.flagFoundMatch();
-        		this.setMatch(curr_try);
-        		this.setValidNonce(current);
+        		flagFoundMatch();
+        		setMatch(curr_try);
+        		setValidNonce(current);
         	}
         	current++;
         }
         current = 0;
-        while(current < nonce && !this.foundMatch()){
+        while(current < nonce && !foundMatch()){
         	String curr_try = tryBlockValidation(total_block_hex, current, md);
         	if(curr_try.startsWith(difficulty)){
-        		this.flagFoundMatch();
-        		this.setMatch(curr_try);
-        		this.setValidNonce(current);
+        		flagFoundMatch();
+        		setMatch(curr_try);
+        		setValidNonce(current);
         	}
         	current++;
         }
         
-    	return this.foundMatch();
+    	return foundMatch();
     }
     
+    /**
+     * Concatenates the two given Strings trans1 & trans2 and encrypt them
+     * @param trans1
+     * @param trans2
+     * @param md
+     * @return encryption from the concatenation of the two Strings
+     */
     public byte[] encryptInformationPair(String trans1, String trans2, MessageDigest md) {
     	String hash = trans1 + trans2;
     	
@@ -268,6 +389,13 @@ public class Miner {
     	return digest;
     }
     
+    /**
+     * Tries to make a valid block by mining it
+     * @param block_hash
+     * @param nonce
+     * @param md
+     * @return String value of digest
+     */
     public String tryBlockValidation(String block_hash, int nonce, MessageDigest md) {
         String hash = block_hash + nonce;
         md.update(hash.getBytes(StandardCharsets.UTF_8));
@@ -276,7 +404,11 @@ public class Miner {
         return String.format("%064x", new BigInteger(1, digest));
     }
 
+    
+    /**
+     * Forces the block computation to stop by setting found_match to true
+     */
     public void stopComputingBlock(){
-        this.found_match=true;
+        found_match=true;
     }
 }

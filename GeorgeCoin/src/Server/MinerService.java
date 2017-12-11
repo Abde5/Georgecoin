@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-/**
- * Provides services from Server to allow a user to log in
- */
+
 @EnableWebMvc
 @Controller
 @RequestMapping("/miner")
@@ -19,8 +17,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class MinerService {
     private Miner miner= new Miner("localhost",8082);
 
+    /**
+     * Handles all possibles requests sent from the RelayNode to the Miner
+     * @param msg
+     * @return response to send to the RelayNode
+     */
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public @ResponseBody String test(final @RequestBody(required = false)String msg) {
+    public @ResponseBody String minerServerSide(final @RequestBody(required = false)String msg) {
         System.out.println("Got a msg : " + msg);
 
         JSONObject jsonObj = new JSONObject(msg);

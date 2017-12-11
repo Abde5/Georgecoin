@@ -20,12 +20,26 @@ public class ServerCore implements Runnable {
 	    this.port=port;
 
 	}
+	
+	/**
+	 * HostName getter
+	 * @return String hostname
+	 */
 	public String getHostname(){
-	    return hostname;
+	    return this.hostname;
     }
+	
+	/**
+	 * Port getter
+	 * @return int port
+	 */
     public int getPort(){
-	    return port;
+	    return this.port;
     }
+    
+    /**
+     * Init the server and launches it
+     */
     @Override
     public void run() {
         final AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();

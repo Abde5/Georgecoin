@@ -22,6 +22,9 @@ public class WalletMaster {
 	protected byte[] private_k_byte;
 	protected byte[] address;
 	
+	/**
+	 * Constructor
+	 */
 	public WalletMaster(){
         passPhrase = "passPhraseWalletMaster";
         try{
@@ -34,6 +37,13 @@ public class WalletMaster {
         
     }
 	
+	/**
+	 * Hashes a given password_phrase and returns the digest, by using SHA-256
+	 * @param password_phrase
+	 * @return byte[] hash obtained
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
 	protected static byte[] sha256digest16(String password_phrase) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         digest.reset();
@@ -45,6 +55,10 @@ public class WalletMaster {
         return Arrays.copyOf(b, 16);
     }
     
+	/**
+	 * Creates a public and a private key, using DSA
+	 * @throws NoSuchAlgorithmException
+	 */
 	protected void generateKeys() throws NoSuchAlgorithmException{
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
         keyGen.initialize(1024, new SecureRandom());
@@ -54,14 +68,28 @@ public class WalletMaster {
         private_k_byte = private_k.getEncoded();
     }
 	
+	/**
+	 * Generates address using a public key (in byte[] form)
+	 * @param pubKeyBytes
+	 * @return byte[] generated address
+	 */
 	protected byte[] generateAddress(byte[] pubKeyBytes) {
 		return Ripemd160.getHash(pubKeyBytes);
 	}
 	
+	/**
+	 * Address getter
+	 * @return byte[] address
+	 */
 	public byte[] getAddress(){
 		return address;
 	}
 	
+	/**
+	 * Gets a signature, using DSA
+	 * @return Signature object
+	 * @throws Exception
+	 */
 	public Signature DSASign() throws Exception{
 		KeyFactory kf = KeyFactory.getInstance("DSA");
 		PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(private_k_byte));

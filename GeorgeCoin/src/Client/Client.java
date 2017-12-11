@@ -18,8 +18,8 @@ public class Client implements Runnable{
 
   public Client(String hostname, int port) {
 		SERVER += String.valueOf(hostname)+":"+String.valueOf(port);
-		this.rest = new RestTemplate();
-		this.headers = new HttpHeaders();
+		rest = new RestTemplate();
+		headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
 		headers.add("Accept", "*/*");
   }
@@ -67,8 +67,14 @@ public class Client implements Runnable{
 	public void run() {
 	}
 
+	/**
+	 * Sends message to destination services
+	 * @param destinationService
+	 * @param message
+	 * @return response from service
+	 */
 	public String sendMessage(String destinationService,String message){
-		final String response = this.post("/"+destinationService, message);
+		final String response = post("/"+destinationService, message);
 		return response;
 	}
 }
