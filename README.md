@@ -10,8 +10,11 @@ There are 4 main classes in the project:
   - `MinerMain`, that will launch the miner main routine, listening to new blocks to mine.
   - `WalletMain`, that will launch the wallet, an interface to send money to other wallets.
 
-These 4 classes have to be launched in the same computer, as we hardcoded the adresses to be the localhost.
-We have to launch them in this order: `MasterNodeMain`, `RelayNodeMain`, `MinerMain`, `WalletMain`.
+For every main class, there is an executable jar given, which is located in the directory /dist. To launch them, we have to execute the jar in this order:
+  - `java -jar MasterNode.jar`
+  - `java -jar RelayNode.jar`
+  - `java -jar Miner.jar`
+  - `java -jar Wallet.jar`
 
 ## Implementation
 
